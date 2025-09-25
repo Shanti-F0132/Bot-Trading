@@ -1,26 +1,32 @@
 import matplotlib.pyplot as plt
 import seaborn as sns
-import pandas as pd
 
 def plot_heatmap(results_df, metric="sharpe_ratio"):
     """
-    Genera un heatmap (mapa de calor) para visualizar el desempeño
-    de la estrategia según combinaciones de short y long SMA.
-    
+    Genera un heatmap a partir de resultados de optimización.
+    Funciona tanto para SMA (short/long) como para SL/TP (stop_loss/take_profit).
+
     Parámetros:
     -----------
-    results_df : pandas.DataFrame
-        Debe contener columnas 'short', 'long' y la métrica a graficar.
-    metric : str
-        Nombre de la métrica a visualizar (por ejemplo: 'sharpe_ratio', 'cagr').
+    results_df : DataFrame con resultados
+    metric : str, métrica a graficar ("sharpe_ratio", "cagr", etc.)
     """
 
-    pivot_table = results_df.pivot(index="short", columns="long", values=metric)
+    # Detectar columnas automáticamente
+    if {"short", "long"}.issubset(results_df.columns):
+        index_col, col_col = "short", "long"
+    elif {"stop_loss", "take_profit"}.issubset(results_df.columns):
+        index_col, col_col = "stop_loss", "take_profit"
+    else:
+        raise ValueError("El DataFrame no contiene columnas válidas para heatmap (short/long o stop_loss/take_profit).")
 
-    plt.figure(figsize=(10, 6))
-    sns.heatmap(pivot_table, annot=False, cmap="RdYlGn", cbar_kws={'label': metric})
-    plt.title(f"Mapa de calor para {metric}")
-    plt.xlabel("SMA Larga")
-    plt.ylabel("SMA Corta")
-    plt.tight_layout()
+    # Crear tabla dinámica
+    pivot_table = results_df.pivot(index=index_col, columns=col_col, values=metric)
+
+    # Dibujar heatmap
+    plt.figure(figsize=(10,6))
+    sns.heatmap(pivot_table, annot=True, fmt=".2f", cmap="viridis")
+    plt.title(f"Heatmap de {metric} ({index_col} vs {col_col})")
+    plt.xlabel(col_col)
+    plt.ylabel(index_col)
     plt.show()

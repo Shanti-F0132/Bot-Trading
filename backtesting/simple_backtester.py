@@ -1,44 +1,74 @@
 import pandas as pd
 import numpy as np
 
-def backtest(df, initial_cash=10000, commission=0.001, slippage=0.0005, 
-             risk_free_rate=0.02, position_size=1.0):
+def backtest(
+    df,
+    initial_cash=10000,
+    commission=0.001,
+    slippage=0.0005,
+    risk_free_rate=0.02,
+    position_size=1.0,
+    stop_loss=None,
+    take_profit=None,
+    fixed_risk=None   # NUEVO: riesgo fijo por operación (ej: 0.01 = 1%)
+):
     """
-    Backtester con:
+    Backtester con gestión avanzada de riesgo:
     - Comisiones
     - Slippage
-    - Position sizing (porcentaje de capital invertido por trade)
+    - Position sizing fijo o riesgo fijo por operación
+    - Stop-Loss y Take-Profit opcionales
     - Métricas avanzadas
-    
-    Parámetros:
-    -----------
-    df : DataFrame con ['Close', 'position_change']
-    initial_cash : float, capital inicial
-    commission : float, % cobrado en cada trade
-    slippage : float, % de diferencia en el precio de ejecución
-    risk_free_rate : float, tasa libre de riesgo anual
-    position_size : float, fracción del capital a invertir (1.0 = 100%, 0.5 = 50%)
     """
 
     cash = initial_cash
     position = 0
+    entry_price = None
     equity_curve = []
 
     for index, row in df.iterrows():
         price = row["Close"]
-        price_with_slippage = price * (1 + slippage if row["position_change"] == 1 else (1 - slippage))
 
-        # Compra con fracción del capital
-        if row["position_change"] == 1 and cash > 0:
-            investable_cash = cash * position_size
-            position = (investable_cash * (1 - commission)) / price_with_slippage
-            cash -= investable_cash  # mantenemos el resto en reserva
+        price_with_slippage_buy = price * (1 + slippage)
+        price_with_slippage_sell = price * (1 - slippage)
 
-        # Venta
+        # === COMPRA ===
+        if row["position_change"] == 1 and cash > 0 and position == 0:
+            if fixed_risk and stop_loss:  
+                # Monto máximo a arriesgar (ej: 1% del capital)
+                risk_capital = cash * fixed_risk
+                risk_per_share = price * stop_loss
+                shares = risk_capital / risk_per_share if risk_per_share > 0 else 0
+                investable_cash = shares * price
+            else:
+                # Position sizing fijo tradicional
+                investable_cash = cash * position_size
+
+            if investable_cash > 0:
+                position = (investable_cash * (1 - commission)) / price_with_slippage_buy
+                cash -= investable_cash
+                entry_price = price_with_slippage_buy
+
+        # === VENTA por señal ===
         elif row["position_change"] == -1 and position > 0:
-            cash += position * price_with_slippage * (1 - commission)
+            cash += position * price_with_slippage_sell * (1 - commission)
             position = 0
+            entry_price = None
 
+        # === VENTA por STOP-LOSS o TAKE-PROFIT ===
+        elif position > 0 and entry_price is not None:
+            pnl_pct = (price - entry_price) / entry_price
+
+            if stop_loss is not None and pnl_pct <= -stop_loss:
+                cash += position * price_with_slippage_sell * (1 - commission)
+                position = 0
+                entry_price = None
+            elif take_profit is not None and pnl_pct >= take_profit:
+                cash += position * price_with_slippage_sell * (1 - commission)
+                position = 0
+                entry_price = None
+
+        # === EQUITY TOTAL ===
         equity = cash + position * price
         equity_curve.append(equity)
 
