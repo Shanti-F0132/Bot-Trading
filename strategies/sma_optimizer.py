@@ -1,6 +1,6 @@
 import pandas as pd
 import itertools
-from strategies.sma_strategy import sma_crossover
+from strategies.sma_strategy import sma_strategy
 from backtesting.simple_backtester import backtest
 
 def optimize_sma(df, short_range=(5, 50), long_range=(30, 200)):
@@ -28,7 +28,7 @@ def optimize_sma(df, short_range=(5, 50), long_range=(30, 200)):
         if short >= long:
             continue  # SMA corta no puede ser >= a SMA larga
 
-        df_signals = sma_crossover(df, short=short, long=long)
+        df_signals = sma_strategy(df, short=short, long=long)
         res = backtest(df_signals)
 
         results.append({
