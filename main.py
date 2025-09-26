@@ -7,6 +7,7 @@ from strategies.sl_tp_optimizer import optimize_sl_tp
 from utils.heatmap_plotter import plot_heatmap
 from strategies.rsi_strategy import rsi_strategy
 from strategies.rsi_optimizer import optimize_rsi
+from strategies.macd_strategy import macd_strategy
 
 # ==========================
 #   PARÁMETROS GENERALES
@@ -144,3 +145,30 @@ print("\n🖼 Generando heatmaps de RSI...")
 plot_heatmap(rsi_results, metric="sharpe_ratio")
 plot_heatmap(rsi_results, metric="cagr")
 
+# === Backtest con MACD ===
+print("\n⚙️ Backtest con estrategia MACD...")
+df_macd = macd_strategy(df.copy(), fast=12, slow=26, signal=9)
+results_macd = backtest(df_macd, commission=0.001, slippage=0.0005, position_size=1.0)
+
+print("\n📊 Resultados estrategia MACD:")
+print(f"Capital final: ${results_macd['final_equity']:.2f}")
+print(f"Retorno total: {results_macd['total_return_pct']:.2f}%")
+print(f"CAGR: {results_macd['cagr']:.2%}")
+print(f"Sharpe Ratio: {results_macd['sharpe_ratio']:.2f}")
+print(f"Max Drawdown: {results_macd['max_drawdown']:.2%}")
+
+# === Gráfica de MACD ===
+import matplotlib.pyplot as plt
+
+plt.figure(figsize=(12,6))
+ax1 = plt.subplot(2,1,1)
+df["Close"].plot(ax=ax1)
+ax1.set_title("Precio de AAPL")
+
+ax2 = plt.subplot(2,1,2)
+df_macd["MACD"].plot(ax=ax2, label="MACD", color="blue")
+df_macd["Signal_Line"].plot(ax=ax2, label="Señal", color="orange")
+ax2.axhline(0, linestyle="--", color="gray")
+ax2.legend()
+ax2.set_title("MACD y Línea de Señal")
+plt.show()
