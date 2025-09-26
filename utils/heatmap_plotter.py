@@ -16,6 +16,8 @@ def plot_heatmap(results_df, metric="sharpe_ratio"):
         index_col, col_col = "period", "overbought"
     elif {"period", "oversold"}.issubset(results_df.columns):
         index_col, col_col = "period", "oversold"
+    elif {"fast", "slow"}.issubset(results_df.columns):
+        index_col, col_col = "fast", "slow"
     else:
         raise ValueError("No se detectaron columnas válidas para heatmap.")
 
