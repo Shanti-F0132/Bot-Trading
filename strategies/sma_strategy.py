@@ -1,6 +1,6 @@
 import pandas as pd
 
-def sma_crossover(df, short=20, long=50):
+def sma_strategy(df, short=20, long=50):
     """
     Calcula señales de cruce de medias móviles y genera 'position_change'.
 

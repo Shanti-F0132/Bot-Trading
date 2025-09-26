@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 from utils.data_loader import get_data
-from strategies.sma_strategy import sma_crossover
+from strategies.sma_strategy import sma_strategy
 from backtesting.simple_backtester import backtest
 from strategies.sma_optimizer import optimize_sma
 from strategies.sl_tp_optimizer import optimize_sl_tp
@@ -26,7 +26,7 @@ print(f"📥 Descargando datos de {symbol}...")
 df = get_data(symbol, start=start_date, end=end_date)
 
 print("📊 Calculando señales de SMA...")
-df = sma_crossover(df, short=20, long=50)
+df = sma_strategy(df, short=20, long=50)
 
 # === Backtest base ===
 print("\n⚙️ Backtest SIN SL/TP...")
@@ -225,3 +225,80 @@ print(bb_results.sort_values("sharpe_ratio", ascending=False).head())
 print("\n🖼 Generando heatmaps de Bollinger Bands...")
 plot_heatmap(bb_results, metric="sharpe_ratio")
 plot_heatmap(bb_results, metric="cagr")
+
+
+import pandas as pd
+from strategies.sma_strategy import sma_strategy
+from strategies.rsi_strategy import rsi_strategy
+from strategies.macd_strategy import macd_strategy
+from strategies.bollinger_strategy import bollinger_strategy
+from backtesting.simple_backtester import backtest
+
+# ==========================
+#   COMPARACIÓN DE ESTRATEGIAS
+# ==========================
+print("\n📊 Comparación de estrategias...")
+
+results_summary = []
+
+# SMA
+df_sma = sma_strategy(df.copy(), short=10, long=50)
+res_sma = backtest(df_sma)
+results_summary.append({
+    "Estrategia": "SMA",
+    "Final Equity": res_sma["final_equity"],
+    "CAGR": res_sma["cagr"],
+    "Sharpe": res_sma["sharpe_ratio"],
+    "Drawdown": res_sma["max_drawdown"]
+})
+
+# RSI
+df_rsi = rsi_strategy(df.copy(), period=14, overbought=70, oversold=30)
+res_rsi = backtest(df_rsi)
+results_summary.append({
+    "Estrategia": "RSI",
+    "Final Equity": res_rsi["final_equity"],
+    "CAGR": res_rsi["cagr"],
+    "Sharpe": res_rsi["sharpe_ratio"],
+    "Drawdown": res_rsi["max_drawdown"]
+})
+
+# MACD
+df_macd = macd_strategy(df.copy(), fast=12, slow=26, signal=9)
+res_macd = backtest(df_macd)
+results_summary.append({
+    "Estrategia": "MACD",
+    "Final Equity": res_macd["final_equity"],
+    "CAGR": res_macd["cagr"],
+    "Sharpe": res_macd["sharpe_ratio"],
+    "Drawdown": res_macd["max_drawdown"]
+})
+
+# Bollinger Bands
+df_bb = bollinger_strategy(df.copy(), window=20, num_std=2)
+res_bb = backtest(df_bb)
+results_summary.append({
+    "Estrategia": "Bollinger Bands",
+    "Final Equity": res_bb["final_equity"],
+    "CAGR": res_bb["cagr"],
+    "Sharpe": res_bb["sharpe_ratio"],
+    "Drawdown": res_bb["max_drawdown"]
+})
+
+# Crear DataFrame comparativo
+df_results = pd.DataFrame(results_summary)
+print("\n📋 Resultados comparativos:")
+print(df_results)
+
+# === Gráfica de curvas de capital ===
+plt.figure(figsize=(12,6))
+plt.plot(res_sma["equity_curve"], label="SMA")
+plt.plot(res_rsi["equity_curve"], label="RSI")
+plt.plot(res_macd["equity_curve"], label="MACD")
+plt.plot(res_bb["equity_curve"], label="Bollinger Bands")
+plt.title("Comparación de Curvas de Capital")
+plt.xlabel("Tiempo")
+plt.ylabel("Capital")
+plt.legend()
+plt.show()
+
