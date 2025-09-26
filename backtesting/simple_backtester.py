@@ -83,7 +83,10 @@ def backtest(
 
     daily_returns = equity_series.pct_change().dropna()
     excess_returns = daily_returns - (risk_free_rate / 252)
-    sharpe_ratio = np.sqrt(252) * excess_returns.mean() / excess_returns.std()
+    if excess_returns.std() == 0:
+        sharpe_ratio = 0
+    else:
+        sharpe_ratio = np.sqrt(252) * excess_returns.mean() / excess_returns.std()
 
     rolling_max = equity_series.cummax()
     drawdown = (equity_series - rolling_max) / rolling_max
