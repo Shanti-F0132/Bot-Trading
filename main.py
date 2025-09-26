@@ -5,6 +5,7 @@ from backtesting.simple_backtester import backtest
 from strategies.sma_optimizer import optimize_sma
 from strategies.sl_tp_optimizer import optimize_sl_tp
 from utils.heatmap_plotter import plot_heatmap
+from strategies.rsi_strategy import rsi_strategy
 
 # ==========================
 #   PARÁMETROS GENERALES
@@ -101,3 +102,30 @@ print(sl_tp_results.sort_values("sharpe_ratio", ascending=False).head())
 print("\n🖼 Generando heatmaps SL/TP...")
 plot_heatmap(sl_tp_results, metric="sharpe_ratio")
 plot_heatmap(sl_tp_results, metric="cagr")
+
+# === Backtest con RSI ===
+print("\n⚙️ Backtest con estrategia RSI...")
+df_rsi = rsi_strategy(df.copy(), period=14, overbought=70, oversold=30)
+results_rsi = backtest(df_rsi, commission=0.001, slippage=0.0005, position_size=1.0)
+
+print("\n📊 Resultados estrategia RSI:")
+print(f"Capital final: ${results_rsi['final_equity']:.2f}")
+print(f"Retorno total: {results_rsi['total_return_pct']:.2f}%")
+print(f"CAGR: {results_rsi['cagr']:.2%}")
+print(f"Sharpe Ratio: {results_rsi['sharpe_ratio']:.2f}")
+print(f"Max Drawdown: {results_rsi['max_drawdown']:.2%}")
+
+# === Gráfica de RSI vs precio ===
+import matplotlib.pyplot as plt
+
+plt.figure(figsize=(12,6))
+ax1 = plt.subplot(2,1,1)
+df["Close"].plot(ax=ax1)
+ax1.set_title("Precio con estrategia RSI")
+
+ax2 = plt.subplot(2,1,2)
+df_rsi["RSI"].plot(ax=ax2, color="purple")
+ax2.axhline(70, linestyle="--", color="red")
+ax2.axhline(30, linestyle="--", color="green")
+ax2.set_title("RSI (Relative Strength Index)")
+plt.show()
