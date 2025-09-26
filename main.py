@@ -9,6 +9,7 @@ from strategies.rsi_strategy import rsi_strategy
 from strategies.rsi_optimizer import optimize_rsi
 from strategies.macd_strategy import macd_strategy
 from strategies.macd_optimizer import optimize_macd
+from strategies.bollinger_strategy import bollinger_strategy
 
 # ==========================
 #   PARÁMETROS GENERALES
@@ -186,3 +187,27 @@ print(macd_results.sort_values("sharpe_ratio", ascending=False).head())
 print("\n🖼 Generando heatmaps de MACD...")
 plot_heatmap(macd_results, metric="sharpe_ratio")
 plot_heatmap(macd_results, metric="cagr")
+
+# === Backtest con Bollinger Bands ===
+print("\n⚙️ Backtest con estrategia Bollinger Bands...")
+df_bb = bollinger_strategy(df.copy(), window=20, num_std=2)
+results_bb = backtest(df_bb, commission=0.001, slippage=0.0005, position_size=1.0)
+
+print("\n📊 Resultados estrategia Bollinger Bands:")
+print(f"Capital final: ${results_bb['final_equity']:.2f}")
+print(f"Retorno total: {results_bb['total_return_pct']:.2f}%")
+print(f"CAGR: {results_bb['cagr']:.2%}")
+print(f"Sharpe Ratio: {results_bb['sharpe_ratio']:.2f}")
+print(f"Max Drawdown: {results_bb['max_drawdown']:.2%}")
+
+# === Gráfica Bollinger Bands ===
+import matplotlib.pyplot as plt
+
+plt.figure(figsize=(12,6))
+plt.plot(df["Close"], label="Precio", alpha=0.7)
+plt.plot(df_bb["SMA"], label="SMA 20", color="blue")
+plt.plot(df_bb["Upper"], label="Banda Superior", color="red", linestyle="--")
+plt.plot(df_bb["Lower"], label="Banda Inferior", color="green", linestyle="--")
+plt.title("Estrategia Bollinger Bands")
+plt.legend()
+plt.show()
