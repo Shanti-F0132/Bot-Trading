@@ -8,6 +8,7 @@ from utils.heatmap_plotter import plot_heatmap
 from strategies.rsi_strategy import rsi_strategy
 from strategies.rsi_optimizer import optimize_rsi
 from strategies.macd_strategy import macd_strategy
+from strategies.macd_optimizer import optimize_macd
 
 # ==========================
 #   PARÁMETROS GENERALES
@@ -172,3 +173,16 @@ ax2.axhline(0, linestyle="--", color="gray")
 ax2.legend()
 ax2.set_title("MACD y Línea de Señal")
 plt.show()
+
+# ==========================
+#   OPTIMIZACIÓN MACD
+# ==========================
+print("\n🔎 Ejecutando optimización de MACD...")
+macd_results = optimize_macd(df, fast_range=(8, 20), slow_range=(20, 40), signal_range=(5, 15))
+
+print("\n📊 Top 5 combinaciones por Sharpe Ratio (MACD):")
+print(macd_results.sort_values("sharpe_ratio", ascending=False).head())
+
+print("\n🖼 Generando heatmaps de MACD...")
+plot_heatmap(macd_results, metric="sharpe_ratio")
+plot_heatmap(macd_results, metric="cagr")
