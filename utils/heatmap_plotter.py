@@ -4,26 +4,29 @@ import seaborn as sns
 def plot_heatmap(results_df, metric="sharpe_ratio"):
     """
     Genera un heatmap a partir de resultados de optimización.
-    Funciona tanto para SMA (short/long) como para SL/TP (stop_loss/take_profit).
-
-    Parámetros:
-    -----------
-    results_df : DataFrame con resultados
-    metric : str, métrica a graficar ("sharpe_ratio", "cagr", etc.)
+    Soporta SMA (short/long), SL/TP, y RSI (period/overbought/oversold).
     """
 
-    # Detectar columnas automáticamente
+    # Detectar tipo de optimización
     if {"short", "long"}.issubset(results_df.columns):
         index_col, col_col = "short", "long"
     elif {"stop_loss", "take_profit"}.issubset(results_df.columns):
         index_col, col_col = "stop_loss", "take_profit"
+    elif {"period", "overbought"}.issubset(results_df.columns):
+        index_col, col_col = "period", "overbought"
+    elif {"period", "oversold"}.issubset(results_df.columns):
+        index_col, col_col = "period", "oversold"
     else:
-        raise ValueError("El DataFrame no contiene columnas válidas para heatmap (short/long o stop_loss/take_profit).")
+        raise ValueError("No se detectaron columnas válidas para heatmap.")
 
-    # Crear tabla dinámica
-    pivot_table = results_df.pivot(index=index_col, columns=col_col, values=metric)
+    # Usar pivot_table con aggfunc para manejar duplicados
+    pivot_table = results_df.pivot_table(
+        index=index_col, 
+        columns=col_col, 
+        values=metric, 
+        aggfunc="mean"
+    )
 
-    # Dibujar heatmap
     plt.figure(figsize=(10,6))
     sns.heatmap(pivot_table, annot=True, fmt=".2f", cmap="viridis")
     plt.title(f"Heatmap de {metric} ({index_col} vs {col_col})")
