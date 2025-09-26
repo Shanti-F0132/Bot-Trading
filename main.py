@@ -6,6 +6,7 @@ from strategies.sma_optimizer import optimize_sma
 from strategies.sl_tp_optimizer import optimize_sl_tp
 from utils.heatmap_plotter import plot_heatmap
 from strategies.rsi_strategy import rsi_strategy
+from strategies.rsi_optimizer import optimize_rsi
 
 # ==========================
 #   PARÁMETROS GENERALES
@@ -115,13 +116,13 @@ print(f"CAGR: {results_rsi['cagr']:.2%}")
 print(f"Sharpe Ratio: {results_rsi['sharpe_ratio']:.2f}")
 print(f"Max Drawdown: {results_rsi['max_drawdown']:.2%}")
 
-# === Gráfica de RSI vs precio ===
+# === Gráfica de RSI ===
 import matplotlib.pyplot as plt
 
 plt.figure(figsize=(12,6))
 ax1 = plt.subplot(2,1,1)
 df["Close"].plot(ax=ax1)
-ax1.set_title("Precio con estrategia RSI")
+ax1.set_title("Precio de AAPL")
 
 ax2 = plt.subplot(2,1,2)
 df_rsi["RSI"].plot(ax=ax2, color="purple")
@@ -129,3 +130,17 @@ ax2.axhline(70, linestyle="--", color="red")
 ax2.axhline(30, linestyle="--", color="green")
 ax2.set_title("RSI (Relative Strength Index)")
 plt.show()
+
+# ==========================
+#   OPTIMIZACIÓN RSI
+# ==========================
+print("\n🔎 Ejecutando optimización de RSI...")
+rsi_results = optimize_rsi(df, period_range=(10, 30), overbought_range=(60, 80), oversold_range=(20, 40))
+
+print("\n📊 Top 5 combinaciones por Sharpe Ratio (RSI):")
+print(rsi_results.sort_values("sharpe_ratio", ascending=False).head())
+
+print("\n🖼 Generando heatmaps de RSI...")
+plot_heatmap(rsi_results, metric="sharpe_ratio")
+plot_heatmap(rsi_results, metric="cagr")
+
