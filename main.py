@@ -10,6 +10,7 @@ from strategies.rsi_optimizer import optimize_rsi
 from strategies.macd_strategy import macd_strategy
 from strategies.macd_optimizer import optimize_macd
 from strategies.bollinger_strategy import bollinger_strategy
+from strategies.bollinger_optimizer import optimize_bollinger
 
 # ==========================
 #   PARÁMETROS GENERALES
@@ -211,3 +212,16 @@ plt.plot(df_bb["Lower"], label="Banda Inferior", color="green", linestyle="--")
 plt.title("Estrategia Bollinger Bands")
 plt.legend()
 plt.show()
+
+# ==========================
+#   OPTIMIZACIÓN BOLLINGER
+# ==========================
+print("\n🔎 Ejecutando optimización de Bollinger Bands...")
+bb_results = optimize_bollinger(df, window_range=(10, 30), num_std_range=(1, 3))
+
+print("\n📊 Top 5 combinaciones por Sharpe Ratio (Bollinger):")
+print(bb_results.sort_values("sharpe_ratio", ascending=False).head())
+
+print("\n🖼 Generando heatmaps de Bollinger Bands...")
+plot_heatmap(bb_results, metric="sharpe_ratio")
+plot_heatmap(bb_results, metric="cagr")
