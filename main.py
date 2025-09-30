@@ -32,103 +32,105 @@ def print_metrics(results, strategy_name="Estrategia"):
 #   PIPELINE PRINCIPAL
 # ==========================
 if __name__ == "__main__":
-    # 1. Descargar datos
-    print("📥 Descargando datos de AAPL...")
-    df = get_data("AAPL", start="2015-01-01", end="2025-01-01")
+    # --- Lista de activos a probar ---
+    symbols = ["AAPL", "MSFT", "TSLA"]  # puedes agregar más, incluso "BTC-USD" o "EURUSD=X"
 
-    # 2. SMA Strategy
-    print("\n⚙️ Backtest con SMA...")
-    df_sma = sma_strategy(df.copy(), short=10, long=50)
-    results_sma = backtest(df_sma)
-    print_metrics(results_sma, "SMA")
+    all_results = []
 
-    # 3. RSI Strategy
-    print("\n⚙️ Backtest con RSI...")
-    df_rsi = rsi_strategy(df.copy(), period=14, overbought=70, oversold=30)
-    results_rsi = backtest(df_rsi)
-    print_metrics(results_rsi, "RSI")
+    for symbol in symbols:
+        print(f"\n📥 Descargando datos de {symbol}...")
+        df = get_data(symbol, start="2015-01-01", end="2025-01-01")
 
-    # 4. MACD Strategy
-    print("\n⚙️ Backtest con MACD...")
-    df_macd = macd_strategy(df.copy(), fast=12, slow=26, signal=9)
-    results_macd = backtest(df_macd)
-    print_metrics(results_macd, "MACD")
+        # --- Estrategias ---
+        print(f"\n⚙️ Backtesting en {symbol}...")
 
-    # 5. Bollinger Bands Strategy
-    print("\n⚙️ Backtest con Bollinger Bands...")
-    df_bb = bollinger_strategy(df.copy(), window=20, num_std=2)
-    results_bb = backtest(df_bb)
-    print_metrics(results_bb, "Bollinger Bands")
+        # SMA
+        df_sma = sma_strategy(df.copy(), short=10, long=50)
+        res_sma = backtest(df_sma)
+        print_metrics(res_sma, f"SMA ({symbol})")
+        all_results.append({"Activo": symbol, "Estrategia": "SMA", **res_sma})
+
+        # RSI
+        df_rsi = rsi_strategy(df.copy(), period=14, overbought=70, oversold=30)
+        res_rsi = backtest(df_rsi)
+        print_metrics(res_rsi, f"RSI ({symbol})")
+        all_results.append({"Activo": symbol, "Estrategia": "RSI", **res_rsi})
+
+        # MACD
+        df_macd = macd_strategy(df.copy(), fast=12, slow=26, signal=9)
+        res_macd = backtest(df_macd)
+        print_metrics(res_macd, f"MACD ({symbol})")
+        all_results.append({"Activo": symbol, "Estrategia": "MACD", **res_macd})
+
+        # Bollinger
+        df_bb = bollinger_strategy(df.copy(), window=20, num_std=2)
+        res_bb = backtest(df_bb)
+        print_metrics(res_bb, f"Bollinger Bands ({symbol})")
+        all_results.append({"Activo": symbol, "Estrategia": "Bollinger", **res_bb})
+
+    # ==========================
+    #   TABLA FINAL DE RESULTADOS
+    # ==========================
+    df_all = pd.DataFrame(all_results)
+
+    print("\n📊 Resultados globales (todos los activos y estrategias):\n")
+    print(df_all[["Activo", "Estrategia", "final_equity", "cagr", "sharpe_ratio",
+                  "sortino_ratio", "calmar_ratio", "profit_factor", "win_rate", "max_drawdown"]])
+
+    # Mejor estrategia por activo
+    print("\n🏆 Mejor estrategia por activo (Sharpe Ratio):\n")
+    best_per_symbol = df_all.loc[df_all.groupby("Activo")["sharpe_ratio"].idxmax()]
+    print(best_per_symbol[["Activo", "Estrategia", "sharpe_ratio", "cagr", "max_drawdown"]])
 
     # ==========================
     #   COMPARACIÓN DE ESTRATEGIAS
     # ==========================
     print("\n📊 Comparación de estrategias...")
 
-    results_summary = [
-        {"Estrategia": "SMA", **results_sma},
-        {"Estrategia": "RSI", **results_rsi},
-        {"Estrategia": "MACD", **results_macd},
-        {"Estrategia": "Bollinger Bands", **results_bb},
-    ]
+    # === Ejecutar backtests para cada estrategia ===
+    results_sma = backtest(df_sma)
+    results_rsi = backtest(df_rsi)
+    results_macd = backtest(df_macd)
+    results_bb = backtest(df_bb)
 
-    df_results = pd.DataFrame(results_summary)
-    print("\n📋 Resultados comparativos:")
-    print(df_results[["Estrategia", "final_equity", "cagr", "sharpe_ratio", "sortino_ratio",
-                      "calmar_ratio", "profit_factor", "win_rate", "max_drawdown"]])
+    # === Guardar resultados en lista para comparación ===
+    all_results = []
+    all_results.append({"Activo": symbol, "Estrategia": "SMA", **results_sma})
+    all_results.append({"Activo": symbol, "Estrategia": "RSI", **results_rsi})
+    all_results.append({"Activo": symbol, "Estrategia": "MACD", **results_macd})
+    all_results.append({"Activo": symbol, "Estrategia": "Bollinger Bands", **results_bb})
 
-    # === Gráfica de curvas de capital ===
+    # === Convertir a DataFrame para mejor visualización ===
+    df_comparacion = pd.DataFrame(all_results)
+
+    # Ordenar por Sharpe Ratio (mejor estrategia arriba)
+    df_comparacion = df_comparacion.sort_values(by="sharpe_ratio", ascending=False)
+
+    print("\n🏆 Ranking de estrategias (Sharpe Ratio):")
+    print(df_comparacion[["Estrategia", "final_equity", "cagr", "sharpe_ratio", "max_drawdown"]])
+
+    # Mostrar la mejor estrategia
+    mejor = df_comparacion.iloc[0]
+    print(f"\n✅ La mejor estrategia según Sharpe Ratio es: "
+      f"{mejor['Estrategia']} "
+      f"(Sharpe: {mejor['sharpe_ratio']:.2f}, "
+      f"CAGR: {mejor['cagr']:.2%}, "
+      f"Drawdown: {mejor['max_drawdown']:.2%})")
+    
+    # === Graficar curvas de capital comparativas ===
     plt.figure(figsize=(12, 6))
+
     plt.plot(results_sma["equity_curve"], label="SMA")
     plt.plot(results_rsi["equity_curve"], label="RSI")
     plt.plot(results_macd["equity_curve"], label="MACD")
     plt.plot(results_bb["equity_curve"], label="Bollinger Bands")
-    plt.title("Comparación de Curvas de Capital")
-    plt.xlabel("Tiempo")
+
+    plt.title("Comparación de Curvas de Capital - Estrategias")
+    plt.xlabel("Fecha")
     plt.ylabel("Capital")
     plt.legend()
+    plt.grid(True)
     plt.show()
-
-    # ==========================
-    #   RANKING DE ESTRATEGIAS
-    # ==========================
-    print("\n🏆 Ranking de estrategias...")
-
-    # --- Menú de selección de métrica ---
-    print("\nSelecciona la métrica para ordenar el ranking:")
-    print("1) Sharpe Ratio (Mayor es mejor)")
-    print("2) CAGR (Mayor es mejor)")
-    print("3) Max Drawdown (Menor es mejor)")
-
-    choice_rank = input("👉 Ingresa el número (1-3): ").strip()
-
-    if choice_rank == "1":
-        rank_metric = "sharpe_ratio"
-        ascending_order = False
-    elif choice_rank == "2":
-        rank_metric = "cagr"
-        ascending_order = False
-    elif choice_rank == "3":
-        rank_metric = "max_drawdown"
-        ascending_order = True   # Drawdown se minimiza
-    else:
-        print("⚠️ Opción inválida, se usará Sharpe Ratio por defecto.")
-        rank_metric = "sharpe_ratio"
-        ascending_order = False
-
-    # --- Ordenar estrategias ---
-    df_ranked = df_results.sort_values(by=rank_metric, ascending=ascending_order).reset_index(drop=True)
-
-    print(f"\n📊 Ranking de estrategias basado en: {rank_metric}\n")
-    print(df_ranked[["Estrategia", "final_equity", "cagr", "sharpe_ratio",
-                "sortino_ratio", "calmar_ratio", "profit_factor",
-                "win_rate", "max_drawdown"]])
-
-    # Mejor estrategia
-    best_strategy = df_ranked.iloc[0]
-    print(f"\n✅ La mejor estrategia según {rank_metric} es: {best_strategy['Estrategia']} "
-          f"({rank_metric}: {best_strategy[rank_metric]:.2f})")
-
     
     # ==========================
     #   GRÁFICAS INDIVIDUALES
@@ -165,6 +167,45 @@ if __name__ == "__main__":
 
     plt.suptitle("Curvas de Capital por Estrategia", fontsize=16)
     plt.tight_layout(rect=[0, 0, 1, 0.97])
+    plt.show()
+
+        # === Función para calcular drawdowns ===
+    def calculate_drawdown(equity_curve):
+        cumulative_max = equity_curve.cummax()
+        drawdown = (equity_curve - cumulative_max) / cumulative_max
+        return drawdown
+
+    # === Calcular drawdowns de cada estrategia ===
+    drawdown_sma = calculate_drawdown(results_sma["equity_curve"])
+    drawdown_rsi = calculate_drawdown(results_rsi["equity_curve"])
+    drawdown_macd = calculate_drawdown(results_macd["equity_curve"])
+    drawdown_bb = calculate_drawdown(results_bb["equity_curve"])
+
+    # === Crear figura con subplots ===
+    fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(14, 10), sharex=True, gridspec_kw={"height_ratios": [2, 1]})
+
+    # --- Subplot 1: Curvas de capital ---
+    ax1.plot(results_sma["equity_curve"], label="SMA")
+    ax1.plot(results_rsi["equity_curve"], label="RSI")
+    ax1.plot(results_macd["equity_curve"], label="MACD")
+    ax1.plot(results_bb["equity_curve"], label="Bollinger Bands")
+    ax1.set_title("Curvas de Capital - Estrategias")
+    ax1.set_ylabel("Capital ($)")
+    ax1.legend()
+    ax1.grid(True)
+
+    # --- Subplot 2: Drawdowns ---
+    ax2.plot(drawdown_sma, label="SMA")
+    ax2.plot(drawdown_rsi, label="RSI")
+    ax2.plot(drawdown_macd, label="MACD")
+    ax2.plot(drawdown_bb, label="Bollinger Bands")
+    ax2.set_title("Comparación de Drawdowns - Estrategias")
+    ax2.set_xlabel("Fecha")
+    ax2.set_ylabel("Drawdown (%)")
+    ax2.legend()
+    ax2.grid(True)
+
+    plt.tight_layout()
     plt.show()
 
     # ==========================
