@@ -302,3 +302,88 @@ plt.ylabel("Capital")
 plt.legend()
 plt.show()
 
+# ==========================
+#   COMPARACIÓN DE ESTRATEGIAS
+# ==========================
+print("\n📊 Comparación de estrategias...")
+
+results_summary = []
+
+# SMA
+df_sma = sma_strategy(df.copy(), short=10, long=50)
+res_sma = backtest(df_sma)
+results_summary.append({
+    "Estrategia": "SMA",
+    "final_equity": res_sma["final_equity"],
+    "cagr": res_sma["cagr"],
+    "sharpe_ratio": res_sma["sharpe_ratio"],
+    "max_drawdown": res_sma["max_drawdown"]
+})
+
+# RSI
+df_rsi = rsi_strategy(df.copy(), period=14, overbought=70, oversold=30)
+res_rsi = backtest(df_rsi)
+results_summary.append({
+    "Estrategia": "RSI",
+    "final_equity": res_rsi["final_equity"],
+    "cagr": res_rsi["cagr"],
+    "sharpe_ratio": res_rsi["sharpe_ratio"],
+    "max_drawdown": res_rsi["max_drawdown"]
+})
+
+# MACD
+df_macd = macd_strategy(df.copy(), fast=12, slow=26, signal=9)
+res_macd = backtest(df_macd)
+results_summary.append({
+    "Estrategia": "MACD",
+    "final_equity": res_macd["final_equity"],
+    "cagr": res_macd["cagr"],
+    "sharpe_ratio": res_macd["sharpe_ratio"],
+    "max_drawdown": res_macd["max_drawdown"]
+})
+
+# Bollinger Bands
+df_bb = bollinger_strategy(df.copy(), window=20, num_std=2)
+res_bb = backtest(df_bb)
+results_summary.append({
+    "Estrategia": "Bollinger Bands",
+    "final_equity": res_bb["final_equity"],
+    "cagr": res_bb["cagr"],
+    "sharpe_ratio": res_bb["sharpe_ratio"],
+    "max_drawdown": res_bb["max_drawdown"]
+})
+
+# Crear DataFrame comparativo
+df_results = pd.DataFrame(results_summary)
+print("\n📋 Resultados comparativos:")
+print(df_results)
+
+# === Gráfica de curvas de capital ===
+plt.figure(figsize=(12,6))
+plt.plot(res_sma["equity_curve"], label="SMA")
+plt.plot(res_rsi["equity_curve"], label="RSI")
+plt.plot(res_macd["equity_curve"], label="MACD")
+plt.plot(res_bb["equity_curve"], label="Bollinger Bands")
+plt.title("Comparación de Curvas de Capital")
+plt.xlabel("Tiempo")
+plt.ylabel("Capital")
+plt.legend()
+plt.show()
+
+# ==========================
+#   RANKING POR SHARPE RATIO
+# ==========================
+print("\n🏆 Ranking de estrategias (Sharpe Ratio):")
+
+# Ordenamos por sharpe_ratio de mayor a menor
+df_ranked = df_results.sort_values(by="sharpe_ratio", ascending=False).reset_index(drop=True)
+
+print(df_ranked)
+
+# Mostrar la mejor estrategia
+best_strategy = df_ranked.iloc[0]
+print(f"\n✅ La mejor estrategia según Sharpe Ratio es: {best_strategy['Estrategia']} "
+      f"(Sharpe: {best_strategy['sharpe_ratio']:.2f}, CAGR: {best_strategy['cagr']:.2%}, "
+      f"Drawdown: {best_strategy['max_drawdown']:.2%})")
+
+
