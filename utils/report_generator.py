@@ -1,56 +1,64 @@
-from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Image, Table, TableStyle
-from reportlab.lib.styles import getSampleStyleSheet
-from reportlab.lib.pagesizes import letter
 from reportlab.lib import colors
+from reportlab.lib.pagesizes import letter
+from reportlab.lib.styles import getSampleStyleSheet
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Image, Table, TableStyle
 
-def generate_report(results_dict, output_path="report.pdf", charts=[]):
-    """
-    Genera un reporte en PDF con métricas y gráficas.
-
-    :param results_dict: Diccionario con métricas de estrategias
-    :param output_path: Ruta de salida del PDF
-    :param charts: Lista de rutas de imágenes de gráficas para incluir
-    """
+def generate_report(output_path, all_results, charts=[]):
     doc = SimpleDocTemplate(output_path, pagesize=letter)
     elements = []
-
     styles = getSampleStyleSheet()
-    title_style = styles["Heading1"]
-    normal_style = styles["Normal"]
 
     # Título
-    elements.append(Paragraph("Reporte de Backtesting - Estrategias de Trading", title_style))
-    elements.append(Spacer(1, 20))
+    elements.append(Paragraph("■ Reporte de Estrategias de Trading", styles["Heading1"]))
+    elements.append(Spacer(1, 12))
 
-    # Tabla de métricas
-    data = [["Estrategia", "Capital Final", "CAGR", "Sharpe Ratio", "Max Drawdown", "Retorno Total"]]
-    for strat, metrics in results_dict.items():
+    # Construir la tabla de resultados
+    data = [["Estrategia", "Final Equity", "CAGR", "Sharpe Ratio", "Max Drawdown"]]
+    for res in all_results:
         data.append([
-            strat,
-            f"${metrics['final_equity']:.2f}",
-            f"{metrics['cagr']:.2%}",
-            f"{metrics['sharpe_ratio']:.2f}",
-            f"{metrics['max_drawdown']:.2%}",
-            f"{metrics['total_return_pct']:.2%}"
+            res.get("Estrategia", ""),
+            f"{res.get('final_equity', 0):.2f}",
+            f"{res.get('cagr', 0)*100:.2f}%",
+            f"{res.get('sharpe_ratio', 0):.2f}",
+            f"{res.get('max_drawdown', 0)*100:.2f}%",
         ])
 
-    table = Table(data, hAlign="LEFT")
+    table = Table(data)
     table.setStyle(TableStyle([
-        ("BACKGROUND", (0, 0), (-1, 0), colors.grey),
-        ("TEXTCOLOR", (0, 0), (-1, 0), colors.whitesmoke),
+        ("BACKGROUND", (0, 0), (-1, 0), colors.black),
+        ("TEXTCOLOR", (0, 0), (-1, 0), colors.white),
         ("ALIGN", (0, 0), (-1, -1), "CENTER"),
+        ("GRID", (0, 0), (-1, -1), 1, colors.black),
         ("FONTNAME", (0, 0), (-1, 0), "Helvetica-Bold"),
-        ("BOTTOMPADDING", (0, 0), (-1, 0), 12),
-        ("GRID", (0, 0), (-1, -1), 1, colors.black)
     ]))
-
     elements.append(table)
-    elements.append(Spacer(1, 20))
+    elements.append(Spacer(1, 12))
 
-    # Insertar gráficas
-    for chart_path in charts:
-        elements.append(Image(chart_path, width=500, height=300))
-        elements.append(Spacer(1, 15))
+    # Ranking de estrategias
+    sharpe_sorted = sorted(all_results, key=lambda x: x.get("sharpe_ratio", 0), reverse=True)
+    cagr_sorted = sorted(all_results, key=lambda x: x.get("cagr", 0), reverse=True)
+    drawdown_sorted = sorted(all_results, key=lambda x: x.get("max_drawdown", 0), reverse=False)
 
+    ranking_text = (
+        f"■ Ranking de Estrategias: "
+        f"- Mejor por Sharpe Ratio: {sharpe_sorted[0]['Estrategia']} ({sharpe_sorted[0]['sharpe_ratio']:.2f}) "
+        f"- Mejor por CAGR: {cagr_sorted[0]['Estrategia']} ({cagr_sorted[0]['cagr']*100:.2f}%) "
+        f"- Menor Drawdown: {drawdown_sorted[0]['Estrategia']} ({drawdown_sorted[0]['max_drawdown']*100:.2f}%)"
+    )
+    elements.append(Paragraph(ranking_text, styles["Normal"]))
+    elements.append(Spacer(1, 12))
+
+    # Gráficas exportadas
+    if charts:
+        elements.append(Paragraph("■ Gráficas de Resultados", styles["Heading2"]))
+        elements.append(Spacer(1, 12))
+        for chart in charts:
+            try:
+                elements.append(Image(chart, width=500, height=300))
+                elements.append(Spacer(1, 12))
+            except Exception as e:
+                elements.append(Paragraph(f"No se pudo insertar {chart}: {e}", styles["Normal"]))
+
+    # Guardar PDF
     doc.build(elements)
-    print(f"✅ Reporte generado en {output_path}")
+    print(f"✅ Reporte exportado en {output_path}")

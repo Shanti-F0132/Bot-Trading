@@ -137,6 +137,7 @@ if __name__ == "__main__":
     plt.ylabel("Score", fontsize=12)
     plt.xlabel("Estrategia", fontsize=12)
     plt.grid(axis="y", linestyle="--", alpha=0.7)
+    plt.savefig("global_strategy_ranking.png")
     plt.show()
     plt.close()
 
@@ -150,7 +151,9 @@ if __name__ == "__main__":
         plt.ylabel("Score", fontsize=12)
         plt.xlabel("Estrategia", fontsize=12)
         plt.grid(axis="y", linestyle="--", alpha=0.7)
+        plt.savefig(f"{symbol}_strategy_ranking.png")
         plt.show()
+        plt.close()
 
     
     # ==========================
@@ -188,6 +191,7 @@ if __name__ == "__main__":
 
     plt.suptitle("Curvas de Capital por Estrategia", fontsize=16)
     plt.tight_layout(rect=[0, 0, 1, 0.97])
+    plt.savefig("capital_comparison.png")
     plt.show()
     plt.close()
 
@@ -228,6 +232,7 @@ if __name__ == "__main__":
     ax2.grid(True)
 
     plt.tight_layout()
+    plt.savefig("capital_and_drawdown_comparison.png")
     plt.show()
     plt.close()
 
@@ -283,11 +288,15 @@ if __name__ == "__main__":
 
     plt.suptitle(f"Heatmaps de Optimización ({metric_to_plot})", fontsize=16)
     plt.tight_layout(rect=[0, 0, 1, 0.97])
+    plt.savefig("heatmaps_comparison.png")
     plt.show()
     plt.close()
 
     # ==========================
     #   GENERACIÓN DE REPORTES
+    # ==========================
+    print("\n📝 Generando reporte PDF...")
+
     results_dict = {
         "SMA": results_sma,
         "RSI": results_rsi,
@@ -295,8 +304,26 @@ if __name__ == "__main__":
         "Bollinger": results_bb
     }
 
-    # Guardar algunas gráficas antes (curvas de capital o heatmaps)
-    plt.savefig("capital_comparison.png")
-
     # Generar el PDF
-    generate_report(results_dict, output_path="backtest_report.pdf", charts=["capital_comparison.png"])
+    generate_report(
+    "reporte_final.pdf",
+    all_results,
+    charts=[
+        "C:\\Users\\david\\Desktop\\Bot01\\AAPL_strategy_ranking.png",
+        "C:\\Users\\david\\Desktop\\Bot01\\MSFT_strategy_ranking.png",
+        "C:\\Users\\david\\Desktop\\Bot01\\TSLA_strategy_ranking.png",
+        "C:\\Users\\david\\Desktop\\Bot01\\global_strategy_ranking.png",
+        "C:\\Users\\david\\Desktop\\Bot01\\capital_comparison.png",
+        "C:\\Users\\david\\Desktop\\Bot01\\capital_and_drawdown_comparison.png",
+        "C:\\Users\\david\\Desktop\\Bot01\\heatmaps_comparison.png"
+    ]
+    )
+
+    # Simulación de resultados de ejemplo
+    all_results = [
+        {"Estrategia": "SMA", "final_equity": 50000, "cagr": 0.15, "sharpe_ratio": 0.8, "max_drawdown": -0.25},
+        {"Estrategia": "MACD", "final_equity": 65000, "cagr": 0.20, "sharpe_ratio": 1.0, "max_drawdown": -0.27},
+    ]
+
+    # Generar el reporte PDF
+    generate_report("reporte_prueba2.pdf", all_results)
