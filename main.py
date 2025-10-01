@@ -13,6 +13,7 @@ from optimizers.macd_optimizer import optimize_macd
 from optimizers.bollinger_optimizer import optimize_bollinger
 from backtesting.simple_backtester import backtest
 from utils.heatmap_plotter import plot_heatmap
+from utils.report_generator import generate_report
 
 # === Función estándar para imprimir métricas ===
 def print_metrics(results, strategy_name="Estrategia"):
@@ -137,6 +138,7 @@ if __name__ == "__main__":
     plt.xlabel("Estrategia", fontsize=12)
     plt.grid(axis="y", linestyle="--", alpha=0.7)
     plt.show()
+    plt.close()
 
     # === Visualización del ranking por activo ===
     for symbol in df_all["Activo"].unique():
@@ -187,6 +189,7 @@ if __name__ == "__main__":
     plt.suptitle("Curvas de Capital por Estrategia", fontsize=16)
     plt.tight_layout(rect=[0, 0, 1, 0.97])
     plt.show()
+    plt.close()
 
         # === Función para calcular drawdowns ===
     def calculate_drawdown(equity_curve):
@@ -226,6 +229,7 @@ if __name__ == "__main__":
 
     plt.tight_layout()
     plt.show()
+    plt.close()
 
     # ==========================
     #   HEATMAPS AGRUPADOS
@@ -280,4 +284,19 @@ if __name__ == "__main__":
     plt.suptitle(f"Heatmaps de Optimización ({metric_to_plot})", fontsize=16)
     plt.tight_layout(rect=[0, 0, 1, 0.97])
     plt.show()
+    plt.close()
 
+    # ==========================
+    #   GENERACIÓN DE REPORTES
+    results_dict = {
+        "SMA": results_sma,
+        "RSI": results_rsi,
+        "MACD": results_macd,
+        "Bollinger": results_bb
+    }
+
+    # Guardar algunas gráficas antes (curvas de capital o heatmaps)
+    plt.savefig("capital_comparison.png")
+
+    # Generar el PDF
+    generate_report(results_dict, output_path="backtest_report.pdf", charts=["capital_comparison.png"])
