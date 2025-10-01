@@ -7,10 +7,10 @@ from strategies.sma_strategy import sma_strategy
 from strategies.rsi_strategy import rsi_strategy
 from strategies.macd_strategy import macd_strategy
 from strategies.bollinger_strategy import bollinger_strategy
-from strategies.sma_optimizer import optimize_sma
-from strategies.rsi_optimizer import optimize_rsi
-from strategies.macd_optimizer import optimize_macd
-from strategies.bollinger_optimizer import optimize_bollinger
+from optimizers.sma_optimizer import optimize_sma
+from optimizers.rsi_optimizer import optimize_rsi
+from optimizers.macd_optimizer import optimize_macd
+from optimizers.bollinger_optimizer import optimize_bollinger
 from backtesting.simple_backtester import backtest
 from utils.heatmap_plotter import plot_heatmap
 
@@ -106,31 +106,50 @@ if __name__ == "__main__":
     # Ordenar por Sharpe Ratio (mejor estrategia arriba)
     df_comparacion = df_comparacion.sort_values(by="sharpe_ratio", ascending=False)
 
-    print("\n🏆 Ranking de estrategias (Sharpe Ratio):")
-    print(df_comparacion[["Estrategia", "final_equity", "cagr", "sharpe_ratio", "max_drawdown"]])
+   # === RANKING EXPANDIDO ===
+    print("\n🏆 Ranking de estrategias por activo:")
 
-    # Mostrar la mejor estrategia
-    mejor = df_comparacion.iloc[0]
-    print(f"\n✅ La mejor estrategia según Sharpe Ratio es: "
-      f"{mejor['Estrategia']} "
-      f"(Sharpe: {mejor['sharpe_ratio']:.2f}, "
-      f"CAGR: {mejor['cagr']:.2%}, "
-      f"Drawdown: {mejor['max_drawdown']:.2%})")
-    
-    # === Graficar curvas de capital comparativas ===
-    plt.figure(figsize=(12, 6))
+    # Normalizamos métricas para que tengan escalas comparables
+    df_all["Sharpe_norm"] = (df_all["sharpe_ratio"] - df_all["sharpe_ratio"].min()) / (df_all["sharpe_ratio"].max() - df_all["sharpe_ratio"].min())
+    df_all["CAGR_norm"] = (df_all["cagr"] - df_all["cagr"].min()) / (df_all["cagr"].max() - df_all["cagr"].min())
+    df_all["MaxDD_norm"] = (df_all["max_drawdown"].max() - df_all["max_drawdown"]) / (df_all["max_drawdown"].max() - df_all["max_drawdown"].min())
 
-    plt.plot(results_sma["equity_curve"], label="SMA")
-    plt.plot(results_rsi["equity_curve"], label="RSI")
-    plt.plot(results_macd["equity_curve"], label="MACD")
-    plt.plot(results_bb["equity_curve"], label="Bollinger Bands")
+    # Score compuesto
+    df_all["score"] = 0.5 * df_all["Sharpe_norm"] + 0.3 * df_all["CAGR_norm"] + 0.2 * df_all["MaxDD_norm"]
 
-    plt.title("Comparación de Curvas de Capital - Estrategias")
-    plt.xlabel("Fecha")
-    plt.ylabel("Capital")
-    plt.legend()
-    plt.grid(True)
+    # Mostrar ranking por activo
+    for symbol in df_all["Activo"].unique():
+        df_symbol = df_all[df_all["Activo"] == symbol].sort_values(by="score", ascending=False)
+        print(f"\n🔎 {symbol}")
+        print(df_symbol[["Estrategia", "sharpe_ratio", "cagr", "max_drawdown", "score"]])
+
+    # Ranking global
+    print("\n🌍 Ranking global (todos los activos):")
+    df_global = df_all.groupby("Estrategia").mean(numeric_only=True).sort_values(by="score", ascending=False)
+    print(df_global[["sharpe_ratio", "cagr", "max_drawdown", "score"]])
+
+
+    # === Visualización del ranking global ===
+    plt.figure(figsize=(8, 5))
+    plt.bar(df_global.index, df_global["score"], color="skyblue", edgecolor="black")
+    plt.title("Ranking Global de Estrategias (Score Compuesto)", fontsize=14)
+    plt.ylabel("Score", fontsize=12)
+    plt.xlabel("Estrategia", fontsize=12)
+    plt.grid(axis="y", linestyle="--", alpha=0.7)
     plt.show()
+
+    # === Visualización del ranking por activo ===
+    for symbol in df_all["Activo"].unique():
+        df_symbol = df_all[df_all["Activo"] == symbol]
+
+        plt.figure(figsize=(8, 5))
+        plt.bar(df_symbol["Estrategia"], df_symbol["score"], color="lightgreen", edgecolor="black")
+        plt.title(f"Ranking de Estrategias - {symbol}", fontsize=14)
+        plt.ylabel("Score", fontsize=12)
+        plt.xlabel("Estrategia", fontsize=12)
+        plt.grid(axis="y", linestyle="--", alpha=0.7)
+        plt.show()
+
     
     # ==========================
     #   GRÁFICAS INDIVIDUALES
