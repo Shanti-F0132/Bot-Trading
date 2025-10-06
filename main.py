@@ -306,24 +306,15 @@ if __name__ == "__main__":
 
     # Generar el PDF
     generate_report(
-    "reporte_final.pdf",
-    all_results,
-    charts=[
-        "C:\\Users\\david\\Desktop\\Bot01\\AAPL_strategy_ranking.png",
-        "C:\\Users\\david\\Desktop\\Bot01\\MSFT_strategy_ranking.png",
-        "C:\\Users\\david\\Desktop\\Bot01\\TSLA_strategy_ranking.png",
-        "C:\\Users\\david\\Desktop\\Bot01\\global_strategy_ranking.png",
-        "C:\\Users\\david\\Desktop\\Bot01\\capital_comparison.png",
-        "C:\\Users\\david\\Desktop\\Bot01\\capital_and_drawdown_comparison.png",
-        "C:\\Users\\david\\Desktop\\Bot01\\heatmaps_comparison.png"
+        "reporte_final.pdf",
+        all_results,
+        charts=[
+            "C:\\Users\\david\\Desktop\\Bot01\\AAPL_strategy_ranking.png",
+            "C:\\Users\\david\\Desktop\\Bot01\\MSFT_strategy_ranking.png",
+            "C:\\Users\\david\\Desktop\\Bot01\\TSLA_strategy_ranking.png",
+            "C:\\Users\\david\\Desktop\\Bot01\\global_strategy_ranking.png",
+            "C:\\Users\\david\\Desktop\\Bot01\\capital_comparison.png",
+            "C:\\Users\\david\\Desktop\\Bot01\\capital_and_drawdown_comparison.png",
+            "C:\\Users\\david\\Desktop\\Bot01\\heatmaps_comparison.png"
     ]
     )
-
-    # Simulación de resultados de ejemplo
-    all_results = [
-        {"Estrategia": "SMA", "final_equity": 50000, "cagr": 0.15, "sharpe_ratio": 0.8, "max_drawdown": -0.25},
-        {"Estrategia": "MACD", "final_equity": 65000, "cagr": 0.20, "sharpe_ratio": 1.0, "max_drawdown": -0.27},
-    ]
-
-    # Generar el reporte PDF
-    generate_report("reporte_prueba2.pdf", all_results)
