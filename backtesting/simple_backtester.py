@@ -21,6 +21,27 @@ def backtest(
     - Métricas avanzadas
     """
 
+    df = df.copy()
+
+    # ==========================
+    # 🔍 Detectar columna de cierre automáticamente
+    # ==========================
+    close_col = None
+    for c in df.columns:
+        if c.lower() in ["close", "adj close", "precio", "price"]:
+            close_col = c
+            break
+
+    if close_col is None:
+        raise ValueError(f"No se encontró columna de cierre. Columnas disponibles: {df.columns.tolist()}")
+
+    # Creamos una columna unificada 'Close' para el resto del código
+    df["Close"] = df[close_col]
+
+
+    # ==========================
+    # 📊 Variables iniciales
+    # ==========================
     cash = initial_cash
     position = 0
     entry_price = None
