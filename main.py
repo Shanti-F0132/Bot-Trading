@@ -15,6 +15,17 @@ from backtesting.simple_backtester import backtest
 from utils.heatmap_plotter import plot_heatmap
 from utils.report_generator import generate_report
 
+from utils.risk_analysis import (
+    monte_carlo_simulation,
+    compute_returns,
+    compute_var_es,
+    summarize_simulations,
+    plot_monte_carlo,
+    plot_final_distribution
+)
+import os
+
+
 # === Función estándar para imprimir métricas ===
 def print_metrics(results, strategy_name="Estrategia"):
     print(f"\n📈 Resultados del Backtest - {strategy_name}")
@@ -137,7 +148,7 @@ if __name__ == "__main__":
     plt.ylabel("Score", fontsize=12)
     plt.xlabel("Estrategia", fontsize=12)
     plt.grid(axis="y", linestyle="--", alpha=0.7)
-    plt.savefig("global_strategy_ranking.png")
+    plt.savefig("outputs/global_strategy_ranking.png")
     plt.show()
     plt.close()
 
@@ -151,7 +162,7 @@ if __name__ == "__main__":
         plt.ylabel("Score", fontsize=12)
         plt.xlabel("Estrategia", fontsize=12)
         plt.grid(axis="y", linestyle="--", alpha=0.7)
-        plt.savefig(f"{symbol}_strategy_ranking.png")
+        plt.savefig(f"outputs/{symbol}_strategy_ranking.png")
         plt.show()
         plt.close()
 
@@ -191,7 +202,7 @@ if __name__ == "__main__":
 
     plt.suptitle("Curvas de Capital por Estrategia", fontsize=16)
     plt.tight_layout(rect=[0, 0, 1, 0.97])
-    plt.savefig("capital_comparison.png")
+    plt.savefig("outputs/capital_comparison.png")
     plt.show()
     plt.close()
 
@@ -232,7 +243,7 @@ if __name__ == "__main__":
     ax2.grid(True)
 
     plt.tight_layout()
-    plt.savefig("capital_and_drawdown_comparison.png")
+    plt.savefig("outputs/capital_and_drawdown_comparison.png")
     plt.show()
     plt.close()
 
@@ -288,7 +299,7 @@ if __name__ == "__main__":
 
     plt.suptitle(f"Heatmaps de Optimización ({metric_to_plot})", fontsize=16)
     plt.tight_layout(rect=[0, 0, 1, 0.97])
-    plt.savefig("heatmaps_comparison.png")
+    plt.savefig("outputs/heatmaps_comparison.png")
     plt.show()
     plt.close()
 
@@ -390,7 +401,7 @@ if __name__ == "__main__":
     plt.subplots_adjust(left=0.1, bottom=0.3)
 
     # Guardar figura
-    plt.savefig("timeframes_comparison.png", bbox_inches="tight")
+    plt.savefig("outputs/timeframes_comparison.png", bbox_inches="tight")
     plt.show()
 
     print("\n✅ Tabla comparativa generada correctamente.")
@@ -410,12 +421,63 @@ if __name__ == "__main__":
 
     print("\n✅ Comparación completada y guardada como 'timeframes_comparison.png'")
 
+    # ==========================================================
+    # 🔮 Análisis de Riesgo: Monte Carlo, VaR y Expected Shortfall
+    # ==========================================================
+
+    print("\n🔍 Ejecutando análisis de riesgo (Monte Carlo y VaR)...")
+
+    # 1️⃣ Detectar la mejor estrategia automáticamente según Sharpe Ratio
+    best_row = df_all.sort_values("sharpe_ratio", ascending=False).iloc[0]
+    best_strategy = best_row["Estrategia"]
+
+    print(f"Mejor estrategia detectada: {best_strategy}")
+
+    # 2️⃣ Obtener la curva de equity correspondiente
+    if best_strategy == "MACD":
+        equity = results_macd["equity_curve"]
+    elif best_strategy == "SMA":
+        equity = results_sma["equity_curve"]
+    elif best_strategy == "Bollinger Bands":
+        equity = results_bb["equity_curve"]
+    elif best_strategy == "RSI":
+        equity = results_rsi["equity_curve"]
+    else:
+        raise ValueError("No se encontró la curva de equity de la mejor estrategia.")
+
+    # 3️⃣ Ejecutar simulaciones Monte Carlo
+    sims_df, params = monte_carlo_simulation(equity, n_sims=1000, horizon=252, geometric=True, seed=42)
+
+    # 4️⃣ Calcular métricas de riesgo (VaR y ES)
+    returns = compute_returns(equity)
+    risk_metrics = compute_var_es(returns, alpha=0.05)
+
+    # 5️⃣ Resumen de simulaciones
+    summary = summarize_simulations(sims_df)
+
+    # 6️⃣ Crear carpeta y guardar gráficos
+    os.makedirs("outputs", exist_ok=True)
+    plot_monte_carlo(sims_df, title=f"Monte Carlo - {best_strategy}", save_path="outputs/mc_paths.png")
+    plot_final_distribution(sims_df, save_path="outputs/mc_final_dist.png")
+
+    # 7️⃣ Mostrar resultados en consola
+    print("\n📈 Resultados Monte Carlo:")
+    print(f"Media Final: {summary['mean_final']:.2f}")
+    print(f"Mediana Final: {summary['median']:.2f}")
+    print(f"Probabilidad de ganar: {summary['prob>start']*100:.2f}%")
+
+    print("\n⚠️ Métricas de Riesgo:")
+    print(f"VaR (5%): {risk_metrics['var']:.4f}")
+    print(f"Expected Shortfall (5%): {risk_metrics['es']:.4f}")
+
+
 
     # ==========================
     #   GENERACIÓN DE REPORTES
     # ==========================
-    print("\n📝 Generando reporte PDF...")
+    print("\n📝 Generando reporte PDF completo...")
 
+    # Diccionario con resultados de estrategias
     results_dict = {
         "SMA": results_sma,
         "RSI": results_rsi,
@@ -423,18 +485,40 @@ if __name__ == "__main__":
         "Bollinger": results_bb
     }
 
-    # Generar el PDF
-    generate_report(
-        "reporte_final.pdf",
-        all_results,
-        charts=[
-            "C:\\Users\\david\\Desktop\\Bot01\\AAPL_strategy_ranking.png",
-            "C:\\Users\\david\\Desktop\\Bot01\\MSFT_strategy_ranking.png",
-            "C:\\Users\\david\\Desktop\\Bot01\\TSLA_strategy_ranking.png",
-            "C:\\Users\\david\\Desktop\\Bot01\\global_strategy_ranking.png",
-            "C:\\Users\\david\\Desktop\\Bot01\\capital_comparison.png",
-            "C:\\Users\\david\\Desktop\\Bot01\\capital_and_drawdown_comparison.png",
-            "C:\\Users\\david\\Desktop\\Bot01\\heatmaps_comparison.png",
-            "C:\\Users\\david\\Desktop\\Bot01\\timeframes_comparison.png"
+    # Crear carpeta de salida
+    os.makedirs("outputs", exist_ok=True)
+
+    # Guardar los gráficos más importantes en la carpeta
+    chart_paths = [
+        "outputs/AAPL_strategy_ranking.png",
+        "outputs/MSFT_strategy_ranking.png",
+        "outputs/TSLA_strategy_ranking.png",
+        "outputs/global_strategy_ranking.png",
+        "outputs/capital_comparison.png",
+        "outputs/capital_and_drawdown_comparison.png",
+        "outputs/heatmaps_comparison.png",
+        "outputs/timeframes_comparison.png",
+        "outputs/mc_paths.png",
+        "outputs/mc_final_dist.png"
     ]
+
+    # Generar un resumen del análisis de riesgo para incluirlo
+    risk_summary = {
+        "mean_final": summary.get("mean_final", 0),
+        "median": summary.get("median", 0),
+        "prob>start": summary.get("prob>start", 0),
+        "var": risk_metrics.get("var", 0),
+        "es": risk_metrics.get("es", 0),
+    }
+
+    # Generar reporte PDF consolidado
+    generate_report(
+        output_path="outputs/reporte_final.pdf",
+        all_results=all_results,
+        charts=chart_paths,
+        risk_summary=risk_summary
     )
+
+    print("\n✅ Reporte generado exitosamente: outputs/reporte_final.pdf")
+
+
