@@ -13,9 +13,22 @@ def get_data(symbol, start="2020-01-01", end=None):
     if isinstance(df.columns, pd.MultiIndex):
         df.columns = ['_'.join(col).strip() for col in df.columns.values]
 
-    # Renombrar columna Close si viene con sufijo del ticker (Close_AAPL)
+    # Renombrar todas las columnas OHLCV si vienen con sufijo (ej: Open_AAPL → Open)
+    rename_map = {}
     for col in df.columns:
-        if col.startswith("Close"):
-            df.rename(columns={col: "Close"}, inplace=True)
+        if col.startswith("Open"):
+            rename_map[col] = "Open"
+        elif col.startswith("High"):
+            rename_map[col] = "High"
+        elif col.startswith("Low"):
+            rename_map[col] = "Low"
+        elif col.startswith("Close"):
+            rename_map[col] = "Close"
+        elif col.startswith("Adj Close"):
+            rename_map[col] = "Adj Close"
+        elif col.startswith("Volume"):
+            rename_map[col] = "Volume"
+
+    df.rename(columns=rename_map, inplace=True)
 
     return df
