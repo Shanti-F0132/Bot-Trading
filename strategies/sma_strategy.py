@@ -24,12 +24,14 @@ def sma_strategy(df, short=20, long=50):
     """
     df = df.copy()
 
+    df.columns = df.columns.str.lower()
+
     # Calcular medias móviles
-    df['SMA_short'] = df['Close'].rolling(window=short).mean()
-    df['SMA_long'] = df['Close'].rolling(window=long).mean()
+    df['sma_short'] = df['close'].rolling(window=short).mean()
+    df['sma_long'] = df['close'].rolling(window=long).mean()
 
     # Señal: 1 si SMA corta > SMA larga, 0 si no
-    df['signal'] = (df['SMA_short'] > df['SMA_long']).astype(int)
+    df['signal'] = (df['sma_short'] > df['sma_long']).astype(int)
 
     # Cambio de posición: 1 cuando pasamos de 0 -> 1 (compra), -1 de 1 -> 0 (venta)
     df['position_change'] = df['signal'].diff().fillna(0).astype(int)
