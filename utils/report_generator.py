@@ -81,14 +81,49 @@ def generate_report(output_path, all_results, charts=None, risk_summary=None):
         elements.append(Spacer(1, 20))
 
     # Sección: gráficos
+    # ============================================================
+    # 📊 SECCIÓN: GRÁFICOS Y ANÁLISIS DE ROBUSTEZ
+    # ============================================================
     if charts:
         elements.append(Paragraph("📉 Visualizaciones de Resultados", subtitle_style))
+        fig_counter = 1
+
         for chart in charts:
             try:
+                # 🧩 Insertar la imagen
                 elements.append(Image(chart, width=480, height=260))
-                elements.append(Spacer(1, 12))
+                elements.append(Spacer(1, 6))
+
+                # 🧠 Subtítulos automáticos según el tipo de gráfico
+                subtitle = None
+                if "robustness_sma" in chart.lower():
+                    subtitle = f"Figura {fig_counter}. Análisis de robustez de la estrategia SMA: muestra cómo el Sharpe Ratio varía con las combinaciones de medias móviles."
+                elif "robustness_macd" in chart.lower():
+                    subtitle = f"Figura {fig_counter}. Análisis de robustez de la estrategia MACD: refleja cómo los parámetros rápidos y lentos afectan el rendimiento."
+                elif "robustness_rsi" in chart.lower():
+                    subtitle = f"Figura {fig_counter}. Análisis de robustez de la estrategia RSI: evidencia la estabilidad de la estrategia frente a distintos niveles de sobrecompra y sobreventa."
+                elif "robustness_bollinger" in chart.lower():
+                    subtitle = f"Figura {fig_counter}. Análisis de robustez de la estrategia Bollinger Bands: ilustra cómo la varianza cambia según el tamaño de ventana y la desviación estándar."
+
+                # Subtítulo genérico para otros gráficos
+                elif "heatmap" in chart.lower():
+                    subtitle = f"Figura {fig_counter}. Heatmap comparativo de desempeño entre parámetros o estrategias."
+
+                elif "montecarlo" in chart.lower():
+                    subtitle = f"Figura {fig_counter}. Simulación Monte Carlo: distribución de resultados finales para evaluar el riesgo."
+
+                # Agregar subtítulo si aplica
+                if subtitle:
+                    elements.append(Paragraph(subtitle, styles["Normal"]))
+                    elements.append(Spacer(1, 10))
+                    fig_counter += 1
+
             except Exception as e:
-                elements.append(Paragraph(f"No se pudo cargar la imagen: {chart} ({e})", styles["Normal"]))
+                elements.append(Paragraph(
+                    f"⚠️ No se pudo cargar la imagen: {chart} ({e})",
+                    styles["Normal"]
+                ))
+                
 
     # Cierre del reporte
     elements.append(Spacer(1, 25))

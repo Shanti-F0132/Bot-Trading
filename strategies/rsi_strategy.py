@@ -1,6 +1,6 @@
 import pandas as pd
 
-def rsi_strategy(df, period=14, overbought=70, oversold=30):
+def rsi_strategy(df, rsi_period=14, lower=30, upper=70):
     """
     Estrategia basada en RSI (Relative Strength Index).
     Genera señales de compra/venta cuando RSI cruza niveles de sobrecompra/sobreventa.
@@ -14,16 +14,16 @@ def rsi_strategy(df, period=14, overbought=70, oversold=30):
     """
 
     delta = df["Close"].diff()
-    gain = (delta.where(delta > 0, 0)).rolling(window=period).mean()
-    loss = (-delta.where(delta < 0, 0)).rolling(window=period).mean()
+    gain = (delta.where(delta > 0, 0)).rolling(window=rsi_period).mean()
+    loss = (-delta.where(delta < 0, 0)).rolling(window=rsi_period).mean()
 
     rs = gain / loss
     df["RSI"] = 100 - (100 / (1 + rs))
 
     # Generar señales
     df["signal"] = 0
-    df.loc[df["RSI"] < oversold, "signal"] = 1   # Comprar
-    df.loc[df["RSI"] > overbought, "signal"] = -1  # Vender
+    df.loc[df["RSI"] < lower, "signal"] = 1   # Comprar
+    df.loc[df["RSI"] > upper, "signal"] = -1  # Vender
 
     # Detectar cambios de posición
     df["position_change"] = df["signal"].diff().fillna(0)
