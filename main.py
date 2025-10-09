@@ -14,7 +14,7 @@ from optimizers.bollinger_optimizer import optimize_bollinger
 from backtesting.simple_backtester import backtest
 from utils.heatmap_plotter import plot_heatmap
 from utils.report_generator import generate_report
-
+from utils.robustness_analysis import analyze_robustness
 from utils.risk_analysis import (
     monte_carlo_simulation,
     compute_returns,
@@ -24,6 +24,7 @@ from utils.risk_analysis import (
     plot_final_distribution
 )
 import os
+from utils.robustness_analysis import analyze_robustness
 
 
 # === Función estándar para imprimir métricas ===
@@ -63,7 +64,7 @@ if __name__ == "__main__":
         all_results.append({"Activo": symbol, "Estrategia": "SMA", **res_sma})
 
         # RSI
-        df_rsi = rsi_strategy(df.copy(), period=14, overbought=70, oversold=30)
+        df_rsi = rsi_strategy(df.copy(), rsi_period=14, lower=30, upper=70)
         res_rsi = backtest(df_rsi)
         print_metrics(res_rsi, f"RSI ({symbol})")
         all_results.append({"Activo": symbol, "Estrategia": "RSI", **res_rsi})
@@ -79,6 +80,7 @@ if __name__ == "__main__":
         res_bb = backtest(df_bb)
         print_metrics(res_bb, f"Bollinger Bands ({symbol})")
         all_results.append({"Activo": symbol, "Estrategia": "Bollinger", **res_bb})
+
 
     # ==========================
     #   TABLA FINAL DE RESULTADOS
@@ -149,7 +151,6 @@ if __name__ == "__main__":
     plt.xlabel("Estrategia", fontsize=12)
     plt.grid(axis="y", linestyle="--", alpha=0.7)
     plt.savefig("outputs/global_strategy_ranking.png")
-    plt.show()
     plt.close()
 
     # === Visualización del ranking por activo ===
@@ -163,7 +164,6 @@ if __name__ == "__main__":
         plt.xlabel("Estrategia", fontsize=12)
         plt.grid(axis="y", linestyle="--", alpha=0.7)
         plt.savefig(f"outputs/{symbol}_strategy_ranking.png")
-        plt.show()
         plt.close()
 
     
@@ -203,7 +203,6 @@ if __name__ == "__main__":
     plt.suptitle("Curvas de Capital por Estrategia", fontsize=16)
     plt.tight_layout(rect=[0, 0, 1, 0.97])
     plt.savefig("outputs/capital_comparison.png")
-    plt.show()
     plt.close()
 
         # === Función para calcular drawdowns ===
@@ -244,7 +243,6 @@ if __name__ == "__main__":
 
     plt.tight_layout()
     plt.savefig("outputs/capital_and_drawdown_comparison.png")
-    plt.show()
     plt.close()
 
     # ==========================
@@ -300,7 +298,6 @@ if __name__ == "__main__":
     plt.suptitle(f"Heatmaps de Optimización ({metric_to_plot})", fontsize=16)
     plt.tight_layout(rect=[0, 0, 1, 0.97])
     plt.savefig("outputs/heatmaps_comparison.png")
-    plt.show()
     plt.close()
 
     # ==============================
@@ -402,7 +399,7 @@ if __name__ == "__main__":
 
     # Guardar figura
     plt.savefig("outputs/timeframes_comparison.png", bbox_inches="tight")
-    plt.show()
+    plt.close()
 
     print("\n✅ Tabla comparativa generada correctamente.")
     print(df_table)
@@ -499,7 +496,11 @@ if __name__ == "__main__":
         "outputs/heatmaps_comparison.png",
         "outputs/timeframes_comparison.png",
         "outputs/mc_paths.png",
-        "outputs/mc_final_dist.png"
+        "outputs/mc_final_dist.png",
+        "outputs/robustness_sma.png",
+        "outputs/robustness_rsi.png",
+        "outputs/robustness_macd.png",
+        "outputs/robustness_bollinger.png"
     ]
 
     # Generar un resumen del análisis de riesgo para incluirlo
@@ -518,6 +519,32 @@ if __name__ == "__main__":
         charts=chart_paths,
         risk_summary=risk_summary
     )
+
+    print("\n🔬 Iniciando análisis de robustez de estrategias...")
+
+    param_grids = {
+        "SMA": {"short": [5, 10, 20], "long": [40, 60, 80]},
+        "MACD": {"fast": [8, 12, 16], "slow": [20, 26, 32]},
+        "RSI": {"rsi_period": [10, 14, 20], "lower": [25, 30, 35]},
+        "Bollinger": {"window": [15, 20, 25], "num_std": [1.5, 2, 2.5]},
+    }
+
+    strategies = {
+        "SMA": sma_strategy,
+        "MACD": macd_strategy,
+        "RSI": rsi_strategy,
+        "Bollinger": bollinger_strategy,
+    }
+
+    robustness_results = {}
+
+    for name, strategy in strategies.items():
+        print(f"\n⚙️ Analizando robustez para {name}...")
+        save_path = f"outputs/robustness_{name.lower()}.png"
+        df_robust = analyze_robustness(strategy, param_grids[name], symbol="AAPL", save_path=save_path)
+        robustness_results[name] = df_robust
+
+    print("\n✅ Análisis de robustez completado. Resultados guardados en 'outputs/'.")
 
     print("\n✅ Reporte generado exitosamente: outputs/reporte_final.pdf")
 

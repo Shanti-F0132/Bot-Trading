@@ -27,7 +27,7 @@ def optimize_rsi(df, period_range=(10, 30), overbought_range=(60, 80), oversold_
                 if oversold >= overbought:
                     continue  # evitar parámetros inválidos
 
-                df_rsi = rsi_strategy(df.copy(), period=period, overbought=overbought, oversold=oversold)
+                df_rsi = rsi_strategy(df.copy(), rsi_period=period, lower=oversold, upper=overbought)
                 res = backtest(df_rsi, commission=0.001, slippage=0.0005, position_size=1.0)
 
                 results.append({
