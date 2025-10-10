@@ -490,14 +490,18 @@ if __name__ == "__main__":
         "Bollinger": bollinger_strategy,
     }
 
+    symbols_robust = ["AAPL", "TSLA", "MSFT"]
+
     robustness_results = {}
 
-    for name, strategy in strategies.items():
-        print(f"\n⚙️ Analizando robustez para {name}...")
-        save_path = f"outputs/charts/robustness_{name.lower()}.png"
-        df_robust = analyze_robustness(strategy, param_grids[name], symbol="AAPL", save_path=save_path)
-        robustness_results[name] = df_robust
-        print("\n✅ Análisis de robustez completado. Resultados guardados en 'outputs/charts/'.")
+    for symbol in symbols_robust:
+        robustness_results[symbol] = {}
+        for name, strategy in strategies.items():
+            print(f"\n⚙️ Analizando robustez para {name} en {symbol}...")
+            save_path = f"outputs/charts/robustness_{name.lower()}_{symbol}.png"
+            df_robust = analyze_robustness(strategy, param_grids[name], symbol=symbol, save_path=save_path)
+            robustness_results[symbol][name] = df_robust
+            print(f"\n✅ Análisis de robustez completado para {name} en {symbol}. Resultados guardados en '{save_path}'.")
 
     # ============================================================
     # 📆 WALK-FORWARD ANALYSIS (VALIDACIÓN FUERA DE MUESTRA)
@@ -669,7 +673,7 @@ if __name__ == "__main__":
     # AAPL
     plt.figure(figsize=(10, 6))
     plt.bar(summary_wf_aapl["strategy"], summary_wf_aapl["sharpe_ratio"], color="skyblue")
-    plt.title("Comparación de Sharpe Ratio promedio por estrategia (Walk-Forward)")
+    plt.title("Comparación de Sharpe Ratio promedio por estrategia (Walk-Forward - AAPL)")
     plt.ylabel("Sharpe Ratio promedio")
     plt.grid(True, alpha=0.3)
     plt.tight_layout()
@@ -678,7 +682,7 @@ if __name__ == "__main__":
 
     plt.figure(figsize=(10, 6))
     plt.bar(summary_wf_aapl["strategy"], summary_wf_aapl["cagr"], color="lightgreen")
-    plt.title("Comparación de CAGR promedio por estrategia (Walk-Forward)")
+    plt.title("Comparación de CAGR promedio por estrategia (Walk-Forward - AAPL)")
     plt.ylabel("CAGR promedio")
     plt.grid(True, alpha=0.3)
     plt.tight_layout()
@@ -687,7 +691,7 @@ if __name__ == "__main__":
 
     plt.figure(figsize=(10, 6))
     plt.bar(summary_wf_aapl["strategy"], summary_wf_aapl["max_drawdown"], color="salmon")
-    plt.title("Comparación de Max Drawdown promedio por estrategia (Walk-Forward)")
+    plt.title("Comparación de Max Drawdown promedio por estrategia (Walk-Forward - AAPL)")
     plt.ylabel("Max Drawdown promedio")
     plt.grid(True, alpha=0.3)
     plt.tight_layout()
@@ -697,7 +701,7 @@ if __name__ == "__main__":
     # TSLA
     plt.figure(figsize=(10, 6))
     plt.bar(summary_wf_tsla["strategy"], summary_wf_tsla["sharpe_ratio"], color="skyblue")
-    plt.title("Comparación de Sharpe Ratio promedio por estrategia (Walk-Forward)")
+    plt.title("Comparación de Sharpe Ratio promedio por estrategia (Walk-Forward - TSLA)")
     plt.ylabel("Sharpe Ratio promedio")
     plt.grid(True, alpha=0.3)
     plt.tight_layout()
@@ -706,7 +710,7 @@ if __name__ == "__main__":
 
     plt.figure(figsize=(10, 6))
     plt.bar(summary_wf_tsla["strategy"], summary_wf_tsla["cagr"], color="lightgreen")
-    plt.title("Comparación de CAGR promedio por estrategia (Walk-Forward)")
+    plt.title("Comparación de CAGR promedio por estrategia (Walk-Forward - TSLA)")
     plt.ylabel("CAGR promedio")
     plt.grid(True, alpha=0.3)
     plt.tight_layout()
@@ -715,7 +719,7 @@ if __name__ == "__main__":
 
     plt.figure(figsize=(10, 6))
     plt.bar(summary_wf_tsla["strategy"], summary_wf_tsla["max_drawdown"], color="salmon")
-    plt.title("Comparación de Max Drawdown promedio por estrategia (Walk-Forward)")
+    plt.title("Comparación de Max Drawdown promedio por estrategia (Walk-Forward - TSLA)")
     plt.ylabel("Max Drawdown promedio")
     plt.grid(True, alpha=0.3)
     plt.tight_layout()
@@ -726,7 +730,7 @@ if __name__ == "__main__":
     # MSFT
     plt.figure(figsize=(10, 6))
     plt.bar(summary_wf_msft["strategy"], summary_wf_msft["sharpe_ratio"], color="skyblue")
-    plt.title("Comparación de Sharpe Ratio promedio por estrategia (Walk-Forward)")
+    plt.title("Comparación de Sharpe Ratio promedio por estrategia (Walk-Forward - MSFT)")
     plt.ylabel("Sharpe Ratio promedio")
     plt.grid(True, alpha=0.3)
     plt.tight_layout()
@@ -735,7 +739,7 @@ if __name__ == "__main__":
 
     plt.figure(figsize=(10, 6))
     plt.bar(summary_wf_msft["strategy"], summary_wf_msft["cagr"], color="lightgreen")
-    plt.title("Comparación de CAGR promedio por estrategia (Walk-Forward)")
+    plt.title("Comparación de CAGR promedio por estrategia (Walk-Forward - MSFT)")
     plt.ylabel("CAGR promedio")
     plt.grid(True, alpha=0.3)
     plt.tight_layout()
@@ -744,7 +748,7 @@ if __name__ == "__main__":
 
     plt.figure(figsize=(10, 6))
     plt.bar(summary_wf_msft["strategy"], summary_wf_msft["max_drawdown"], color="salmon")
-    plt.title("Comparación de Max Drawdown promedio por estrategia (Walk-Forward)")
+    plt.title("Comparación de Max Drawdown promedio por estrategia (Walk-Forward - MSFT)")
     plt.ylabel("Max Drawdown promedio")
     plt.grid(True, alpha=0.3)
     plt.tight_layout()
@@ -782,10 +786,27 @@ if __name__ == "__main__":
         "outputs/charts/timeframes_comparison.png",
         "outputs/charts/mc_paths.png",
         "outputs/charts/mc_final_dist.png",
-        "outputs/charts/robustness_sma.png",
-        "outputs/charts/robustness_rsi.png",
-        "outputs/charts/robustness_macd.png",
-        "outputs/charts/robustness_bollinger.png"
+        "outputs/charts/robustness_sma_AAPL.png",
+        "outputs/charts/robustness_rsi_AAPL.png",
+        "outputs/charts/robustness_macd_AAPL.png",
+        "outputs/charts/robustness_bollinger_AAPL.png",
+        "outputs/charts/robustness_sma_TSLA.png",
+        "outputs/charts/robustness_rsi_TSLA.png",
+        "outputs/charts/robustness_macd_TSLA.png",
+        "outputs/charts/robustness_bollinger_TSLA.png",
+        "outputs/charts/robustness_sma_MSFT.png",
+        "outputs/charts/robustness_rsi_MSFT.png",
+        "outputs/charts/robustness_macd_MSFT.png",
+        "outputs/charts/robustness_bollinger_MSFT.png",
+        "outputs/charts/wf_aapl_sharpe_comparison.png",
+        "outputs/charts/wf_aapl_cagr_comparison.png",
+        "outputs/charts/wf_aapl_drawdown_comparison.png",
+        "outputs/charts/wf_tsla_sharpe_comparison.png",
+        "outputs/charts/wf_tsla_cagr_comparison.png",
+        "outputs/charts/wf_tsla_drawdown_comparison.png",
+        "outputs/charts/wf_msft_sharpe_comparison.png",
+        "outputs/charts/wf_msft_cagr_comparison.png",
+        "outputs/charts/wf_msft_drawdown_comparison.png"
     ]
 
     # Generar un resumen del análisis de riesgo para incluirlo
