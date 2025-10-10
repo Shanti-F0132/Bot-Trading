@@ -1,12 +1,16 @@
-from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Image, Table, TableStyle
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Image, Table, TableStyle, PageBreak
 from reportlab.lib import colors
 from reportlab.lib.pagesizes import letter
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from datetime import datetime
+from reportlab.lib.enums import TA_CENTER
+import os
+
 
 def generate_report(output_path, all_results, charts=None, risk_summary=None):
     """
-    Genera un reporte PDF consolidado con resultados de estrategias y métricas de riesgo.
+    Genera un reporte PDF consolidado con resultados de estrategias, métricas de riesgo
+    y análisis de la Meta-Estrategia Adaptativa.
     """
     styles = getSampleStyleSheet()
     title_style = ParagraphStyle(
@@ -14,7 +18,7 @@ def generate_report(output_path, all_results, charts=None, risk_summary=None):
         parent=styles["Heading1"],
         fontSize=18,
         textColor=colors.HexColor("#1a1a1a"),
-        alignment=1,  # centrado
+        alignment=1,
         spaceAfter=20,
     )
     subtitle_style = ParagraphStyle(
@@ -24,17 +28,30 @@ def generate_report(output_path, all_results, charts=None, risk_summary=None):
         fontSize=14,
         spaceAfter=10,
     )
+    subtext_style = ParagraphStyle(
+        "SubtextStyle",
+        parent=styles["Normal"],
+        fontSize=10,
+        textColor=colors.HexColor("#444444"),
+        alignment=TA_CENTER,
+        leading=14,
+        spaceAfter=8,
+    )
 
     doc = SimpleDocTemplate(output_path, pagesize=letter)
     elements = []
 
-    # Título principal
+    # ============================================================
+    # 🧾 ENCABEZADO
+    # ============================================================
     elements.append(Paragraph("📈 Reporte Consolidado de Estrategias de Trading", title_style))
     elements.append(Paragraph(f"Fecha de generación: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}", styles["Normal"]))
     elements.append(Paragraph("Autor: David Santiago Figueroa Mendoza", styles["Normal"]))
     elements.append(Spacer(1, 15))
 
-    # Sección: resultados de estrategias
+    # ============================================================
+    # 📊 RESULTADOS POR ESTRATEGIA
+    # ============================================================
     elements.append(Paragraph("📊 Resultados por Estrategia", subtitle_style))
 
     data = [["Estrategia", "Final Equity", "CAGR", "Sharpe", "Max Drawdown"]]
@@ -58,7 +75,9 @@ def generate_report(output_path, all_results, charts=None, risk_summary=None):
     elements.append(table)
     elements.append(Spacer(1, 20))
 
-    # Sección: resumen de riesgo
+    # ============================================================
+    # ⚠️ ANÁLISIS DE RIESGO
+    # ============================================================
     if risk_summary:
         elements.append(Paragraph("⚠️ Resumen de Análisis de Riesgo (Monte Carlo & VaR)", subtitle_style))
         risk_data = [
@@ -80,9 +99,24 @@ def generate_report(output_path, all_results, charts=None, risk_summary=None):
         elements.append(risk_table)
         elements.append(Spacer(1, 20))
 
-    # Sección: gráficos
     # ============================================================
-    # 📊 SECCIÓN: GRÁFICOS Y ANÁLISIS DE ROBUSTEZ
+    # 🧠 META-ESTRATEGIA ADAPTATIVA
+    # ============================================================
+    meta_chart = "outputs/charts/meta_vs_individuals.png"
+    if os.path.exists(meta_chart):
+        elements.append(Paragraph("🧠 Meta-Estrategia Adaptativa", subtitle_style))
+        elements.append(Paragraph(
+            "Compara el rendimiento de la Meta-Estrategia Adaptativa con las estrategias individuales. "
+            "Los pesos se ajustan dinámicamente según Sharpe Ratio, CAGR y Drawdown promedio.",
+            subtext_style
+        ))
+        elements.append(Image(meta_chart, width=480, height=300))
+        elements.append(Spacer(1, 18))
+    else:
+        print("⚠️ No se encontró el gráfico meta_vs_individuals.png, omitiendo del reporte.")
+
+    # ============================================================
+    # 📉 VISUALIZACIONES DE RESULTADOS
     # ============================================================
     if charts:
         elements.append(Paragraph("📉 Visualizaciones de Resultados", subtitle_style))
@@ -90,44 +124,86 @@ def generate_report(output_path, all_results, charts=None, risk_summary=None):
 
         for chart in charts:
             try:
-                # 🧩 Insertar la imagen
                 elements.append(Image(chart, width=480, height=260))
                 elements.append(Spacer(1, 6))
-
-                # 🧠 Subtítulos automáticos según el tipo de gráfico
                 subtitle = None
                 if "robustness_sma" in chart.lower():
-                    subtitle = f"Figura {fig_counter}. Análisis de robustez de la estrategia SMA: muestra cómo el Sharpe Ratio varía con las combinaciones de medias móviles."
+                    subtitle = f"Figura {fig_counter}. Análisis de robustez de la estrategia SMA."
                 elif "robustness_macd" in chart.lower():
-                    subtitle = f"Figura {fig_counter}. Análisis de robustez de la estrategia MACD: refleja cómo los parámetros rápidos y lentos afectan el rendimiento."
+                    subtitle = f"Figura {fig_counter}. Análisis de robustez de la estrategia MACD."
                 elif "robustness_rsi" in chart.lower():
-                    subtitle = f"Figura {fig_counter}. Análisis de robustez de la estrategia RSI: evidencia la estabilidad de la estrategia frente a distintos niveles de sobrecompra y sobreventa."
+                    subtitle = f"Figura {fig_counter}. Análisis de robustez de la estrategia RSI."
                 elif "robustness_bollinger" in chart.lower():
-                    subtitle = f"Figura {fig_counter}. Análisis de robustez de la estrategia Bollinger Bands: ilustra cómo la varianza cambia según el tamaño de ventana y la desviación estándar."
-
-                # Subtítulo genérico para otros gráficos
+                    subtitle = f"Figura {fig_counter}. Análisis de robustez de la estrategia Bollinger Bands."
                 elif "heatmap" in chart.lower():
                     subtitle = f"Figura {fig_counter}. Heatmap comparativo de desempeño entre parámetros o estrategias."
-
                 elif "montecarlo" in chart.lower():
-                    subtitle = f"Figura {fig_counter}. Simulación Monte Carlo: distribución de resultados finales para evaluar el riesgo."
+                    subtitle = f"Figura {fig_counter}. Simulación Monte Carlo: distribución de resultados finales."
 
-                # Agregar subtítulo si aplica
                 if subtitle:
-                    elements.append(Paragraph(subtitle, styles["Normal"]))
+                    elements.append(Paragraph(subtitle, subtext_style))
                     elements.append(Spacer(1, 10))
                     fig_counter += 1
 
             except Exception as e:
-                elements.append(Paragraph(
-                    f"⚠️ No se pudo cargar la imagen: {chart} ({e})",
-                    styles["Normal"]
-                ))
-                
+                elements.append(Paragraph(f"⚠️ No se pudo cargar la imagen: {chart} ({e})", styles["Normal"]))
 
-    # Cierre del reporte
+    # ============================================================
+    # 📈 COMPARATIVA GLOBAL FINAL ENTRE ESTRATEGIAS
+    # ============================================================
+    try:
+        import matplotlib.pyplot as plt
+        import pandas as pd
+        import numpy as np
+
+        metrics_df = pd.DataFrame([
+            {
+                "Estrategia": r.get("Estrategia", ""),
+                "CAGR (%)": r.get("cagr", 0) * 100,
+                "Sharpe": r.get("sharpe_ratio", 0),
+                "Drawdown (%)": abs(r.get("max_drawdown", 0)) * 100
+            }
+            for r in all_results
+        ])
+
+        if not metrics_df.empty:
+            fig, ax = plt.subplots(figsize=(10, 5))
+            x = np.arange(len(metrics_df["Estrategia"]))
+            width = 0.25
+            ax.bar(x - width, metrics_df["CAGR (%)"], width, label="CAGR (%)")
+            ax.bar(x, metrics_df["Sharpe"], width, label="Sharpe Ratio")
+            ax.bar(x + width, metrics_df["Drawdown (%)"], width, label="Max Drawdown (%)")
+            ax.set_xticks(x)
+            ax.set_xticklabels(metrics_df["Estrategia"], rotation=45, ha="right")
+            ax.set_title("📊 Comparativa Global de Estrategias", fontsize=14, fontweight="bold")
+            ax.legend()
+            plt.tight_layout()
+
+            comparison_chart = "outputs/charts/comparative_metrics.png"
+            plt.savefig(comparison_chart)
+            plt.close()
+
+            # Insertar en el PDF
+            elements.append(PageBreak())
+            elements.append(Paragraph(" Comparativa Global de Estrategias", title_style))
+            elements.append(Image(comparison_chart, width=500, height=250))
+            elements.append(Paragraph(
+                "Esta gráfica muestra la comparación de las métricas clave de rendimiento "
+                "entre todas las estrategias evaluadas, incluyendo la Meta-Estrategia Adaptativa. "
+                "Permite visualizar el equilibrio entre rentabilidad (CAGR), eficiencia (Sharpe Ratio) "
+                "y riesgo (Drawdown).",
+                subtext_style
+            ))
+            elements.append(Spacer(1, 20))
+
+    except Exception as e:
+        print(f"⚠️ Error generando la comparativa global: {e}")
+
+    # ============================================================
+    # 📘 CIERRE DEL REPORTE
+    # ============================================================
     elements.append(Spacer(1, 25))
     elements.append(Paragraph("📘 Fin del Reporte", styles["Italic"]))
-    elements.append(Paragraph("Generado automáticamente por el Bot de Trading Cuantitativo. Bot01", styles["Normal"]))
+    elements.append(Paragraph("Generado automáticamente por el Bot de Trading Cuantitativo — Bot01", styles["Normal"]))
 
     doc.build(elements)
