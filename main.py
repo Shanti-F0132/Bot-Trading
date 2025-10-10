@@ -14,8 +14,8 @@ from optimizers.bollinger_optimizer import optimize_bollinger
 from backtesting.simple_backtester import backtest
 from utils.heatmap_plotter import plot_heatmap
 from utils.report_generator import generate_report
-from utils.robustness_analysis import analyze_robustness
-from utils.risk_analysis import (
+from analysis.robustness_analysis import analyze_robustness
+from analysis.risk_analysis import (
     monte_carlo_simulation,
     compute_returns,
     compute_var_es,
@@ -24,7 +24,10 @@ from utils.risk_analysis import (
     plot_final_distribution
 )
 import os
-from utils.robustness_analysis import analyze_robustness
+from analysis.robustness_analysis import analyze_robustness
+from analysis.walk_forward import walk_forward_analysis
+import glob
+        
 
 
 # === Función estándar para imprimir métricas ===
@@ -150,7 +153,7 @@ if __name__ == "__main__":
     plt.ylabel("Score", fontsize=12)
     plt.xlabel("Estrategia", fontsize=12)
     plt.grid(axis="y", linestyle="--", alpha=0.7)
-    plt.savefig("outputs/global_strategy_ranking.png")
+    plt.savefig("outputs/charts/global_strategy_ranking.png")
     plt.close()
 
     # === Visualización del ranking por activo ===
@@ -163,7 +166,7 @@ if __name__ == "__main__":
         plt.ylabel("Score", fontsize=12)
         plt.xlabel("Estrategia", fontsize=12)
         plt.grid(axis="y", linestyle="--", alpha=0.7)
-        plt.savefig(f"outputs/{symbol}_strategy_ranking.png")
+        plt.savefig(f"outputs/charts/{symbol}_strategy_ranking.png")
         plt.close()
 
     
@@ -202,7 +205,7 @@ if __name__ == "__main__":
 
     plt.suptitle("Curvas de Capital por Estrategia", fontsize=16)
     plt.tight_layout(rect=[0, 0, 1, 0.97])
-    plt.savefig("outputs/capital_comparison.png")
+    plt.savefig("outputs/charts/capital_comparison.png")
     plt.close()
 
         # === Función para calcular drawdowns ===
@@ -242,7 +245,7 @@ if __name__ == "__main__":
     ax2.grid(True)
 
     plt.tight_layout()
-    plt.savefig("outputs/capital_and_drawdown_comparison.png")
+    plt.savefig("outputs/charts/capital_and_drawdown_comparison.png")
     plt.close()
 
     # ==========================
@@ -297,7 +300,7 @@ if __name__ == "__main__":
 
     plt.suptitle(f"Heatmaps de Optimización ({metric_to_plot})", fontsize=16)
     plt.tight_layout(rect=[0, 0, 1, 0.97])
-    plt.savefig("outputs/heatmaps_comparison.png")
+    plt.savefig("outputs/charts/heatmaps_comparison.png")
     plt.close()
 
     # ==============================
@@ -398,7 +401,7 @@ if __name__ == "__main__":
     plt.subplots_adjust(left=0.1, bottom=0.3)
 
     # Guardar figura
-    plt.savefig("outputs/timeframes_comparison.png", bbox_inches="tight")
+    plt.savefig("outputs/charts/timeframes_comparison.png", bbox_inches="tight")
     plt.close()
 
     print("\n✅ Tabla comparativa generada correctamente.")
@@ -453,9 +456,9 @@ if __name__ == "__main__":
     summary = summarize_simulations(sims_df)
 
     # 6️⃣ Crear carpeta y guardar gráficos
-    os.makedirs("outputs", exist_ok=True)
-    plot_monte_carlo(sims_df, title=f"Monte Carlo - {best_strategy}", save_path="outputs/mc_paths.png")
-    plot_final_distribution(sims_df, save_path="outputs/mc_final_dist.png")
+    os.makedirs("outputs/charts", exist_ok=True)
+    plot_monte_carlo(sims_df, title=f"Monte Carlo - {best_strategy}", save_path="outputs/charts/mc_paths.png")
+    plot_final_distribution(sims_df, save_path="outputs/charts/mc_final_dist.png")
 
     # 7️⃣ Mostrar resultados en consola
     print("\n📈 Resultados Monte Carlo:")
@@ -467,58 +470,9 @@ if __name__ == "__main__":
     print(f"VaR (5%): {risk_metrics['var']:.4f}")
     print(f"Expected Shortfall (5%): {risk_metrics['es']:.4f}")
 
-
-
-    # ==========================
-    #   GENERACIÓN DE REPORTES
-    # ==========================
-    print("\n📝 Generando reporte PDF completo...")
-
-    # Diccionario con resultados de estrategias
-    results_dict = {
-        "SMA": results_sma,
-        "RSI": results_rsi,
-        "MACD": results_macd,
-        "Bollinger": results_bb
-    }
-
-    # Crear carpeta de salida
-    os.makedirs("outputs", exist_ok=True)
-
-    # Guardar los gráficos más importantes en la carpeta
-    chart_paths = [
-        "outputs/AAPL_strategy_ranking.png",
-        "outputs/MSFT_strategy_ranking.png",
-        "outputs/TSLA_strategy_ranking.png",
-        "outputs/global_strategy_ranking.png",
-        "outputs/capital_comparison.png",
-        "outputs/capital_and_drawdown_comparison.png",
-        "outputs/heatmaps_comparison.png",
-        "outputs/timeframes_comparison.png",
-        "outputs/mc_paths.png",
-        "outputs/mc_final_dist.png",
-        "outputs/robustness_sma.png",
-        "outputs/robustness_rsi.png",
-        "outputs/robustness_macd.png",
-        "outputs/robustness_bollinger.png"
-    ]
-
-    # Generar un resumen del análisis de riesgo para incluirlo
-    risk_summary = {
-        "mean_final": summary.get("mean_final", 0),
-        "median": summary.get("median", 0),
-        "prob>start": summary.get("prob>start", 0),
-        "var": risk_metrics.get("var", 0),
-        "es": risk_metrics.get("es", 0),
-    }
-
-    # Generar reporte PDF consolidado
-    generate_report(
-        output_path="outputs/reporte_final.pdf",
-        all_results=all_results,
-        charts=chart_paths,
-        risk_summary=risk_summary
-    )
+    # ========================================
+    # 🔬 ANÁLISIS DE ROBUSTEZ DE ESTRATEGIA
+    # ========================================
 
     print("\n🔬 Iniciando análisis de robustez de estrategias...")
 
@@ -540,12 +494,315 @@ if __name__ == "__main__":
 
     for name, strategy in strategies.items():
         print(f"\n⚙️ Analizando robustez para {name}...")
-        save_path = f"outputs/robustness_{name.lower()}.png"
+        save_path = f"outputs/charts/robustness_{name.lower()}.png"
         df_robust = analyze_robustness(strategy, param_grids[name], symbol="AAPL", save_path=save_path)
         robustness_results[name] = df_robust
+        print("\n✅ Análisis de robustez completado. Resultados guardados en 'outputs/charts/'.")
 
-    print("\n✅ Análisis de robustez completado. Resultados guardados en 'outputs/'.")
+    # ============================================================
+    # 📆 WALK-FORWARD ANALYSIS (VALIDACIÓN FUERA DE MUESTRA)
+    # ============================================================
+
+    print("\n📆 Iniciando validación Walk-Forward (fuera de muestra)...")
+
+    param_grids_wf = {
+            "SMA": {"short": [5, 10, 20], "long": [40, 60, 80]},
+            "MACD": {"fast": [8, 12, 16], "slow": [20, 26, 32]},
+            "RSI": {"rsi_period": [10, 14, 20], "lower": [25, 30, 35]},
+            "Bollinger": {"window": [15, 20, 25], "num_std": [1.5, 2, 2.5]},
+        }
+
+    strategies_wf = {
+            "SMA": sma_strategy,
+            "MACD": macd_strategy,
+            "RSI": rsi_strategy,
+            "Bollinger": bollinger_strategy,
+        }
+
+    walkforward_results_AAPL = {}
+    walkforward_results_TSLA = {}
+    walkforward_results_MSFT = {}
+
+    for name, strategy in strategies_wf.items():
+            print(f"\n⚙️ Analizando estrategia {name} con Walk-Forward para AAPL...")
+            df_wf = walk_forward_analysis(strategy, param_grids_wf[name], symbol="AAPL", start="2018-01-01", end="2024-01-01", n_splits=5)
+            walkforward_results_AAPL[name] = df_wf
+
+    print("\n✅ Walk-Forward Analysis completado para todas las estrategias de AAPL.")
+
+    for name, strategy in strategies_wf.items():
+            print(f"\n⚙️ Analizando estrategia {name} con Walk-Forward para TSLA...")
+            df_wf = walk_forward_analysis(strategy, param_grids_wf[name], symbol="TSLA", start="2018-01-01", end="2024-01-01", n_splits=5)
+            walkforward_results_TSLA[name] = df_wf
+
+    print("\n✅ Walk-Forward Analysis completado para todas las estrategias de TSLA.")
+
+    for name, strategy in strategies_wf.items():
+            print(f"\n⚙️ Analizando estrategia {name} con Walk-Forward para MSFT...")
+            df_wf = walk_forward_analysis(strategy, param_grids_wf[name], symbol="MSFT", start="2018-01-01", end="2024-01-01", n_splits=5)
+            walkforward_results_MSFT[name] = df_wf
+            
+    print("\n✅ Walk-Forward Analysis completado para todas las estrategias de MSFT.")
+
+    # Guardar resultados generales
+    # AAPL
+    for name, df in walkforward_results_AAPL.items():
+            output_path = f"outputs/csv/walkforward_aapl_{name.lower()}.csv"
+            df.to_csv(output_path, index=False)
+            print(f"💾 Resultados guardados en {output_path}")
+    
+    # TSLA
+    for name, df in walkforward_results_TSLA.items():
+            output_path = f"outputs/csv/walkforward_tsla_{name.lower()}.csv"
+            df.to_csv(output_path, index=False)
+            print(f"💾 Resultados guardados en {output_path}")
+    
+    # MSFT
+    for name, df in walkforward_results_MSFT.items():
+            output_path = f"outputs/csv/walkforward_msft_{name.lower()}.csv"
+            df.to_csv(output_path, index=False)
+            print(f"💾 Resultados guardados en {output_path}")
+
+    # ============================================================
+    # 📊 ANÁLISIS COMPARATIVO DE RESULTADOS WALK-FORWARD
+    # ============================================================
+
+    print("\n📊 Analizando resultados globales del Walk-Forward...")
+
+    # Cargar todos los resultados CSV de AAPL de walk-forward
+    files = glob.glob("outputs/csv/walkforward_aapl_*.csv")
+    walkforward_dfs = []
+
+    for f in files:
+        try:
+            name = f.split("_")[-1].replace(".csv", "").capitalize()
+            df = pd.read_csv(f)
+            df["strategy"] = name
+            walkforward_dfs.append(df)
+        except Exception as e:
+            print(f"⚠️ Error al leer {f}: {e}")
+
+    # Unir todos los resultados en un DataFrame general
+    if walkforward_dfs:
+        all_wf = pd.concat(walkforward_dfs, ignore_index=True)
+    else:
+        print("❌ No se encontraron resultados de Walk-Forward en outputs/.")
+        all_wf = pd.DataFrame()
+
+    # Calcular promedios por estrategia
+    summary_wf_aapl = (
+        all_wf.groupby("strategy")[["sharpe_ratio", "cagr", "max_drawdown"]]
+        .mean()
+        .reset_index()
+        .sort_values(by="sharpe_ratio", ascending=False)
+    )
+
+    print("\n📈 Promedios globales de desempeño fuera de muestra (AAPL):")
+    print(summary_wf_aapl)
+
+    # Cargar todos los resultados CSV de TSLA de walk-forward
+    files = glob.glob("outputs/csv/walkforward_tsla_*.csv")
+    walkforward_dfs = []
+
+    for f in files:
+        try:
+            name = f.split("_")[-1].replace(".csv", "").capitalize()
+            df = pd.read_csv(f)
+            df["strategy"] = name
+            walkforward_dfs.append(df)
+        except Exception as e:
+            print(f"⚠️ Error al leer {f}: {e}")
+
+    # Unir todos los resultados en un DataFrame general
+    if walkforward_dfs:
+        all_wf = pd.concat(walkforward_dfs, ignore_index=True)
+    else:
+        print("❌ No se encontraron resultados de Walk-Forward en outputs/.")
+        all_wf = pd.DataFrame()
+
+    # Calcular promedios por estrategia
+    summary_wf_tsla = (
+        all_wf.groupby("strategy")[["sharpe_ratio", "cagr", "max_drawdown"]]
+        .mean()
+        .reset_index()
+        .sort_values(by="sharpe_ratio", ascending=False)
+    )
+
+    print("\n📈 Promedios globales de desempeño fuera de muestra (TSLA):")
+    print(summary_wf_tsla)
+
+    # Cargar todos los resultados CSV de MSFT de walk-forward
+    files = glob.glob("outputs/csv/walkforward_msft_*.csv")
+    walkforward_dfs = []
+
+    for f in files:
+        try:
+            name = f.split("_")[-1].replace(".csv", "").capitalize()
+            df = pd.read_csv(f)
+            df["strategy"] = name
+            walkforward_dfs.append(df)
+        except Exception as e:
+            print(f"⚠️ Error al leer {f}: {e}")
+
+    # Unir todos los resultados en un DataFrame general
+    if walkforward_dfs:
+        all_wf = pd.concat(walkforward_dfs, ignore_index=True)
+    else:
+        print("❌ No se encontraron resultados de Walk-Forward en outputs/.")
+        all_wf = pd.DataFrame()
+
+    # Calcular promedios por estrategia
+    summary_wf_msft = (
+        all_wf.groupby("strategy")[["sharpe_ratio", "cagr", "max_drawdown"]]
+        .mean()
+        .reset_index()
+        .sort_values(by="sharpe_ratio", ascending=False)
+    )
+
+    print("\n📈 Promedios globales de desempeño fuera de muestra (MSFT):")
+    print(summary_wf_msft)
+
+    # ============================================================
+    # 📉 VISUALIZACIONES COMPARATIVAS
+    # ============================================================
+
+    # AAPL
+    plt.figure(figsize=(10, 6))
+    plt.bar(summary_wf_aapl["strategy"], summary_wf_aapl["sharpe_ratio"], color="skyblue")
+    plt.title("Comparación de Sharpe Ratio promedio por estrategia (Walk-Forward)")
+    plt.ylabel("Sharpe Ratio promedio")
+    plt.grid(True, alpha=0.3)
+    plt.tight_layout()
+    plt.savefig("outputs/charts/wf_aapl_sharpe_comparison.png", dpi=300)
+    plt.close()
+
+    plt.figure(figsize=(10, 6))
+    plt.bar(summary_wf_aapl["strategy"], summary_wf_aapl["cagr"], color="lightgreen")
+    plt.title("Comparación de CAGR promedio por estrategia (Walk-Forward)")
+    plt.ylabel("CAGR promedio")
+    plt.grid(True, alpha=0.3)
+    plt.tight_layout()
+    plt.savefig("outputs/charts/wf_aapl_cagr_comparison.png", dpi=300)
+    plt.close()
+
+    plt.figure(figsize=(10, 6))
+    plt.bar(summary_wf_aapl["strategy"], summary_wf_aapl["max_drawdown"], color="salmon")
+    plt.title("Comparación de Max Drawdown promedio por estrategia (Walk-Forward)")
+    plt.ylabel("Max Drawdown promedio")
+    plt.grid(True, alpha=0.3)
+    plt.tight_layout()
+    plt.savefig("outputs/charts/wf_aapl_drawdown_comparison.png", dpi=300)
+    plt.close()
+
+    # TSLA
+    plt.figure(figsize=(10, 6))
+    plt.bar(summary_wf_tsla["strategy"], summary_wf_tsla["sharpe_ratio"], color="skyblue")
+    plt.title("Comparación de Sharpe Ratio promedio por estrategia (Walk-Forward)")
+    plt.ylabel("Sharpe Ratio promedio")
+    plt.grid(True, alpha=0.3)
+    plt.tight_layout()
+    plt.savefig("outputs/charts/wf_tsla_sharpe_comparison.png", dpi=300)
+    plt.close()
+
+    plt.figure(figsize=(10, 6))
+    plt.bar(summary_wf_tsla["strategy"], summary_wf_tsla["cagr"], color="lightgreen")
+    plt.title("Comparación de CAGR promedio por estrategia (Walk-Forward)")
+    plt.ylabel("CAGR promedio")
+    plt.grid(True, alpha=0.3)
+    plt.tight_layout()
+    plt.savefig("outputs/charts/wf_tsla_cagr_comparison.png", dpi=300)
+    plt.close()
+
+    plt.figure(figsize=(10, 6))
+    plt.bar(summary_wf_tsla["strategy"], summary_wf_tsla["max_drawdown"], color="salmon")
+    plt.title("Comparación de Max Drawdown promedio por estrategia (Walk-Forward)")
+    plt.ylabel("Max Drawdown promedio")
+    plt.grid(True, alpha=0.3)
+    plt.tight_layout()
+    plt.savefig("outputs/charts/wf_tsla_drawdown_comparison.png", dpi=300)
+    plt.close()
+
+
+    # MSFT
+    plt.figure(figsize=(10, 6))
+    plt.bar(summary_wf_msft["strategy"], summary_wf_msft["sharpe_ratio"], color="skyblue")
+    plt.title("Comparación de Sharpe Ratio promedio por estrategia (Walk-Forward)")
+    plt.ylabel("Sharpe Ratio promedio")
+    plt.grid(True, alpha=0.3)
+    plt.tight_layout()
+    plt.savefig("outputs/charts/wf_msft_sharpe_comparison.png", dpi=300)
+    plt.close()
+
+    plt.figure(figsize=(10, 6))
+    plt.bar(summary_wf_msft["strategy"], summary_wf_msft["cagr"], color="lightgreen")
+    plt.title("Comparación de CAGR promedio por estrategia (Walk-Forward)")
+    plt.ylabel("CAGR promedio")
+    plt.grid(True, alpha=0.3)
+    plt.tight_layout()
+    plt.savefig("outputs/charts/wf_msft_cagr_comparison.png", dpi=300)
+    plt.close()
+
+    plt.figure(figsize=(10, 6))
+    plt.bar(summary_wf_msft["strategy"], summary_wf_msft["max_drawdown"], color="salmon")
+    plt.title("Comparación de Max Drawdown promedio por estrategia (Walk-Forward)")
+    plt.ylabel("Max Drawdown promedio")
+    plt.grid(True, alpha=0.3)
+    plt.tight_layout()
+    plt.savefig("outputs/charts/wf_msft_drawdown_comparison.png", dpi=300)
+    plt.close()
+
+    print("\n✅ Análisis comparativo del Walk-Forward completado.")
+    print("📊 Gráficas guardadas en carpeta 'outputs/'.")
+
+    # ==========================
+    #   GENERACIÓN DE REPORTES
+    # ==========================
+    print("\n📝 Generando reporte PDF completo...")
+
+    # Diccionario con resultados de estrategias
+    results_dict = {
+        "SMA": results_sma,
+        "RSI": results_rsi,
+        "MACD": results_macd,
+        "Bollinger": results_bb
+    }
+
+    # Crear carpeta de salida
+    os.makedirs("outputs", exist_ok=True)
+
+    # Guardar los gráficos más importantes en la carpeta
+    chart_paths = [
+        "outputs/charts/AAPL_strategy_ranking.png",
+        "outputs/charts/MSFT_strategy_ranking.png",
+        "outputs/charts/TSLA_strategy_ranking.png",
+        "outputs/charts/global_strategy_ranking.png",
+        "outputs/charts/capital_comparison.png",
+        "outputs/charts/capital_and_drawdown_comparison.png",
+        "outputs/charts/heatmaps_comparison.png",
+        "outputs/charts/timeframes_comparison.png",
+        "outputs/charts/mc_paths.png",
+        "outputs/charts/mc_final_dist.png",
+        "outputs/charts/robustness_sma.png",
+        "outputs/charts/robustness_rsi.png",
+        "outputs/charts/robustness_macd.png",
+        "outputs/charts/robustness_bollinger.png"
+    ]
+
+    # Generar un resumen del análisis de riesgo para incluirlo
+    risk_summary = {
+        "mean_final": summary.get("mean_final", 0),
+        "median": summary.get("median", 0),
+        "prob>start": summary.get("prob>start", 0),
+        "var": risk_metrics.get("var", 0),
+        "es": risk_metrics.get("es", 0),
+    }
+
+    # Generar reporte PDF consolidado
+    generate_report(
+        output_path="outputs/reports/reporte_final.pdf",
+        all_results=all_results,
+        charts=chart_paths,
+        risk_summary=risk_summary
+    )
 
     print("\n✅ Reporte generado exitosamente: outputs/reporte_final.pdf")
-
-
