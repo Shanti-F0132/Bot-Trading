@@ -1,5 +1,8 @@
 import matplotlib.pyplot as plt
 import pandas as pd
+import numpy as np
+import os
+import glob
 
 # === Imports de módulos internos ===
 from utils.data_loader import get_data
@@ -23,10 +26,9 @@ from analysis.risk_analysis import (
     plot_monte_carlo,
     plot_final_distribution
 )
-import os
 from analysis.robustness_analysis import analyze_robustness
 from analysis.walk_forward import walk_forward_analysis
-import glob
+from utils.meta_strategy_selector import evaluate_strategies, select_best_strategy, simulate_meta_portfolio
         
 
 
@@ -303,6 +305,116 @@ if __name__ == "__main__":
     plt.savefig("outputs/charts/heatmaps_comparison.png")
     plt.close()
 
+    # ========================================
+    #   Estrategia adaptativa (Meta-Strategy)
+    # ========================================
+    
+    print("\n🤖 Evaluando estrategia adaptativa (Meta-Strategy)...")
+    # Consolidar métricas recientes
+    recent_results = {
+        "SMA": results_sma,
+        "MACD": results_macd,
+        "RSI": results_rsi,
+        "Bollinger": results_bb
+    }
+
+    # Evaluar estrategias y crear portafolio adaptativo
+    df_metrics = evaluate_strategies(recent_results)
+    df_all = pd.DataFrame(all_results)
+    df_all = df_all.rename(columns={"Estrategia": "strategy"})
+    weights = select_best_strategy(df_all, mode="weighted")
+
+    df_dict = {
+        "SMA": df_sma,
+        "MACD": df_macd,
+        "RSI": df_rsi,
+        "Bollinger": df_bb
+    }
+
+    equity_meta = simulate_meta_portfolio(df_dict, weights)
+
+
+    # ==========================================
+    # 🔍 Comparación de rendimiento: Meta vs Estrategias individuales
+    # ==========================================
+
+    
+    print("\n📈 Comparando rendimiento de la Meta-Estrategia contra las estrategias individuales...")
+
+    # Crear carpeta de salida si no existe
+    os.makedirs("outputs", exist_ok=True)
+
+    # --- Curvas de capital de cada estrategia ---
+    curves = {
+        "SMA": results_sma["equity_curve"],
+        "RSI": results_rsi["equity_curve"],
+        "MACD": results_macd["equity_curve"],
+        "Bollinger Bands": results_bb["equity_curve"]
+    }
+
+    # --- Pesos de la meta-estrategia ---
+    weights = weights.copy()
+    weights = weights.reindex(curves.keys(), fill_value=0)
+
+    # --- Calcular curva combinada ---
+    meta_equity = np.zeros_like(next(iter(curves.values())), dtype=float)
+    for strat, w in weights.items():
+        meta_equity += curves[strat].values * w
+    meta_equity = meta_equity / meta_equity[0]  # Normalizar
+
+    meta_equity_series = pd.Series(meta_equity, index=next(iter(curves.values())).index, name="Meta-Estrategia")
+
+    # --- Calcular métricas ---
+    def calculate_metrics(equity_series):
+        returns = equity_series.pct_change().dropna()
+        cagr = (equity_series.iloc[-1] / equity_series.iloc[0]) ** (252 / len(returns)) - 1
+        sharpe = np.sqrt(252) * returns.mean() / returns.std() if returns.std() != 0 else 0
+        roll_max = equity_series.cummax()
+        drawdown = (equity_series / roll_max) - 1
+        max_dd = drawdown.min()
+        return cagr, sharpe, max_dd
+
+    cagr, sharpe, max_dd = calculate_metrics(meta_equity_series)
+
+    print("\n📈 Métricas de la Meta-Estrategia Adaptativa:")
+    print(f"   CAGR: {cagr:.2%}")
+    print(f"   Sharpe Ratio: {sharpe:.2f}")
+    print(f"   Max Drawdown: {max_dd:.2%}")
+
+    # --- Graficar comparación ---
+    plt.figure(figsize=(10, 6))
+    for strat, eq in curves.items():
+        plt.plot(eq.index, eq / eq.iloc[0], label=strat, alpha=0.6)
+    plt.plot(meta_equity_series.index, meta_equity_series, label="Meta-Estrategia Adaptativa", linewidth=2.5, color="black")
+
+    plt.title("Comparación de rendimiento: Meta-Estrategia vs Individuales")
+    plt.xlabel("Fecha")
+    plt.ylabel("Capital normalizado")
+    plt.legend()
+    plt.grid(True)
+    plt.tight_layout()
+
+    # --- Guardar gráfico ---
+    output_path = "outputs/charts/meta_vs_individuals.png"
+    plt.savefig(output_path)
+    plt.close()
+
+    print(f"\n✅ Comparación generada y guardada en {output_path}")
+
+    # --- Guardar resultados para el reporte PDF ---
+    meta_results = {
+        "strategy": "Meta-Estrategia Adaptativa",
+        "final_equity": meta_equity_series.iloc[-1],
+        "cagr": cagr,
+        "sharpe_ratio": sharpe,
+        "max_drawdown": max_dd,
+        "equity_curve": meta_equity_series
+    }
+
+    # Si estás usando una lista global de resultados:
+    all_results.append(meta_results)
+
+
     # ==============================
     # 📥 Cargar datos
     # ==============================
@@ -429,7 +541,7 @@ if __name__ == "__main__":
 
     # 1️⃣ Detectar la mejor estrategia automáticamente según Sharpe Ratio
     best_row = df_all.sort_values("sharpe_ratio", ascending=False).iloc[0]
-    best_strategy = best_row["Estrategia"]
+    best_strategy = best_row["strategy"]
 
     print(f"Mejor estrategia detectada: {best_strategy}")
 
@@ -806,7 +918,9 @@ if __name__ == "__main__":
         "outputs/charts/wf_tsla_drawdown_comparison.png",
         "outputs/charts/wf_msft_sharpe_comparison.png",
         "outputs/charts/wf_msft_cagr_comparison.png",
-        "outputs/charts/wf_msft_drawdown_comparison.png"
+        "outputs/charts/wf_msft_drawdown_comparison.png",
+        "outputs/charts/meta_vs_individuals.png",
+        "outputs/charts/strategy_weights.png"
     ]
 
     # Generar un resumen del análisis de riesgo para incluirlo

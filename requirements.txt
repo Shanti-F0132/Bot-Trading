@@ -4,3 +4,5 @@ matplotlib
 yfinance
 seaborn
 reportlab
+os
+glob
