@@ -24,11 +24,16 @@ def sma_strategy(df, short=20, long=50):
     """
     df = df.copy()
 
-    df.columns = df.columns.str.lower()
+    if isinstance(df.columns, pd.MultiIndex):
+        df.columns = ['_'.join(col).strip() for col in df.columns.values]
+    df.columns = [col.lower() for col in df.columns]
 
     # Calcular medias móviles
     df['sma_short'] = df['close'].rolling(window=short).mean()
     df['sma_long'] = df['close'].rolling(window=long).mean()
+    df['Signal'] = 0
+    df.loc[df['sma_short'] > df['sma_long'], 'Signal'] = 1
+    df.loc[df['sma_short'] < df['sma_long'], 'Signal'] = -1
 
     # Señal: 1 si SMA corta > SMA larga, 0 si no
     df['signal'] = (df['sma_short'] > df['sma_long']).astype(int)
