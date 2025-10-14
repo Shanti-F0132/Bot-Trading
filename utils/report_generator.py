@@ -175,7 +175,7 @@ def generate_report(output_path, all_results, charts=None, risk_summary=None):
             ax.bar(x + width, metrics_df["Drawdown (%)"], width, label="Max Drawdown (%)")
             ax.set_xticks(x)
             ax.set_xticklabels(metrics_df["Estrategia"], rotation=45, ha="right")
-            ax.set_title("📊 Comparativa Global de Estrategias", fontsize=14, fontweight="bold")
+            ax.set_title(" Comparativa Global de Estrategias", fontsize=14, fontweight="bold")
             ax.legend()
             plt.tight_layout()
 

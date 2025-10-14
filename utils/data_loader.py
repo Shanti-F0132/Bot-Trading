@@ -1,34 +1,28 @@
 import yfinance as yf
 import pandas as pd
 
-def get_data(symbol, start="2020-01-01", end=None):
+def get_data(symbol, start, end):
     """
-    Descarga datos de Yahoo Finance para un solo símbolo y
-    aplana columnas si hay MultiIndex (por ejemplo, cuando Yahoo
-    devuelve datos con el ticker en el nombre de la columna).
+    Descarga datos históricos de un activo y limpia las columnas
+    para evitar MultiIndex y mantener consistencia.
     """
     df = yf.download(symbol, start=start, end=end, progress=False, auto_adjust=True)
 
-    # 👇 Paso importante: aplanar columnas si hay MultiIndex
+    # Si hay MultiIndex en las columnas, aplánalo
     if isinstance(df.columns, pd.MultiIndex):
-        df.columns = ['_'.join(col).strip() for col in df.columns.values]
+        # Extrae solo el primer nivel (Close, Open, etc.)
+        df.columns = [col[0].capitalize() for col in df.columns]
+    else:
+        # Asegura que las columnas estén normalizadas
+        df.columns = [c.capitalize() for c in df.columns]
 
-    # Renombrar todas las columnas OHLCV si vienen con sufijo (ej: Open_AAPL → Open)
-    rename_map = {}
-    for col in df.columns:
-        if col.startswith("Open"):
-            rename_map[col] = "Open"
-        elif col.startswith("High"):
-            rename_map[col] = "High"
-        elif col.startswith("Low"):
-            rename_map[col] = "Low"
-        elif col.startswith("Close"):
-            rename_map[col] = "Close"
-        elif col.startswith("Adj Close"):
-            rename_map[col] = "Adj Close"
-        elif col.startswith("Volume"):
-            rename_map[col] = "Volume"
+    # Quita espacios o valores extraños en nombres de columnas
+    df.columns = [c.strip() for c in df.columns]
 
-    df.rename(columns=rename_map, inplace=True)
+    # Asegurar que no existan columnas duplicadas
+    df = df.loc[:, ~df.columns.duplicated()]
+
+    # Elimina valores NaN iniciales (comunes al descargar con yf)
+    df.dropna(inplace=True)
 
     return df
