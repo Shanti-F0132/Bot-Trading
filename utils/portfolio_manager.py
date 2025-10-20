@@ -12,16 +12,19 @@ class PortfolioManager:
     - Se permite sizing por peso o por riesgo fijo (fractional).
     """
 
-    def __init__(self, simulator, strategies, initial_capital=10000):
+    def __init__(self, simulator=None, strategies=None, initial_capital=10000):
         """
         Administra múltiples estrategias dentro de un portafolio.
         Cada estrategia recibe una asignación de capital independiente.
         """
-        self.sim = simulator
-        self.strategies = strategies
+        self.sim = simulator or type("Sim", (), {"cash": initial_capital, "position": 0, "last_price": 0})()
+        self.strategies = strategies or {}
         self.initial_capital = initial_capital
-        self.history = 0
+        self.positions = {}
+        self.history = []
+        self.trade_count = 0
         self.equity_history = []
+
 
         # 🧩 Asignar capital igual por estrategia
         capital_per_strat = initial_capital / len(strategies)
@@ -56,11 +59,26 @@ class PortfolioManager:
             if k in self.positions:
                 self.positions[k]["weight"] = float(v)
 
-    def allocate_cash(self):
-        """Recalcula la asignación de efectivo para cada estrategia según pesos actuales."""
-        total = self.sim.cash + sum([p["units"] * (self.sim.last_price or 0) for p in self.positions.values()])
-        for name, p in self.positions.items():
-            p["cash_alloc"] = p["weight"] * total
+    def allocate_cash(self, weights=None):
+        """
+        Asigna capital inicial a cada estrategia según los pesos dados.
+        Si no se especifican pesos, reparte equitativamente.
+        """
+        n = len(self.strategies)
+        if not weights:
+            weights = {name: 1 / n for name in self.strategies.keys()}
+
+        for name, strategy in self.strategies.items():
+            alloc = self.initial_capital * weights.get(name, 1 / n)
+            self.positions[name] = {
+                "cash_alloc": alloc,
+                "units": 0,
+                "last_price": None
+            }
+
+        print("\n💰 Capital asignado por estrategia:")
+        for k, v in weights.items():
+            print(f"  • {k}: ${self.initial_capital * v:.2f}")
 
     def can_buy(self, name, price):
         """Comprueba si la estrategia tiene cash_alloc suficiente para comprar (toma en cuenta comisiones)."""
@@ -185,46 +203,68 @@ class PortfolioManager:
             "positions": {k: deepcopy(v) for k, v in self.positions.items()}
     }
 
-    def update_positions(self, current_price, signals):
+    def update_positions(self, price_data, signals):
         """
-        Ejecuta operaciones para cada estrategia según sus señales.
-        Señal = 1 → Compra | Señal = -1 → Venta
+        Actualiza las posiciones del portafolio según las señales de cada estrategia.
+        Si la señal es 1 → compra proporcional al peso.
+        Si la señal es -1 → vende la posición.
         """
+        # Obtener el precio actual del DataFrame
+        current_price = None
+        if isinstance(price_data, pd.DataFrame):
+            if "Close" in price_data.columns:
+                current_price = float(price_data["Close"].iloc[-1])
+        elif isinstance(price_data, (int, float)):
+            current_price = float(price_data)
+
+        if current_price is None or current_price <= 0:
+            print("⚠️ Precio inválido recibido, omitiendo actualización.")
+            return
+
+        # Iterar sobre las estrategias activas
         for name, signal in signals.items():
             if name not in self.positions:
                 continue
 
             pos = self.positions[name]
-            cash = pos.get("cash_alloc", 0)
-            units = pos.get("units", 0)
+            current_cash = pos.get("cash_alloc", 0)
+            current_units = pos.get("units", 0)
 
-            # Validar precio
-            if current_price is None or current_price <= 0:
-                continue
-
-            # 🟢 Compra
-            if signal == 1 and cash > current_price:
-                units_to_buy = cash // current_price
+            # 🟢 Señal de compra
+            if signal == 1 and current_cash > current_price:
+                units_to_buy = int(current_cash // current_price)
                 cost = units_to_buy * current_price
                 pos["units"] += units_to_buy
                 pos["cash_alloc"] -= cost
-                self.history += 1
-                print(f"🟢 [{name}] Compra ejecutada: {units_to_buy} unidades a {current_price:.2f}")
 
-            # 🔴 Venta
-            elif signal == -1 and units > 0:
-                proceeds = units * current_price
+                self.history.append({
+                    "type": "BUY",
+                    "strategy": name,
+                    "price": current_price,
+                    "units": units_to_buy
+                })
+                self.trade_count += 1
+
+            # 🔴 Señal de venta
+            elif signal == -1 and current_units > 0:
+                proceeds = current_units * current_price
                 pos["cash_alloc"] += proceeds
                 pos["units"] = 0
-                self.history += 1
-                print(f"🔴 [{name}] Venta ejecutada a {current_price:.2f}")
 
-            # Actualizar último precio
+                self.history.append({
+                    "type": "SELL",
+                    "strategy": name,
+                    "price": current_price,
+                    "units": current_units
+                })
+                self.trade_count += 1
+
+            # Guardar el precio más reciente
             pos["last_price"] = current_price
 
-        # Actualizar equity total
+        # Actualizar equity total (cash + valor de las posiciones)
         total_equity = sum(
-            pos["cash_alloc"] + pos["units"] * current_price
+            pos["cash_alloc"] + pos["units"] * pos.get("last_price", 0)
             for pos in self.positions.values()
         )
         self.sim.cash = total_equity

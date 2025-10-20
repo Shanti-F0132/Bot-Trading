@@ -1,58 +1,73 @@
-# utils/data_streamer.py
 import yfinance as yf
-import pandas as pd
 import time
+import threading
+import pandas as pd
 from datetime import datetime
 
-def stream_data(symbol="AAPL", interval="1m", refresh_rate=60, lookback=200, live=False):
+class DataStreamer:
     """
-    Descarga datos recientes de un símbolo y opcionalmente actualiza en 'tiempo real'.
-
-    Parámetros:
-        symbol (str): símbolo del activo (ej. "AAPL", "TSLA", "BTC-USD")
-        interval (str): intervalo de tiempo (ej. "1m", "5m", "15m", "1h", "1d")
-        refresh_rate (int): tiempo en segundos entre actualizaciones (solo si live=True)
-        lookback (int): cantidad de datos históricos a mantener
-        live (bool): si True, se actualiza continuamente (modo streaming)
-
-    Retorna:
-        pd.DataFrame: con columnas ['Open', 'High', 'Low', 'Close', 'Volume']
+    Clase que obtiene precios en tiempo real o modo simulado
+    para alimentar el portafolio durante paper trading o pruebas en vivo.
     """
 
-    print(f"📡 Iniciando stream de datos para {symbol} (intervalo={interval})...")
+    def __init__(self, symbol: str, interval="1m", live=False, update_freq=60):
+        """
+        Parámetros:
+        - symbol: símbolo del activo (ej: "AAPL")
+        - interval: intervalo de datos (1m, 5m, 15m, 1h, 1d)
+        - live: True para datos en tiempo real, False para simulación histórica
+        - update_freq: frecuencia de actualización en segundos (solo en modo live)
+        """
+        self.symbol = symbol
+        self.interval = interval
+        self.live = live
+        self.update_freq = update_freq
+        self._running = False
+        self.data = pd.DataFrame()
+        self.callbacks = []
 
-    # Primera descarga
-    data = yf.download(
-        tickers=symbol,
-        period="1d" if "m" in interval else "6mo",
-        interval=interval,
-        progress=False,
-        auto_adjust=True,
-    )
+    def add_callback(self, func):
+        """Permite registrar funciones que se ejecutarán cada vez que llegue un nuevo dato."""
+        self.callbacks.append(func)
 
-    data = data.tail(lookback)
-    print(f"✅ Datos iniciales descargados: {len(data)} registros")
+    def _notify_callbacks(self, new_row):
+        for func in self.callbacks:
+            func(new_row)
 
-    if not live:
-        return data
+    def _simulate_data(self, historical_data):
+        """Simula el flujo de datos usando históricos."""
+        print(f"🎮 Iniciando simulación con {len(historical_data)} registros...")
+        for _, row in historical_data.iterrows():
+            if not self._running:
+                break
+            self.data = pd.concat([self.data, row.to_frame().T])
+            self._notify_callbacks(row)
+            time.sleep(1)  # Simula llegada de nuevos datos cada segundo
 
-    try:
-        while True:
-            new_data = yf.download(
-                tickers=symbol,
-                period="1d" if "m" in interval else "6mo",
-                interval=interval,
-                progress=False
-            ).tail(lookback)
+    def _fetch_live_data(self):
+        """Obtiene datos nuevos desde Yahoo Finance en tiempo real."""
+        print(f"🟢 Streaming en vivo iniciado para {self.symbol}...")
+        while self._running:
+            try:
+                new_data = yf.download(self.symbol, period="1d", interval=self.interval, progress=False)
+                if not new_data.empty:
+                    last_row = new_data.iloc[-1]
+                    self._notify_callbacks(last_row)
+            except Exception as e:
+                print(f"⚠️ Error en streaming: {e}")
+            time.sleep(self.update_freq)
 
-            # Si hay nuevos datos, los actualizamos
-            if not new_data.equals(data):
-                data = new_data
-                last = data.iloc[-1]
-                print(f"[{datetime.now().strftime('%H:%M:%S')}] Último precio {symbol}: {last['Close']:.2f}")
+    def start(self, historical_data=None):
+        """Inicia el streaming (modo histórico o en vivo)."""
+        self._running = True
+        if self.live:
+            threading.Thread(target=self._fetch_live_data, daemon=True).start()
+        elif historical_data is not None:
+            threading.Thread(target=self._simulate_data, args=(historical_data,), daemon=True).start()
+        else:
+            raise ValueError("Debe pasar datos históricos si live=False.")
 
-            time.sleep(refresh_rate)
-
-    except KeyboardInterrupt:
-        print("\n🛑 Stream detenido manualmente.")
-        return data
+    def stop(self):
+        """Detiene el streaming."""
+        self._running = False
+        print("⛔ Streaming detenido.")
