@@ -7,7 +7,7 @@ class TradeSimulator:
     Mantiene registro de capital, posiciones y resultados.
     """
 
-    def __init__(self, initial_capital=10000, commission=0.001):
+    def __init__(self, initial_capital=10000, commission=0.001, live=False):
         self.initial_capital = initial_capital
         self.cash = initial_capital
         self.position = 0

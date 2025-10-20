@@ -1,12 +1,12 @@
 import yfinance as yf
 import pandas as pd
 
-def get_data(symbol, start, end):
+def get_data(symbol, start, end, interval="1d"):
     """
     Descarga datos históricos de un activo y limpia las columnas
     para evitar MultiIndex y mantener consistencia.
     """
-    df = yf.download(symbol, start=start, end=end, progress=False, auto_adjust=True)
+    df = yf.download(symbol, start=start, end=end, interval=interval, progress=False, auto_adjust=True)
 
     # Si hay MultiIndex en las columnas, aplánalo
     if isinstance(df.columns, pd.MultiIndex):
