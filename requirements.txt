@@ -6,3 +6,4 @@ seaborn
 reportlab
 os
 glob
+dotenv
