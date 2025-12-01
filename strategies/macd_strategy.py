@@ -5,23 +5,19 @@ def macd_strategy(df, fast=12, slow=26, signal=9):
     Estrategia MACD: compra cuando MACD cruza hacia arriba la señal,
     vende cuando cruza hacia abajo.
     """
+    df = df.copy()
 
-    # Calcular EMAs
-    df["EMA_fast"] = df["Close"].ewm(span=fast, adjust=False).mean()
-    df["EMA_slow"] = df["Close"].ewm(span=slow, adjust=False).mean()
+    df["ema_fast"] = df["close"].ewm(span=fast, adjust=False).mean()
+    df["ema_slow"] = df["close"].ewm(span=slow, adjust=False).mean()
 
-    # MACD y línea de señal
-    df["MACD"] = df["EMA_fast"] - df["EMA_slow"]
-    df["Signal_Line"] = df["MACD"].ewm(span=signal, adjust=False).mean()
+    df["macd"] = df["ema_fast"] - df["ema_slow"]
+    df["macd_signal"] = df["macd"].ewm(span=signal, adjust=False).mean()
+    df["macd_hist"] = df["macd"] - df["macd_signal"]
 
-    # Inicializar señales
     df["signal"] = 0
+    df.loc[df["macd"] > df["macd_signal"], "signal"] = 1
+    df.loc[df["macd"] < df["macd_signal"], "signal"] = -1
 
-    # Señales solo cuando hay cruce
-    df.loc[(df["MACD"] > df["Signal_Line"]) & (df["MACD"].shift(1) <= df["Signal_Line"].shift(1)), "signal"] = 1  # Compra
-    df.loc[(df["MACD"] < df["Signal_Line"]) & (df["MACD"].shift(1) >= df["Signal_Line"].shift(1)), "signal"] = -1  # Venta
-
-    # Detectar cambios de posición
-    df["position_change"] = df["signal"]
+    df["position_change"] = df["signal"].diff().fillna(0).astype(int)
 
     return df
