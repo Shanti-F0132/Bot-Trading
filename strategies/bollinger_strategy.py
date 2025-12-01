@@ -14,18 +14,18 @@ def bollinger_strategy(df, window=20, num_std=2):
     num_std : float, número de desviaciones estándar
     """
 
-    # Calcular SMA y bandas
-    df["SMA"] = df["Close"].rolling(window=window).mean()
-    df["STD"] = df["Close"].rolling(window=window).std()
-    df["Upper"] = df["SMA"] + num_std * df["STD"]
-    df["Lower"] = df["SMA"] - num_std * df["STD"]
+    df = df.copy()
 
-    # Señales de compra/venta
+    df["sma"] = df["close"].rolling(window).mean()
+    df["std"] = df["close"].rolling(window).std()
+
+    df["upper_band"] = df["sma"] + num_std * df["std"]
+    df["lower_band"] = df["sma"] - num_std * df["std"]
+
     df["signal"] = 0
-    df.loc[df["Close"] < df["Lower"], "signal"] = 1   # Comprar
-    df.loc[df["Close"] > df["Upper"], "signal"] = -1  # Vender
+    df.loc[df["close"] < df["lower_band"], "signal"] = 1   # Compra
+    df.loc[df["close"] > df["upper_band"], "signal"] = -1  # Venta
 
-    # Detectar cambios de posición
-    df["position_change"] = df["signal"].diff().fillna(0)
+    df["position_change"] = df["signal"].diff().fillna(0).astype(int)
 
     return df

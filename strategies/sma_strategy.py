@@ -1,6 +1,6 @@
 import pandas as pd
 
-def sma_strategy(df, short=20, long=50):
+def sma_strategy(df, short=9, long=21):
     """
     Calcula señales de cruce de medias móviles y genera 'position_change'.
 
@@ -24,21 +24,12 @@ def sma_strategy(df, short=20, long=50):
     """
     df = df.copy()
 
-    if isinstance(df.columns, pd.MultiIndex):
-        df.columns = ['_'.join(col).strip() for col in df.columns.values]
-    df.columns = [col.lower() for col in df.columns]
-
-    # Calcular medias móviles
+    # Cálculo de SMA
     df['sma_short'] = df['close'].rolling(window=short).mean()
     df['sma_long'] = df['close'].rolling(window=long).mean()
-    df['Signal'] = 0
-    df.loc[df['sma_short'] > df['sma_long'], 'Signal'] = 1
-    df.loc[df['sma_short'] < df['sma_long'], 'Signal'] = -1
 
-    # Señal: 1 si SMA corta > SMA larga, 0 si no
+    # Señales
     df['signal'] = (df['sma_short'] > df['sma_long']).astype(int)
-
-    # Cambio de posición: 1 cuando pasamos de 0 -> 1 (compra), -1 de 1 -> 0 (venta)
     df['position_change'] = df['signal'].diff().fillna(0).astype(int)
 
     return df

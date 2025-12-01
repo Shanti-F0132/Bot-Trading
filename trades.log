@@ -1,0 +1,20 @@
+2025-11-28 22:27:23,398 [INFO] Handle signal hold para AAPL
+2025-11-28 22:27:23,398 [INFO] Hold sobre AAPL — no se hace nada.
+2025-11-28 22:27:53,003 [INFO] Handle signal hold para AAPL
+2025-11-28 22:27:53,003 [INFO] Hold sobre AAPL — no se hace nada.
+2025-11-28 22:28:17,477 [INFO] Handle signal hold para AAPL
+2025-11-28 22:28:17,477 [INFO] Hold sobre AAPL — no se hace nada.
+2025-11-28 22:29:59,041 [INFO] Handle signal hold para AAPL
+2025-11-28 22:29:59,041 [INFO] Hold sobre AAPL — no se hace nada.
+2025-11-28 22:30:18,527 [INFO] Handle signal buy para AAPL
+2025-11-28 22:30:19,024 [ERROR] No se pudo obtener precio para AAPL, tomando qty=1
+Traceback (most recent call last):
+  File "c:\Users\david\Desktop\Bot01\utils\trade_executor.py", line 95, in _calc_qty_for_symbol
+    barset = client.get_latest_trade(symbol)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'TradingClient' object has no attribute 'get_latest_trade'
+2025-11-28 22:30:19,292 [INFO] BUY (PAPER): AAPL 1 -> id=UUID('ef5a9376-3fc6-4740-a37f-717a0f2d0a5b') client_order_id='02deb1b4-b51f-428c-ac2e-c48cfd9da649' created_at=datetime.datetime(2025, 11, 29, 3, 30, 9, 669683, tzinfo=TzInfo(0)) updated_at=datetime.datetime(2025, 11, 29, 3, 30, 9, 672059, tzinfo=TzInfo(0)) submitted_at=datetime.datetime(2025, 11, 29, 3, 30, 9, 669683, tzinfo=TzInfo(0)) filled_at=None expired_at=None expires_at=datetime.datetime(2025, 12, 1, 21, 0, tzinfo=TzInfo(0)) canceled_at=None failed_at=None replaced_at=None replaced_by=None replaces=None asset_id=UUID('b0b6dd9d-8b9b-48a9-ba46-b9d54906e415') symbol='AAPL' asset_class=<AssetClass.US_EQUITY: 'us_equity'> notional=None qty='1' filled_qty='0' filled_avg_price=None order_class=<OrderClass.SIMPLE: 'simple'> order_type=<OrderType.MARKET: 'market'> type=<OrderType.MARKET: 'market'> side=<OrderSide.BUY: 'buy'> time_in_force=<TimeInForce.DAY: 'day'> limit_price=None stop_price=None status=<OrderStatus.ACCEPTED: 'accepted'> extended_hours=False legs=None trail_percent=None trail_price=None hwm=None position_intent=<PositionIntent.BUY_TO_OPEN: 'buy_to_open'> ratio_qty=None
+2025-11-28 22:39:43,317 [INFO] Handle signal hold para AAPL
+2025-11-28 22:39:43,317 [INFO] Hold sobre AAPL — no se hace nada.
+2025-11-28 22:53:06,184 [INFO] Handle signal hold para MSFT
+2025-11-28 22:53:06,184 [INFO] Hold sobre MSFT — no se hace nada.
