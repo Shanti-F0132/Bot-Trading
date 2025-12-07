@@ -18,3 +18,1305 @@ AttributeError: 'TradingClient' object has no attribute 'get_latest_trade'
 2025-11-28 22:39:43,317 [INFO] Hold sobre AAPL — no se hace nada.
 2025-11-28 22:53:06,184 [INFO] Handle signal hold para MSFT
 2025-11-28 22:53:06,184 [INFO] Hold sobre MSFT — no se hace nada.
+2025-12-01 10:02:26,293 [INFO] Handle signal hold para AAPL
+2025-12-01 10:02:26,294 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-01 10:03:26,850 [INFO] Handle signal hold para AAPL
+2025-12-01 10:03:26,850 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-01 10:04:27,298 [INFO] Handle signal hold para AAPL
+2025-12-01 10:04:27,299 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-01 10:05:27,657 [INFO] Handle signal hold para AAPL
+2025-12-01 10:05:27,657 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-01 10:06:28,126 [INFO] Handle signal hold para AAPL
+2025-12-01 10:06:28,126 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-01 10:07:28,690 [INFO] Handle signal hold para AAPL
+2025-12-01 10:07:28,691 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-01 10:08:29,213 [INFO] Handle signal hold para AAPL
+2025-12-01 10:08:29,213 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-01 10:09:29,796 [INFO] Handle signal hold para AAPL
+2025-12-01 10:09:29,796 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-01 10:10:30,366 [INFO] Handle signal hold para AAPL
+2025-12-01 10:10:30,366 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-01 10:11:30,881 [INFO] Handle signal hold para AAPL
+2025-12-01 10:11:30,881 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-01 10:12:31,298 [INFO] Handle signal hold para AAPL
+2025-12-01 10:12:31,298 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-01 10:13:31,879 [INFO] Handle signal hold para AAPL
+2025-12-01 10:13:31,879 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-01 10:14:33,317 [INFO] Handle signal hold para AAPL
+2025-12-01 10:14:33,317 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-01 10:15:33,825 [INFO] Handle signal hold para AAPL
+2025-12-01 10:15:33,825 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-01 10:16:34,381 [INFO] Handle signal hold para AAPL
+2025-12-01 10:16:34,381 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-01 10:17:34,779 [INFO] Handle signal hold para AAPL
+2025-12-01 10:17:34,779 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-01 10:18:35,378 [INFO] Handle signal hold para AAPL
+2025-12-01 10:18:35,378 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-01 10:19:36,034 [INFO] Handle signal hold para AAPL
+2025-12-01 10:19:36,034 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-01 10:20:36,569 [INFO] Handle signal hold para AAPL
+2025-12-01 10:20:36,569 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-01 10:21:37,092 [INFO] Handle signal hold para AAPL
+2025-12-01 10:21:37,092 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-01 10:22:37,718 [INFO] Handle signal hold para AAPL
+2025-12-01 10:22:37,718 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-01 10:23:38,142 [INFO] Handle signal hold para AAPL
+2025-12-01 10:23:38,142 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-01 10:24:38,570 [INFO] Handle signal hold para AAPL
+2025-12-01 10:24:38,570 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-01 10:25:39,154 [INFO] Handle signal hold para AAPL
+2025-12-01 10:25:39,154 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-01 10:26:39,766 [INFO] Handle signal hold para AAPL
+2025-12-01 10:26:39,766 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-01 10:27:40,181 [INFO] Handle signal hold para AAPL
+2025-12-01 10:27:40,181 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-01 10:28:40,599 [INFO] Handle signal hold para AAPL
+2025-12-01 10:28:40,599 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-01 10:29:41,169 [INFO] Handle signal hold para AAPL
+2025-12-01 10:29:41,169 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-01 10:30:41,636 [INFO] Handle signal hold para AAPL
+2025-12-01 10:30:41,636 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-01 10:31:42,273 [INFO] Handle signal hold para AAPL
+2025-12-01 10:31:42,273 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-01 10:32:42,842 [INFO] Handle signal hold para AAPL
+2025-12-01 10:32:42,842 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-01 10:33:43,464 [INFO] Handle signal hold para AAPL
+2025-12-01 10:33:43,464 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-01 10:34:43,842 [INFO] Handle signal hold para AAPL
+2025-12-01 10:34:43,842 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-01 10:35:44,322 [INFO] Handle signal hold para AAPL
+2025-12-01 10:35:44,322 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-01 10:36:44,752 [INFO] Handle signal hold para AAPL
+2025-12-01 10:36:44,752 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-01 10:37:45,129 [INFO] Handle signal hold para AAPL
+2025-12-01 10:37:45,129 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-01 10:38:45,539 [INFO] Handle signal hold para AAPL
+2025-12-01 10:38:45,539 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-01 10:39:46,028 [INFO] Handle signal hold para AAPL
+2025-12-01 10:39:46,028 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-01 10:40:46,519 [INFO] Handle signal hold para AAPL
+2025-12-01 10:40:46,519 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-01 10:41:46,895 [INFO] Handle signal hold para AAPL
+2025-12-01 10:41:46,895 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-01 10:42:47,270 [INFO] Handle signal hold para AAPL
+2025-12-01 10:42:47,271 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-01 10:43:47,701 [INFO] Handle signal hold para AAPL
+2025-12-01 10:43:47,701 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-01 10:44:48,048 [INFO] Handle signal hold para AAPL
+2025-12-01 10:44:48,048 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-01 10:45:48,406 [INFO] Handle signal hold para AAPL
+2025-12-01 10:45:48,407 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-01 10:46:48,760 [INFO] Handle signal hold para AAPL
+2025-12-01 10:46:48,760 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-01 10:47:49,268 [INFO] Handle signal hold para AAPL
+2025-12-01 10:47:49,268 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-01 10:48:49,681 [INFO] Handle signal hold para AAPL
+2025-12-01 10:48:49,681 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-01 10:49:50,059 [INFO] Handle signal hold para AAPL
+2025-12-01 10:49:50,059 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-01 10:50:50,473 [INFO] Handle signal hold para AAPL
+2025-12-01 10:50:50,473 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-01 10:51:55,839 [INFO] Handle signal hold para AAPL
+2025-12-01 10:51:55,839 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-01 10:52:01,460 [INFO] Handle signal hold para AAPL
+2025-12-01 10:52:01,460 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-01 10:52:07,044 [INFO] Handle signal hold para AAPL
+2025-12-01 10:52:07,045 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-01 10:52:12,445 [INFO] Handle signal hold para AAPL
+2025-12-01 10:52:12,445 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-01 10:52:17,843 [INFO] Handle signal hold para AAPL
+2025-12-01 10:52:17,843 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-01 10:52:23,223 [INFO] Handle signal hold para AAPL
+2025-12-01 10:52:23,223 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-01 10:52:28,716 [INFO] Handle signal hold para AAPL
+2025-12-01 10:52:28,716 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-01 10:52:34,115 [INFO] Handle signal hold para AAPL
+2025-12-01 10:52:34,115 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-01 10:52:39,658 [INFO] Handle signal hold para AAPL
+2025-12-01 10:52:39,658 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-01 10:52:45,066 [INFO] Handle signal hold para AAPL
+2025-12-01 10:52:45,066 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-01 10:52:50,523 [INFO] Handle signal hold para AAPL
+2025-12-01 10:52:50,524 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 10:00:58,913 [INFO] Handle signal hold para AAPL
+2025-12-02 10:00:58,914 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 10:01:29,484 [INFO] Handle signal hold para AAPL
+2025-12-02 10:01:29,484 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 10:01:59,850 [INFO] Handle signal hold para AAPL
+2025-12-02 10:01:59,851 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 10:02:30,407 [INFO] Handle signal hold para AAPL
+2025-12-02 10:02:30,407 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 10:03:00,869 [INFO] Handle signal hold para AAPL
+2025-12-02 10:03:00,869 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 10:03:31,737 [INFO] Handle signal hold para AAPL
+2025-12-02 10:03:31,737 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 10:04:02,188 [INFO] Handle signal hold para AAPL
+2025-12-02 10:04:02,188 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 10:04:32,548 [INFO] Handle signal hold para AAPL
+2025-12-02 10:04:32,548 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 10:05:03,091 [INFO] Handle signal hold para AAPL
+2025-12-02 10:05:03,091 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 10:05:33,441 [INFO] Handle signal hold para AAPL
+2025-12-02 10:05:33,441 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 10:06:03,789 [INFO] Handle signal hold para AAPL
+2025-12-02 10:06:03,789 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 10:06:34,257 [INFO] Handle signal hold para AAPL
+2025-12-02 10:06:34,257 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 10:07:04,739 [INFO] Handle signal hold para AAPL
+2025-12-02 10:07:04,739 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 10:07:35,233 [INFO] Handle signal hold para AAPL
+2025-12-02 10:07:35,233 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 10:08:05,605 [INFO] Handle signal hold para AAPL
+2025-12-02 10:08:05,605 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 10:08:35,972 [INFO] Handle signal hold para AAPL
+2025-12-02 10:08:35,972 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 10:09:06,362 [INFO] Handle signal hold para AAPL
+2025-12-02 10:09:06,362 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 10:09:36,730 [INFO] Handle signal hold para AAPL
+2025-12-02 10:09:36,730 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 10:10:07,083 [INFO] Handle signal hold para AAPL
+2025-12-02 10:10:07,083 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 10:10:37,633 [INFO] Handle signal hold para AAPL
+2025-12-02 10:10:37,633 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 10:11:08,236 [INFO] Handle signal hold para AAPL
+2025-12-02 10:11:08,236 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 10:11:38,799 [INFO] Handle signal hold para AAPL
+2025-12-02 10:11:38,799 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 10:12:09,244 [INFO] Handle signal hold para AAPL
+2025-12-02 10:12:09,244 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 10:12:39,642 [INFO] Handle signal hold para AAPL
+2025-12-02 10:12:39,643 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 10:13:10,047 [INFO] Handle signal hold para AAPL
+2025-12-02 10:13:10,047 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 10:13:40,426 [INFO] Handle signal hold para AAPL
+2025-12-02 10:13:40,426 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 10:14:10,915 [INFO] Handle signal hold para AAPL
+2025-12-02 10:14:10,915 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 10:14:41,418 [INFO] Handle signal hold para AAPL
+2025-12-02 10:14:41,418 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 10:15:11,909 [INFO] Handle signal hold para AAPL
+2025-12-02 10:15:11,909 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 10:15:42,578 [INFO] Handle signal hold para AAPL
+2025-12-02 10:15:42,578 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 10:16:13,160 [INFO] Handle signal hold para AAPL
+2025-12-02 10:16:13,160 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 10:16:43,638 [INFO] Handle signal hold para AAPL
+2025-12-02 10:16:43,638 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 10:17:13,997 [INFO] Handle signal hold para AAPL
+2025-12-02 10:17:13,997 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 10:17:44,529 [INFO] Handle signal hold para AAPL
+2025-12-02 10:17:44,529 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 10:18:14,986 [INFO] Handle signal hold para AAPL
+2025-12-02 10:18:14,986 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 10:18:45,472 [INFO] Handle signal hold para AAPL
+2025-12-02 10:18:45,472 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 10:19:15,943 [INFO] Handle signal hold para AAPL
+2025-12-02 10:19:15,944 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 10:19:46,530 [INFO] Handle signal hold para AAPL
+2025-12-02 10:19:46,530 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 10:20:16,919 [INFO] Handle signal hold para AAPL
+2025-12-02 10:20:16,920 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 10:20:47,275 [INFO] Handle signal hold para AAPL
+2025-12-02 10:20:47,275 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 10:21:17,811 [INFO] Handle signal hold para AAPL
+2025-12-02 10:21:17,812 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 10:21:48,347 [INFO] Handle signal hold para AAPL
+2025-12-02 10:21:48,348 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 10:22:18,929 [INFO] Handle signal hold para AAPL
+2025-12-02 10:22:18,929 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 10:22:49,456 [INFO] Handle signal hold para AAPL
+2025-12-02 10:22:49,456 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 10:23:19,964 [INFO] Handle signal hold para AAPL
+2025-12-02 10:23:19,993 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 10:23:50,376 [INFO] Handle signal hold para AAPL
+2025-12-02 10:23:50,377 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 10:24:20,764 [INFO] Handle signal hold para AAPL
+2025-12-02 10:24:20,764 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 10:24:51,112 [INFO] Handle signal hold para AAPL
+2025-12-02 10:24:51,112 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 10:25:21,582 [INFO] Handle signal hold para AAPL
+2025-12-02 10:25:21,582 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 10:25:52,052 [INFO] Handle signal hold para AAPL
+2025-12-02 10:25:52,052 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 10:26:22,423 [INFO] Handle signal hold para AAPL
+2025-12-02 10:26:22,423 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 10:26:52,789 [INFO] Handle signal hold para AAPL
+2025-12-02 10:26:52,789 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 10:27:23,265 [INFO] Handle signal hold para AAPL
+2025-12-02 10:27:23,265 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 10:27:53,620 [INFO] Handle signal hold para AAPL
+2025-12-02 10:27:53,620 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 10:28:24,133 [INFO] Handle signal hold para AAPL
+2025-12-02 10:28:24,133 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 10:28:54,762 [INFO] Handle signal hold para AAPL
+2025-12-02 10:28:54,762 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 10:29:25,387 [INFO] Handle signal hold para AAPL
+2025-12-02 10:29:25,387 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 10:29:55,756 [INFO] Handle signal hold para AAPL
+2025-12-02 10:29:55,756 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 10:30:26,264 [INFO] Handle signal hold para AAPL
+2025-12-02 10:30:26,264 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 10:30:56,736 [INFO] Handle signal hold para AAPL
+2025-12-02 10:30:56,736 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 10:31:27,214 [INFO] Handle signal hold para AAPL
+2025-12-02 10:31:27,214 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 10:31:57,670 [INFO] Handle signal hold para AAPL
+2025-12-02 10:31:57,670 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 10:32:28,321 [INFO] Handle signal hold para AAPL
+2025-12-02 10:32:28,321 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 10:32:58,722 [INFO] Handle signal hold para AAPL
+2025-12-02 10:32:58,722 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 10:33:29,299 [INFO] Handle signal hold para AAPL
+2025-12-02 10:33:29,299 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 10:33:59,801 [INFO] Handle signal hold para AAPL
+2025-12-02 10:33:59,801 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 10:34:30,215 [INFO] Handle signal hold para AAPL
+2025-12-02 10:34:30,215 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 10:35:00,733 [INFO] Handle signal hold para AAPL
+2025-12-02 10:35:00,733 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 10:35:31,141 [INFO] Handle signal hold para AAPL
+2025-12-02 10:35:31,142 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 10:36:01,510 [INFO] Handle signal hold para AAPL
+2025-12-02 10:36:01,510 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 10:36:31,887 [INFO] Handle signal hold para AAPL
+2025-12-02 10:36:31,887 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 10:37:02,519 [INFO] Handle signal hold para AAPL
+2025-12-02 10:37:02,519 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 10:37:33,020 [INFO] Handle signal hold para AAPL
+2025-12-02 10:37:33,020 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 10:38:03,404 [INFO] Handle signal hold para AAPL
+2025-12-02 10:38:03,404 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 10:38:33,955 [INFO] Handle signal hold para AAPL
+2025-12-02 10:38:33,955 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 10:39:04,470 [INFO] Handle signal hold para AAPL
+2025-12-02 10:39:04,470 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 10:39:35,050 [INFO] Handle signal hold para AAPL
+2025-12-02 10:39:35,050 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 10:40:05,411 [INFO] Handle signal hold para AAPL
+2025-12-02 10:40:05,412 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 10:40:36,020 [INFO] Handle signal hold para AAPL
+2025-12-02 10:40:36,020 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 10:41:06,552 [INFO] Handle signal hold para AAPL
+2025-12-02 10:41:06,552 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 10:41:37,033 [INFO] Handle signal hold para AAPL
+2025-12-02 10:41:37,033 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 10:42:07,417 [INFO] Handle signal hold para AAPL
+2025-12-02 10:42:07,417 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 10:42:37,943 [INFO] Handle signal hold para AAPL
+2025-12-02 10:42:37,943 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 10:43:08,315 [INFO] Handle signal hold para AAPL
+2025-12-02 10:43:08,316 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 10:43:38,825 [INFO] Handle signal hold para AAPL
+2025-12-02 10:43:38,826 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 10:44:09,172 [INFO] Handle signal hold para AAPL
+2025-12-02 10:44:09,173 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 10:44:39,735 [INFO] Handle signal hold para AAPL
+2025-12-02 10:44:39,735 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 10:45:10,227 [INFO] Handle signal hold para AAPL
+2025-12-02 10:45:10,227 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 10:45:40,776 [INFO] Handle signal hold para AAPL
+2025-12-02 10:45:40,776 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 10:46:11,367 [INFO] Handle signal hold para AAPL
+2025-12-02 10:46:11,367 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 10:46:41,921 [INFO] Handle signal hold para AAPL
+2025-12-02 10:46:41,922 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 10:47:12,548 [INFO] Handle signal hold para AAPL
+2025-12-02 10:47:12,548 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 10:47:43,105 [INFO] Handle signal hold para AAPL
+2025-12-02 10:47:43,105 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 10:48:13,660 [INFO] Handle signal hold para AAPL
+2025-12-02 10:48:13,660 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 10:48:44,224 [INFO] Handle signal hold para AAPL
+2025-12-02 10:48:44,224 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 10:49:14,711 [INFO] Handle signal hold para AAPL
+2025-12-02 10:49:14,711 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 10:49:45,328 [INFO] Handle signal hold para AAPL
+2025-12-02 10:49:45,329 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 10:50:15,984 [INFO] Handle signal hold para AAPL
+2025-12-02 10:50:15,984 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 10:50:46,539 [INFO] Handle signal hold para AAPL
+2025-12-02 10:50:46,539 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 10:51:16,897 [INFO] Handle signal hold para AAPL
+2025-12-02 10:51:16,898 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 10:51:47,388 [INFO] Handle signal hold para AAPL
+2025-12-02 10:51:47,388 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 10:52:17,907 [INFO] Handle signal hold para AAPL
+2025-12-02 10:52:17,908 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 10:52:48,557 [INFO] Handle signal hold para AAPL
+2025-12-02 10:52:48,557 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 10:53:19,046 [INFO] Handle signal hold para AAPL
+2025-12-02 10:53:19,046 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 10:53:49,454 [INFO] Handle signal hold para AAPL
+2025-12-02 10:53:49,454 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 10:54:19,933 [INFO] Handle signal hold para AAPL
+2025-12-02 10:54:19,933 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 10:54:50,432 [INFO] Handle signal hold para AAPL
+2025-12-02 10:54:50,432 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 10:55:20,792 [INFO] Handle signal hold para AAPL
+2025-12-02 10:55:20,792 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 10:55:51,195 [INFO] Handle signal hold para AAPL
+2025-12-02 10:55:51,196 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 10:56:21,676 [INFO] Handle signal hold para AAPL
+2025-12-02 10:56:21,676 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 10:56:52,306 [INFO] Handle signal hold para AAPL
+2025-12-02 10:56:52,306 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 10:57:22,671 [INFO] Handle signal hold para AAPL
+2025-12-02 10:57:22,671 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 10:57:53,199 [INFO] Handle signal hold para AAPL
+2025-12-02 10:57:53,199 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 10:58:23,574 [INFO] Handle signal hold para AAPL
+2025-12-02 10:58:23,574 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 10:58:54,235 [INFO] Handle signal hold para AAPL
+2025-12-02 10:58:54,235 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 10:59:24,704 [INFO] Handle signal hold para AAPL
+2025-12-02 10:59:24,704 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 10:59:55,188 [INFO] Handle signal hold para AAPL
+2025-12-02 10:59:55,188 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 11:00:25,649 [INFO] Handle signal hold para AAPL
+2025-12-02 11:00:25,649 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 11:00:56,226 [INFO] Handle signal hold para AAPL
+2025-12-02 11:00:56,226 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 11:01:26,623 [INFO] Handle signal hold para AAPL
+2025-12-02 11:01:26,624 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 11:01:57,197 [INFO] Handle signal hold para AAPL
+2025-12-02 11:01:57,197 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 11:02:27,869 [INFO] Handle signal hold para AAPL
+2025-12-02 11:02:27,869 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 11:02:58,455 [INFO] Handle signal hold para AAPL
+2025-12-02 11:02:58,456 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 11:03:28,808 [INFO] Handle signal hold para AAPL
+2025-12-02 11:03:28,809 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 11:03:59,388 [INFO] Handle signal hold para AAPL
+2025-12-02 11:03:59,388 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 11:04:29,773 [INFO] Handle signal hold para AAPL
+2025-12-02 11:04:29,773 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 11:05:00,122 [INFO] Handle signal hold para AAPL
+2025-12-02 11:05:00,123 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 11:05:30,480 [INFO] Handle signal hold para AAPL
+2025-12-02 11:05:30,480 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 11:06:01,031 [INFO] Handle signal hold para AAPL
+2025-12-02 11:06:01,031 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 11:06:31,516 [INFO] Handle signal hold para AAPL
+2025-12-02 11:06:31,516 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 11:07:01,997 [INFO] Handle signal hold para AAPL
+2025-12-02 11:07:01,998 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 11:07:32,650 [INFO] Handle signal hold para AAPL
+2025-12-02 11:07:32,650 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 11:08:03,122 [INFO] Handle signal hold para AAPL
+2025-12-02 11:08:03,122 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 11:08:33,496 [INFO] Handle signal hold para AAPL
+2025-12-02 11:08:33,496 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 11:09:03,978 [INFO] Handle signal hold para AAPL
+2025-12-02 11:09:03,978 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 11:09:34,561 [INFO] Handle signal hold para AAPL
+2025-12-02 11:09:34,561 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 11:10:05,035 [INFO] Handle signal hold para AAPL
+2025-12-02 11:10:05,035 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 11:10:35,594 [INFO] Handle signal hold para AAPL
+2025-12-02 11:10:35,594 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 11:11:06,334 [INFO] Handle signal hold para AAPL
+2025-12-02 11:11:06,334 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 11:11:36,813 [INFO] Handle signal hold para AAPL
+2025-12-02 11:11:36,814 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 11:12:07,180 [INFO] Handle signal hold para AAPL
+2025-12-02 11:12:07,180 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 11:12:37,763 [INFO] Handle signal hold para AAPL
+2025-12-02 11:12:37,763 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 11:13:08,215 [INFO] Handle signal hold para AAPL
+2025-12-02 11:13:08,215 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 11:13:38,804 [INFO] Handle signal hold para AAPL
+2025-12-02 11:13:38,804 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 11:14:09,214 [INFO] Handle signal hold para AAPL
+2025-12-02 11:14:09,214 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 11:14:39,884 [INFO] Handle signal hold para AAPL
+2025-12-02 11:14:39,885 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 11:15:10,405 [INFO] Handle signal hold para AAPL
+2025-12-02 11:15:10,405 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 11:15:40,918 [INFO] Handle signal hold para AAPL
+2025-12-02 11:15:40,919 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 11:16:11,308 [INFO] Handle signal hold para AAPL
+2025-12-02 11:16:11,308 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 11:16:41,864 [INFO] Handle signal hold para AAPL
+2025-12-02 11:16:41,864 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 11:17:12,227 [INFO] Handle signal hold para AAPL
+2025-12-02 11:17:12,228 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 11:17:42,581 [INFO] Handle signal hold para AAPL
+2025-12-02 11:17:42,581 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 11:18:13,122 [INFO] Handle signal hold para AAPL
+2025-12-02 11:18:13,122 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 11:18:43,580 [INFO] Handle signal hold para AAPL
+2025-12-02 11:18:43,580 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 11:19:13,927 [INFO] Handle signal hold para AAPL
+2025-12-02 11:19:13,928 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 11:19:44,485 [INFO] Handle signal hold para AAPL
+2025-12-02 11:19:44,485 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 11:20:14,968 [INFO] Handle signal hold para AAPL
+2025-12-02 11:20:14,968 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 11:20:45,352 [INFO] Handle signal hold para AAPL
+2025-12-02 11:20:45,352 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 11:21:18,972 [INFO] Handle signal hold para AAPL
+2025-12-02 11:21:18,973 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 11:21:49,443 [INFO] Handle signal hold para AAPL
+2025-12-02 11:21:49,443 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 11:22:19,931 [INFO] Handle signal hold para AAPL
+2025-12-02 11:22:19,931 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 11:22:50,397 [INFO] Handle signal hold para AAPL
+2025-12-02 11:22:50,397 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 11:23:20,958 [INFO] Handle signal hold para AAPL
+2025-12-02 11:23:20,959 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 11:23:51,505 [INFO] Handle signal hold para AAPL
+2025-12-02 11:23:51,506 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 11:24:21,955 [INFO] Handle signal hold para AAPL
+2025-12-02 11:24:21,955 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 11:24:52,534 [INFO] Handle signal hold para AAPL
+2025-12-02 11:24:52,534 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 11:25:22,933 [INFO] Handle signal hold para AAPL
+2025-12-02 11:25:22,933 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 11:25:53,284 [INFO] Handle signal hold para AAPL
+2025-12-02 11:25:53,284 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 11:26:23,772 [INFO] Handle signal hold para AAPL
+2025-12-02 11:26:23,772 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 11:26:54,157 [INFO] Handle signal hold para AAPL
+2025-12-02 11:26:54,157 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 11:27:24,546 [INFO] Handle signal hold para AAPL
+2025-12-02 11:27:24,546 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 11:27:55,121 [INFO] Handle signal hold para AAPL
+2025-12-02 11:27:55,121 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 11:28:25,624 [INFO] Handle signal hold para AAPL
+2025-12-02 11:28:25,624 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 11:28:56,006 [INFO] Handle signal hold para AAPL
+2025-12-02 11:28:56,006 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 11:29:26,476 [INFO] Handle signal hold para AAPL
+2025-12-02 11:29:26,476 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 11:29:56,851 [INFO] Handle signal hold para AAPL
+2025-12-02 11:29:56,851 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 11:30:27,197 [INFO] Handle signal hold para AAPL
+2025-12-02 11:30:27,197 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 11:30:57,551 [INFO] Handle signal hold para AAPL
+2025-12-02 11:30:57,552 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 11:31:28,017 [INFO] Handle signal hold para AAPL
+2025-12-02 11:31:28,017 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 11:31:58,514 [INFO] Handle signal hold para AAPL
+2025-12-02 11:31:58,514 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 11:32:29,063 [INFO] Handle signal hold para AAPL
+2025-12-02 11:32:29,063 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 11:32:59,421 [INFO] Handle signal hold para AAPL
+2025-12-02 11:32:59,421 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 11:33:29,986 [INFO] Handle signal hold para AAPL
+2025-12-02 11:33:29,987 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 11:34:00,486 [INFO] Handle signal hold para AAPL
+2025-12-02 11:34:00,486 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 11:34:30,942 [INFO] Handle signal hold para AAPL
+2025-12-02 11:34:30,942 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 11:35:01,494 [INFO] Handle signal hold para AAPL
+2025-12-02 11:35:01,494 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 11:35:32,533 [INFO] Handle signal hold para AAPL
+2025-12-02 11:35:32,533 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 11:36:03,072 [INFO] Handle signal hold para AAPL
+2025-12-02 11:36:03,072 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 11:36:33,492 [INFO] Handle signal hold para AAPL
+2025-12-02 11:36:33,492 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 11:37:03,945 [INFO] Handle signal hold para AAPL
+2025-12-02 11:37:03,945 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 11:37:34,490 [INFO] Handle signal hold para AAPL
+2025-12-02 11:37:34,490 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 11:38:05,430 [INFO] Handle signal hold para AAPL
+2025-12-02 11:38:05,430 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 11:38:35,912 [INFO] Handle signal hold para AAPL
+2025-12-02 11:38:35,912 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 11:39:06,379 [INFO] Handle signal hold para AAPL
+2025-12-02 11:39:06,379 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 11:39:36,970 [INFO] Handle signal hold para AAPL
+2025-12-02 11:39:36,971 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 11:40:07,425 [INFO] Handle signal hold para AAPL
+2025-12-02 11:40:07,425 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 11:40:37,912 [INFO] Handle signal hold para AAPL
+2025-12-02 11:40:37,913 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 11:41:08,266 [INFO] Handle signal hold para AAPL
+2025-12-02 11:41:08,266 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 11:41:38,639 [INFO] Handle signal hold para AAPL
+2025-12-02 11:41:38,639 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 11:42:09,137 [INFO] Handle signal hold para AAPL
+2025-12-02 11:42:09,137 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 11:42:39,506 [INFO] Handle signal hold para AAPL
+2025-12-02 11:42:39,506 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 11:43:10,033 [INFO] Handle signal hold para AAPL
+2025-12-02 11:43:10,033 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 11:43:40,604 [INFO] Handle signal hold para AAPL
+2025-12-02 11:43:40,604 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 11:44:10,944 [INFO] Handle signal hold para AAPL
+2025-12-02 11:44:10,944 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 11:44:41,287 [INFO] Handle signal hold para AAPL
+2025-12-02 11:44:41,287 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 11:45:11,669 [INFO] Handle signal hold para AAPL
+2025-12-02 11:45:11,669 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 11:45:42,135 [INFO] Handle signal hold para AAPL
+2025-12-02 11:45:42,135 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 11:46:12,697 [INFO] Handle signal hold para AAPL
+2025-12-02 11:46:12,698 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 11:46:43,176 [INFO] Handle signal hold para AAPL
+2025-12-02 11:46:43,176 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 11:47:13,543 [INFO] Handle signal hold para AAPL
+2025-12-02 11:47:13,543 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 11:47:43,884 [INFO] Handle signal hold para AAPL
+2025-12-02 11:47:43,884 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 11:48:14,272 [INFO] Handle signal hold para AAPL
+2025-12-02 11:48:14,272 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 11:48:44,643 [INFO] Handle signal hold para AAPL
+2025-12-02 11:48:44,643 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 11:49:15,123 [INFO] Handle signal hold para AAPL
+2025-12-02 11:49:15,123 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 11:49:45,746 [INFO] Handle signal hold para AAPL
+2025-12-02 11:49:45,746 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 11:50:16,288 [INFO] Handle signal hold para AAPL
+2025-12-02 11:50:16,288 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 11:50:46,651 [INFO] Handle signal hold para AAPL
+2025-12-02 11:50:46,651 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 11:51:17,025 [INFO] Handle signal hold para AAPL
+2025-12-02 11:51:17,025 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 11:51:47,502 [INFO] Handle signal hold para AAPL
+2025-12-02 11:51:47,502 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 11:52:17,892 [INFO] Handle signal hold para AAPL
+2025-12-02 11:52:17,892 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 11:52:48,375 [INFO] Handle signal hold para AAPL
+2025-12-02 11:52:48,375 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 11:53:18,868 [INFO] Handle signal hold para AAPL
+2025-12-02 11:53:18,868 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 11:53:49,225 [INFO] Handle signal hold para AAPL
+2025-12-02 11:53:49,225 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 11:54:19,679 [INFO] Handle signal hold para AAPL
+2025-12-02 11:54:19,679 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 11:54:50,309 [INFO] Handle signal hold para AAPL
+2025-12-02 11:54:50,309 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 11:55:20,669 [INFO] Handle signal hold para AAPL
+2025-12-02 11:55:20,669 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 11:55:51,228 [INFO] Handle signal hold para AAPL
+2025-12-02 11:55:51,228 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 11:56:21,675 [INFO] Handle signal hold para AAPL
+2025-12-02 11:56:21,675 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 11:56:52,191 [INFO] Handle signal hold para AAPL
+2025-12-02 11:56:52,191 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 11:57:34,806 [INFO] Handle signal hold para AAPL
+2025-12-02 11:57:34,806 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 11:58:05,177 [INFO] Handle signal hold para AAPL
+2025-12-02 11:58:05,178 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 11:58:35,562 [INFO] Handle signal hold para AAPL
+2025-12-02 11:58:35,562 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 11:59:06,024 [INFO] Handle signal hold para AAPL
+2025-12-02 11:59:06,024 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 11:59:36,463 [INFO] Handle signal hold para AAPL
+2025-12-02 11:59:36,463 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 12:00:06,827 [INFO] Handle signal hold para AAPL
+2025-12-02 12:00:06,827 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 12:00:37,299 [INFO] Handle signal hold para AAPL
+2025-12-02 12:00:37,299 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 12:01:07,873 [INFO] Handle signal hold para AAPL
+2025-12-02 12:01:07,873 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 12:01:38,445 [INFO] Handle signal hold para AAPL
+2025-12-02 12:01:38,445 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 12:02:08,812 [INFO] Handle signal hold para AAPL
+2025-12-02 12:02:08,812 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 12:02:39,205 [INFO] Handle signal hold para AAPL
+2025-12-02 12:02:39,205 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 12:03:09,712 [INFO] Handle signal hold para AAPL
+2025-12-02 12:03:09,713 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 12:03:40,181 [INFO] Handle signal hold para AAPL
+2025-12-02 12:03:40,181 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 12:04:10,692 [INFO] Handle signal hold para AAPL
+2025-12-02 12:04:10,692 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 12:04:41,096 [INFO] Handle signal hold para AAPL
+2025-12-02 12:04:41,096 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 12:05:11,503 [INFO] Handle signal hold para AAPL
+2025-12-02 12:05:11,503 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 12:05:41,924 [INFO] Handle signal hold para AAPL
+2025-12-02 12:05:41,924 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 12:06:12,469 [INFO] Handle signal hold para AAPL
+2025-12-02 12:06:12,469 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 12:06:42,845 [INFO] Handle signal hold para AAPL
+2025-12-02 12:06:42,845 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 12:07:13,244 [INFO] Handle signal hold para AAPL
+2025-12-02 12:07:13,244 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 12:07:43,706 [INFO] Handle signal hold para AAPL
+2025-12-02 12:07:43,706 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 12:08:14,080 [INFO] Handle signal hold para AAPL
+2025-12-02 12:08:14,080 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 12:08:44,471 [INFO] Handle signal hold para AAPL
+2025-12-02 12:08:44,471 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 12:09:14,950 [INFO] Handle signal hold para AAPL
+2025-12-02 12:09:14,951 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 12:09:45,322 [INFO] Handle signal hold para AAPL
+2025-12-02 12:09:45,322 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 12:10:15,897 [INFO] Handle signal hold para AAPL
+2025-12-02 12:10:15,897 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 12:10:46,419 [INFO] Handle signal hold para AAPL
+2025-12-02 12:10:46,419 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 12:11:16,885 [INFO] Handle signal hold para AAPL
+2025-12-02 12:11:16,885 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 12:11:47,364 [INFO] Handle signal hold para AAPL
+2025-12-02 12:11:47,364 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 12:12:17,728 [INFO] Handle signal hold para AAPL
+2025-12-02 12:12:17,728 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 12:12:48,761 [INFO] Handle signal hold para AAPL
+2025-12-02 12:12:48,761 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 12:13:19,154 [INFO] Handle signal hold para AAPL
+2025-12-02 12:13:19,154 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 12:13:49,529 [INFO] Handle signal hold para AAPL
+2025-12-02 12:13:49,529 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 12:14:19,899 [INFO] Handle signal hold para AAPL
+2025-12-02 12:14:19,899 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 12:14:50,422 [INFO] Handle signal hold para AAPL
+2025-12-02 12:14:50,422 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 12:15:20,778 [INFO] Handle signal hold para AAPL
+2025-12-02 12:15:20,778 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 12:15:51,338 [INFO] Handle signal hold para AAPL
+2025-12-02 12:15:51,338 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 12:16:21,719 [INFO] Handle signal hold para AAPL
+2025-12-02 12:16:21,719 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 12:16:52,137 [INFO] Handle signal hold para AAPL
+2025-12-02 12:16:52,137 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 12:17:22,545 [INFO] Handle signal hold para AAPL
+2025-12-02 12:17:22,545 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 12:17:52,940 [INFO] Handle signal hold para AAPL
+2025-12-02 12:17:52,940 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 12:18:23,426 [INFO] Handle signal hold para AAPL
+2025-12-02 12:18:23,426 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 12:18:54,335 [INFO] Handle signal hold para AAPL
+2025-12-02 12:18:54,335 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 12:19:24,911 [INFO] Handle signal hold para AAPL
+2025-12-02 12:19:24,911 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 12:19:55,300 [INFO] Handle signal hold para AAPL
+2025-12-02 12:19:55,300 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 12:20:25,786 [INFO] Handle signal hold para AAPL
+2025-12-02 12:20:25,786 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 12:20:56,182 [INFO] Handle signal hold para AAPL
+2025-12-02 12:20:56,182 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 12:21:35,897 [INFO] Handle signal hold para AAPL
+2025-12-02 12:21:35,898 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 12:22:36,309 [INFO] Handle signal hold para AAPL
+2025-12-02 12:22:36,309 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 12:23:36,673 [INFO] Handle signal hold para AAPL
+2025-12-02 12:23:36,673 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 12:24:37,235 [INFO] Handle signal hold para AAPL
+2025-12-02 12:24:37,235 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 12:25:37,779 [INFO] Handle signal hold para AAPL
+2025-12-02 12:25:37,779 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 12:26:38,156 [INFO] Handle signal hold para AAPL
+2025-12-02 12:26:38,156 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 12:27:38,784 [INFO] Handle signal hold para AAPL
+2025-12-02 12:27:38,784 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 12:28:39,333 [INFO] Handle signal hold para AAPL
+2025-12-02 12:28:39,333 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 12:29:39,909 [INFO] Handle signal hold para AAPL
+2025-12-02 12:29:39,910 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 12:30:40,408 [INFO] Handle signal hold para AAPL
+2025-12-02 12:30:40,408 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 12:31:40,877 [INFO] Handle signal hold para AAPL
+2025-12-02 12:31:40,877 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 12:32:41,400 [INFO] Handle signal hold para AAPL
+2025-12-02 12:32:41,400 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 12:33:41,944 [INFO] Handle signal hold para AAPL
+2025-12-02 12:33:41,944 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 12:34:42,397 [INFO] Handle signal hold para AAPL
+2025-12-02 12:34:42,397 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 12:35:42,788 [INFO] Handle signal hold para AAPL
+2025-12-02 12:35:42,788 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 12:36:43,299 [INFO] Handle signal hold para AAPL
+2025-12-02 12:36:43,300 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 12:37:43,677 [INFO] Handle signal hold para AAPL
+2025-12-02 12:37:43,677 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 12:38:44,018 [INFO] Handle signal hold para AAPL
+2025-12-02 12:38:44,018 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 12:39:44,690 [INFO] Handle signal hold para AAPL
+2025-12-02 12:39:44,690 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 12:40:45,051 [INFO] Handle signal hold para AAPL
+2025-12-02 12:40:45,051 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 12:41:45,514 [INFO] Handle signal hold para AAPL
+2025-12-02 12:41:45,514 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 12:42:46,005 [INFO] Handle signal hold para AAPL
+2025-12-02 12:42:46,005 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 12:43:46,396 [INFO] Handle signal hold para AAPL
+2025-12-02 12:43:46,396 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 12:44:47,009 [INFO] Handle signal hold para AAPL
+2025-12-02 12:44:47,009 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 12:45:47,534 [INFO] Handle signal hold para AAPL
+2025-12-02 12:45:47,534 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 12:46:48,489 [INFO] Handle signal hold para AAPL
+2025-12-02 12:46:48,489 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 12:47:49,570 [INFO] Handle signal hold para AAPL
+2025-12-02 12:47:49,570 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 12:48:50,120 [INFO] Handle signal hold para AAPL
+2025-12-02 12:48:50,120 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 12:49:50,806 [INFO] Handle signal hold para AAPL
+2025-12-02 12:49:50,806 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 12:50:51,324 [INFO] Handle signal hold para AAPL
+2025-12-02 12:50:51,324 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 12:51:40,420 [INFO] Handle signal hold para AAPL
+2025-12-02 12:51:40,420 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 12:52:40,958 [INFO] Handle signal hold para AAPL
+2025-12-02 12:52:40,958 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 12:53:41,298 [INFO] Handle signal hold para AAPL
+2025-12-02 12:53:41,298 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 12:54:41,813 [INFO] Handle signal hold para AAPL
+2025-12-02 12:54:41,813 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 12:55:42,310 [INFO] Handle signal hold para AAPL
+2025-12-02 12:55:42,310 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 12:56:42,659 [INFO] Handle signal hold para AAPL
+2025-12-02 12:56:42,660 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 12:57:43,147 [INFO] Handle signal hold para AAPL
+2025-12-02 12:57:43,147 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 12:58:43,612 [INFO] Handle signal hold para AAPL
+2025-12-02 12:58:43,612 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 12:59:22,651 [INFO] Handle signal hold para AAPL
+2025-12-02 12:59:22,651 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 13:00:23,152 [INFO] Handle signal hold para AAPL
+2025-12-02 13:00:23,152 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 13:01:23,718 [INFO] Handle signal hold para AAPL
+2025-12-02 13:01:23,718 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 13:02:24,029 [INFO] Handle signal hold para AAPL
+2025-12-02 13:02:24,029 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 13:03:24,503 [INFO] Handle signal hold para AAPL
+2025-12-02 13:03:24,503 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 13:04:24,885 [INFO] Handle signal hold para AAPL
+2025-12-02 13:04:24,885 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 13:05:25,409 [INFO] Handle signal buy para AAPL
+2025-12-02 13:05:25,913 [ERROR] No se pudo obtener precio para AAPL, tomando qty=1
+Traceback (most recent call last):
+  File "c:\Users\david\Desktop\Bot01\utils\trade_executor.py", line 95, in _calc_qty_for_symbol
+    barset = client.get_latest_trade(symbol)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'TradingClient' object has no attribute 'get_latest_trade'
+2025-12-02 13:05:26,190 [INFO] BUY (PAPER): AAPL 1 -> id=UUID('f15c087f-4fae-4be7-b077-656e9d70b4e3') client_order_id='1f0d67f2-5bb3-4679-a398-07cab150a89e' created_at=datetime.datetime(2025, 12, 2, 18, 5, 23, 292934, tzinfo=TzInfo(0)) updated_at=datetime.datetime(2025, 12, 2, 18, 5, 23, 295111, tzinfo=TzInfo(0)) submitted_at=datetime.datetime(2025, 12, 2, 18, 5, 23, 292934, tzinfo=TzInfo(0)) filled_at=None expired_at=None expires_at=datetime.datetime(2025, 12, 2, 21, 0, tzinfo=TzInfo(0)) canceled_at=None failed_at=None replaced_at=None replaced_by=None replaces=None asset_id=UUID('b0b6dd9d-8b9b-48a9-ba46-b9d54906e415') symbol='AAPL' asset_class=<AssetClass.US_EQUITY: 'us_equity'> notional=None qty='1' filled_qty='0' filled_avg_price=None order_class=<OrderClass.SIMPLE: 'simple'> order_type=<OrderType.MARKET: 'market'> type=<OrderType.MARKET: 'market'> side=<OrderSide.BUY: 'buy'> time_in_force=<TimeInForce.DAY: 'day'> limit_price=None stop_price=None status=<OrderStatus.PENDING_NEW: 'pending_new'> extended_hours=False legs=None trail_percent=None trail_price=None hwm=None position_intent=<PositionIntent.BUY_TO_OPEN: 'buy_to_open'> ratio_qty=None
+2025-12-02 13:06:26,695 [INFO] Handle signal buy para AAPL
+2025-12-02 13:06:26,784 [ERROR] No se pudo obtener precio para AAPL, tomando qty=1
+Traceback (most recent call last):
+  File "c:\Users\david\Desktop\Bot01\utils\trade_executor.py", line 95, in _calc_qty_for_symbol
+    barset = client.get_latest_trade(symbol)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'TradingClient' object has no attribute 'get_latest_trade'
+2025-12-02 13:06:27,058 [INFO] BUY (PAPER): AAPL 1 -> id=UUID('389a3a6b-1750-4607-aaed-54d0f571e49e') client_order_id='9f4b40ef-7071-4600-85fd-971b5f34069d' created_at=datetime.datetime(2025, 12, 2, 18, 6, 24, 151822, tzinfo=TzInfo(0)) updated_at=datetime.datetime(2025, 12, 2, 18, 6, 24, 153086, tzinfo=TzInfo(0)) submitted_at=datetime.datetime(2025, 12, 2, 18, 6, 24, 151822, tzinfo=TzInfo(0)) filled_at=None expired_at=None expires_at=datetime.datetime(2025, 12, 2, 21, 0, tzinfo=TzInfo(0)) canceled_at=None failed_at=None replaced_at=None replaced_by=None replaces=None asset_id=UUID('b0b6dd9d-8b9b-48a9-ba46-b9d54906e415') symbol='AAPL' asset_class=<AssetClass.US_EQUITY: 'us_equity'> notional=None qty='1' filled_qty='0' filled_avg_price=None order_class=<OrderClass.SIMPLE: 'simple'> order_type=<OrderType.MARKET: 'market'> type=<OrderType.MARKET: 'market'> side=<OrderSide.BUY: 'buy'> time_in_force=<TimeInForce.DAY: 'day'> limit_price=None stop_price=None status=<OrderStatus.PENDING_NEW: 'pending_new'> extended_hours=False legs=None trail_percent=None trail_price=None hwm=None position_intent=<PositionIntent.BUY_TO_OPEN: 'buy_to_open'> ratio_qty=None
+2025-12-02 13:07:27,406 [INFO] Handle signal buy para AAPL
+2025-12-02 13:07:27,495 [ERROR] No se pudo obtener precio para AAPL, tomando qty=1
+Traceback (most recent call last):
+  File "c:\Users\david\Desktop\Bot01\utils\trade_executor.py", line 95, in _calc_qty_for_symbol
+    barset = client.get_latest_trade(symbol)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'TradingClient' object has no attribute 'get_latest_trade'
+2025-12-02 13:07:27,761 [INFO] BUY (PAPER): AAPL 1 -> id=UUID('447cc0dd-bac5-4cc9-ba05-60299dacdd4b') client_order_id='44a498bd-42ae-4596-99bc-48b72ebde7b8' created_at=datetime.datetime(2025, 12, 2, 18, 7, 24, 861207, tzinfo=TzInfo(0)) updated_at=datetime.datetime(2025, 12, 2, 18, 7, 24, 862578, tzinfo=TzInfo(0)) submitted_at=datetime.datetime(2025, 12, 2, 18, 7, 24, 861207, tzinfo=TzInfo(0)) filled_at=None expired_at=None expires_at=datetime.datetime(2025, 12, 2, 21, 0, tzinfo=TzInfo(0)) canceled_at=None failed_at=None replaced_at=None replaced_by=None replaces=None asset_id=UUID('b0b6dd9d-8b9b-48a9-ba46-b9d54906e415') symbol='AAPL' asset_class=<AssetClass.US_EQUITY: 'us_equity'> notional=None qty='1' filled_qty='0' filled_avg_price=None order_class=<OrderClass.SIMPLE: 'simple'> order_type=<OrderType.MARKET: 'market'> type=<OrderType.MARKET: 'market'> side=<OrderSide.BUY: 'buy'> time_in_force=<TimeInForce.DAY: 'day'> limit_price=None stop_price=None status=<OrderStatus.PENDING_NEW: 'pending_new'> extended_hours=False legs=None trail_percent=None trail_price=None hwm=None position_intent=<PositionIntent.BUY_TO_OPEN: 'buy_to_open'> ratio_qty=None
+2025-12-02 13:08:28,249 [INFO] Handle signal buy para AAPL
+2025-12-02 13:08:28,341 [ERROR] No se pudo obtener precio para AAPL, tomando qty=1
+Traceback (most recent call last):
+  File "c:\Users\david\Desktop\Bot01\utils\trade_executor.py", line 95, in _calc_qty_for_symbol
+    barset = client.get_latest_trade(symbol)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'TradingClient' object has no attribute 'get_latest_trade'
+2025-12-02 13:08:28,619 [INFO] BUY (PAPER): AAPL 1 -> id=UUID('2d081410-c051-4f44-b7b0-7fd9f022b2aa') client_order_id='3b8cfae0-b883-4c11-8438-938ca78e7424' created_at=datetime.datetime(2025, 12, 2, 18, 8, 25, 717483, tzinfo=TzInfo(0)) updated_at=datetime.datetime(2025, 12, 2, 18, 8, 25, 718773, tzinfo=TzInfo(0)) submitted_at=datetime.datetime(2025, 12, 2, 18, 8, 25, 717483, tzinfo=TzInfo(0)) filled_at=None expired_at=None expires_at=datetime.datetime(2025, 12, 2, 21, 0, tzinfo=TzInfo(0)) canceled_at=None failed_at=None replaced_at=None replaced_by=None replaces=None asset_id=UUID('b0b6dd9d-8b9b-48a9-ba46-b9d54906e415') symbol='AAPL' asset_class=<AssetClass.US_EQUITY: 'us_equity'> notional=None qty='1' filled_qty='0' filled_avg_price=None order_class=<OrderClass.SIMPLE: 'simple'> order_type=<OrderType.MARKET: 'market'> type=<OrderType.MARKET: 'market'> side=<OrderSide.BUY: 'buy'> time_in_force=<TimeInForce.DAY: 'day'> limit_price=None stop_price=None status=<OrderStatus.PENDING_NEW: 'pending_new'> extended_hours=False legs=None trail_percent=None trail_price=None hwm=None position_intent=<PositionIntent.BUY_TO_OPEN: 'buy_to_open'> ratio_qty=None
+2025-12-02 13:09:29,620 [INFO] Handle signal buy para AAPL
+2025-12-02 13:09:29,709 [ERROR] No se pudo obtener precio para AAPL, tomando qty=1
+Traceback (most recent call last):
+  File "c:\Users\david\Desktop\Bot01\utils\trade_executor.py", line 95, in _calc_qty_for_symbol
+    barset = client.get_latest_trade(symbol)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'TradingClient' object has no attribute 'get_latest_trade'
+2025-12-02 13:09:29,974 [INFO] BUY (PAPER): AAPL 1 -> id=UUID('71256fe3-888e-4628-85dd-7debd3ad89cc') client_order_id='b9895da7-b1b5-45a2-9705-46dc743aa824' created_at=datetime.datetime(2025, 12, 2, 18, 9, 27, 71535, tzinfo=TzInfo(0)) updated_at=datetime.datetime(2025, 12, 2, 18, 9, 27, 72967, tzinfo=TzInfo(0)) submitted_at=datetime.datetime(2025, 12, 2, 18, 9, 27, 71535, tzinfo=TzInfo(0)) filled_at=None expired_at=None expires_at=datetime.datetime(2025, 12, 2, 21, 0, tzinfo=TzInfo(0)) canceled_at=None failed_at=None replaced_at=None replaced_by=None replaces=None asset_id=UUID('b0b6dd9d-8b9b-48a9-ba46-b9d54906e415') symbol='AAPL' asset_class=<AssetClass.US_EQUITY: 'us_equity'> notional=None qty='1' filled_qty='0' filled_avg_price=None order_class=<OrderClass.SIMPLE: 'simple'> order_type=<OrderType.MARKET: 'market'> type=<OrderType.MARKET: 'market'> side=<OrderSide.BUY: 'buy'> time_in_force=<TimeInForce.DAY: 'day'> limit_price=None stop_price=None status=<OrderStatus.PENDING_NEW: 'pending_new'> extended_hours=False legs=None trail_percent=None trail_price=None hwm=None position_intent=<PositionIntent.BUY_TO_OPEN: 'buy_to_open'> ratio_qty=None
+2025-12-02 13:10:30,486 [INFO] Handle signal hold para AAPL
+2025-12-02 13:10:30,486 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 13:11:30,870 [INFO] Handle signal hold para AAPL
+2025-12-02 13:11:30,870 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 13:12:31,227 [INFO] Handle signal hold para AAPL
+2025-12-02 13:12:31,227 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 13:13:31,687 [INFO] Handle signal hold para AAPL
+2025-12-02 13:13:31,687 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 13:14:32,234 [INFO] Handle signal hold para AAPL
+2025-12-02 13:14:32,234 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 13:15:32,695 [INFO] Handle signal hold para AAPL
+2025-12-02 13:15:32,695 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 13:16:33,189 [INFO] Handle signal hold para AAPL
+2025-12-02 13:16:33,189 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 13:17:33,568 [INFO] Handle signal hold para AAPL
+2025-12-02 13:17:33,568 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 13:18:34,220 [INFO] Handle signal hold para AAPL
+2025-12-02 13:18:34,220 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 13:19:35,196 [INFO] Handle signal hold para AAPL
+2025-12-02 13:19:35,196 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 13:20:35,593 [INFO] Handle signal hold para AAPL
+2025-12-02 13:20:35,593 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 13:21:36,121 [INFO] Handle signal hold para AAPL
+2025-12-02 13:21:36,121 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 13:22:36,690 [INFO] Handle signal hold para AAPL
+2025-12-02 13:22:36,691 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 13:23:37,136 [INFO] Handle signal hold para AAPL
+2025-12-02 13:23:37,136 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 13:24:37,602 [INFO] Handle signal hold para AAPL
+2025-12-02 13:24:37,602 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 13:25:37,962 [INFO] Handle signal sell para AAPL
+2025-12-02 13:25:37,962 [INFO] No hay posición para cerrar en AAPL
+2025-12-02 13:26:38,314 [INFO] Handle signal hold para AAPL
+2025-12-02 13:26:38,314 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 13:27:38,780 [INFO] Handle signal hold para AAPL
+2025-12-02 13:27:38,780 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 13:28:39,292 [INFO] Handle signal sell para AAPL
+2025-12-02 13:28:39,292 [INFO] No hay posición para cerrar en AAPL
+2025-12-02 13:29:39,695 [INFO] Handle signal sell para AAPL
+2025-12-02 13:29:39,695 [INFO] No hay posición para cerrar en AAPL
+2025-12-02 13:30:40,241 [INFO] Handle signal hold para AAPL
+2025-12-02 13:30:40,241 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 13:31:40,603 [INFO] Handle signal hold para AAPL
+2025-12-02 13:31:40,603 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 13:32:41,188 [INFO] Handle signal hold para AAPL
+2025-12-02 13:32:41,188 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 13:33:41,573 [INFO] Handle signal hold para AAPL
+2025-12-02 13:33:41,573 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 13:34:42,134 [INFO] Handle signal hold para AAPL
+2025-12-02 13:34:42,134 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 13:35:42,485 [INFO] Handle signal hold para AAPL
+2025-12-02 13:35:42,485 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 13:36:42,877 [INFO] Handle signal hold para AAPL
+2025-12-02 13:36:42,877 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 13:37:43,538 [INFO] Handle signal hold para AAPL
+2025-12-02 13:37:43,538 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 13:38:44,108 [INFO] Handle signal hold para AAPL
+2025-12-02 13:38:44,108 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 13:39:44,558 [INFO] Handle signal hold para AAPL
+2025-12-02 13:39:44,558 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 13:40:44,936 [INFO] Handle signal hold para AAPL
+2025-12-02 13:40:44,936 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 13:41:45,415 [INFO] Handle signal hold para AAPL
+2025-12-02 13:41:45,415 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 13:42:45,774 [INFO] Handle signal hold para AAPL
+2025-12-02 13:42:45,774 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 13:43:46,161 [INFO] Handle signal hold para AAPL
+2025-12-02 13:43:46,161 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 13:44:46,511 [INFO] Handle signal hold para AAPL
+2025-12-02 13:44:46,512 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 13:45:46,992 [INFO] Handle signal hold para AAPL
+2025-12-02 13:45:46,993 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 13:46:47,580 [INFO] Handle signal hold para AAPL
+2025-12-02 13:46:47,580 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 13:47:48,094 [INFO] Handle signal hold para AAPL
+2025-12-02 13:47:48,094 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 13:48:48,474 [INFO] Handle signal hold para AAPL
+2025-12-02 13:48:48,474 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 13:49:49,017 [INFO] Handle signal hold para AAPL
+2025-12-02 13:49:49,017 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 13:50:49,434 [INFO] Handle signal sell para AAPL
+2025-12-02 13:50:49,434 [INFO] No hay posición para cerrar en AAPL
+2025-12-02 13:51:49,916 [INFO] Handle signal sell para AAPL
+2025-12-02 13:51:49,916 [INFO] No hay posición para cerrar en AAPL
+2025-12-02 13:52:50,332 [INFO] Handle signal sell para AAPL
+2025-12-02 13:52:50,332 [INFO] No hay posición para cerrar en AAPL
+2025-12-02 13:53:50,823 [INFO] Handle signal hold para AAPL
+2025-12-02 13:53:50,823 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 13:54:51,339 [INFO] Handle signal sell para AAPL
+2025-12-02 13:54:51,339 [INFO] No hay posición para cerrar en AAPL
+2025-12-02 13:55:51,859 [INFO] Handle signal buy para AAPL
+2025-12-02 13:55:52,322 [ERROR] No se pudo obtener precio para AAPL, tomando qty=1
+Traceback (most recent call last):
+  File "c:\Users\david\Desktop\Bot01\utils\trade_executor.py", line 95, in _calc_qty_for_symbol
+    barset = client.get_latest_trade(symbol)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'TradingClient' object has no attribute 'get_latest_trade'
+2025-12-02 13:55:52,591 [INFO] BUY (PAPER): AAPL 1 -> id=UUID('ef5a0ef4-a001-4912-a874-a124a656bf87') client_order_id='3de3dcd2-6a3a-4ce7-b5e4-5e1ce2e3d3c7' created_at=datetime.datetime(2025, 12, 2, 18, 55, 49, 618976, tzinfo=TzInfo(0)) updated_at=datetime.datetime(2025, 12, 2, 18, 55, 49, 623575, tzinfo=TzInfo(0)) submitted_at=datetime.datetime(2025, 12, 2, 18, 55, 49, 618976, tzinfo=TzInfo(0)) filled_at=None expired_at=None expires_at=datetime.datetime(2025, 12, 2, 21, 0, tzinfo=TzInfo(0)) canceled_at=None failed_at=None replaced_at=None replaced_by=None replaces=None asset_id=UUID('b0b6dd9d-8b9b-48a9-ba46-b9d54906e415') symbol='AAPL' asset_class=<AssetClass.US_EQUITY: 'us_equity'> notional=None qty='1' filled_qty='0' filled_avg_price=None order_class=<OrderClass.SIMPLE: 'simple'> order_type=<OrderType.MARKET: 'market'> type=<OrderType.MARKET: 'market'> side=<OrderSide.BUY: 'buy'> time_in_force=<TimeInForce.DAY: 'day'> limit_price=None stop_price=None status=<OrderStatus.PENDING_NEW: 'pending_new'> extended_hours=False legs=None trail_percent=None trail_price=None hwm=None position_intent=<PositionIntent.BUY_TO_OPEN: 'buy_to_open'> ratio_qty=None
+2025-12-02 13:56:53,153 [INFO] Handle signal hold para AAPL
+2025-12-02 13:56:53,153 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 13:57:53,540 [INFO] Handle signal hold para AAPL
+2025-12-02 13:57:53,540 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 13:58:53,936 [INFO] Handle signal hold para AAPL
+2025-12-02 13:58:53,936 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 13:59:54,443 [INFO] Handle signal hold para AAPL
+2025-12-02 13:59:54,443 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 14:00:54,878 [INFO] Handle signal sell para AAPL
+2025-12-02 14:00:54,878 [INFO] No hay posición para cerrar en AAPL
+2025-12-02 14:01:55,455 [INFO] Handle signal sell para AAPL
+2025-12-02 14:01:55,456 [INFO] No hay posición para cerrar en AAPL
+2025-12-02 14:02:55,846 [INFO] Handle signal sell para AAPL
+2025-12-02 14:02:55,847 [INFO] No hay posición para cerrar en AAPL
+2025-12-02 14:03:56,646 [INFO] Handle signal hold para AAPL
+2025-12-02 14:03:56,647 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 14:04:57,186 [INFO] Handle signal hold para AAPL
+2025-12-02 14:04:57,186 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 14:05:57,598 [INFO] Handle signal hold para AAPL
+2025-12-02 14:05:57,598 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 14:06:58,149 [INFO] Handle signal hold para AAPL
+2025-12-02 14:06:58,149 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 14:07:58,551 [INFO] Handle signal hold para AAPL
+2025-12-02 14:07:58,551 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 14:08:59,050 [INFO] Handle signal hold para AAPL
+2025-12-02 14:08:59,050 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 14:09:59,652 [INFO] Handle signal hold para AAPL
+2025-12-02 14:09:59,652 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 14:11:00,293 [INFO] Handle signal hold para AAPL
+2025-12-02 14:11:00,293 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 14:12:00,672 [INFO] Handle signal hold para AAPL
+2025-12-02 14:12:00,672 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 14:13:01,224 [INFO] Handle signal hold para AAPL
+2025-12-02 14:13:01,224 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 14:14:01,845 [INFO] Handle signal hold para AAPL
+2025-12-02 14:14:01,846 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 14:15:02,309 [INFO] Handle signal hold para AAPL
+2025-12-02 14:15:02,309 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 14:16:03,375 [INFO] Handle signal hold para AAPL
+2025-12-02 14:16:03,375 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 14:17:03,988 [INFO] Handle signal hold para AAPL
+2025-12-02 14:17:03,988 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 14:18:04,544 [INFO] Handle signal hold para AAPL
+2025-12-02 14:18:04,544 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 14:19:04,957 [INFO] Handle signal hold para AAPL
+2025-12-02 14:19:04,957 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 14:20:05,516 [INFO] Handle signal buy para AAPL
+2025-12-02 14:20:05,986 [ERROR] No se pudo obtener precio para AAPL, tomando qty=1
+Traceback (most recent call last):
+  File "c:\Users\david\Desktop\Bot01\utils\trade_executor.py", line 95, in _calc_qty_for_symbol
+    barset = client.get_latest_trade(symbol)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'TradingClient' object has no attribute 'get_latest_trade'
+2025-12-02 14:20:06,250 [INFO] BUY (PAPER): AAPL 1 -> id=UUID('5b96cd4b-cf00-46bf-af73-3edf50bd4392') client_order_id='e078d258-1059-4dfc-ad85-c68f7ed147fe' created_at=datetime.datetime(2025, 12, 2, 19, 20, 3, 246449, tzinfo=TzInfo(0)) updated_at=datetime.datetime(2025, 12, 2, 19, 20, 3, 248924, tzinfo=TzInfo(0)) submitted_at=datetime.datetime(2025, 12, 2, 19, 20, 3, 246449, tzinfo=TzInfo(0)) filled_at=None expired_at=None expires_at=datetime.datetime(2025, 12, 2, 21, 0, tzinfo=TzInfo(0)) canceled_at=None failed_at=None replaced_at=None replaced_by=None replaces=None asset_id=UUID('b0b6dd9d-8b9b-48a9-ba46-b9d54906e415') symbol='AAPL' asset_class=<AssetClass.US_EQUITY: 'us_equity'> notional=None qty='1' filled_qty='0' filled_avg_price=None order_class=<OrderClass.SIMPLE: 'simple'> order_type=<OrderType.MARKET: 'market'> type=<OrderType.MARKET: 'market'> side=<OrderSide.BUY: 'buy'> time_in_force=<TimeInForce.DAY: 'day'> limit_price=None stop_price=None status=<OrderStatus.PENDING_NEW: 'pending_new'> extended_hours=False legs=None trail_percent=None trail_price=None hwm=None position_intent=<PositionIntent.BUY_TO_OPEN: 'buy_to_open'> ratio_qty=None
+2025-12-02 14:21:04,497 [INFO] Handle signal buy para AAPL
+2025-12-02 14:21:04,962 [ERROR] No se pudo obtener precio para AAPL, tomando qty=1
+Traceback (most recent call last):
+  File "c:\Users\david\Desktop\Bot01\utils\trade_executor.py", line 95, in _calc_qty_for_symbol
+    barset = client.get_latest_trade(symbol)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'TradingClient' object has no attribute 'get_latest_trade'
+2025-12-02 14:21:05,234 [INFO] BUY (PAPER): AAPL 1 -> id=UUID('8e2c7ddb-42ff-4160-8c1f-7ee5d1aa020d') client_order_id='144aea5c-6d53-47f6-bc07-6c1ab9187203' created_at=datetime.datetime(2025, 12, 2, 19, 21, 2, 228258, tzinfo=TzInfo(0)) updated_at=datetime.datetime(2025, 12, 2, 19, 21, 2, 230866, tzinfo=TzInfo(0)) submitted_at=datetime.datetime(2025, 12, 2, 19, 21, 2, 228258, tzinfo=TzInfo(0)) filled_at=None expired_at=None expires_at=datetime.datetime(2025, 12, 2, 21, 0, tzinfo=TzInfo(0)) canceled_at=None failed_at=None replaced_at=None replaced_by=None replaces=None asset_id=UUID('b0b6dd9d-8b9b-48a9-ba46-b9d54906e415') symbol='AAPL' asset_class=<AssetClass.US_EQUITY: 'us_equity'> notional=None qty='1' filled_qty='0' filled_avg_price=None order_class=<OrderClass.SIMPLE: 'simple'> order_type=<OrderType.MARKET: 'market'> type=<OrderType.MARKET: 'market'> side=<OrderSide.BUY: 'buy'> time_in_force=<TimeInForce.DAY: 'day'> limit_price=None stop_price=None status=<OrderStatus.PENDING_NEW: 'pending_new'> extended_hours=False legs=None trail_percent=None trail_price=None hwm=None position_intent=<PositionIntent.BUY_TO_OPEN: 'buy_to_open'> ratio_qty=None
+2025-12-02 14:22:05,848 [INFO] Handle signal buy para AAPL
+2025-12-02 14:22:05,936 [ERROR] No se pudo obtener precio para AAPL, tomando qty=1
+Traceback (most recent call last):
+  File "c:\Users\david\Desktop\Bot01\utils\trade_executor.py", line 95, in _calc_qty_for_symbol
+    barset = client.get_latest_trade(symbol)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'TradingClient' object has no attribute 'get_latest_trade'
+2025-12-02 14:22:06,200 [INFO] BUY (PAPER): AAPL 1 -> id=UUID('3c484630-7e23-4e11-8fef-b5a4f5691dae') client_order_id='2187922f-bfe3-43c5-8630-4139bc0af4d8' created_at=datetime.datetime(2025, 12, 2, 19, 22, 3, 191586, tzinfo=TzInfo(0)) updated_at=datetime.datetime(2025, 12, 2, 19, 22, 3, 195549, tzinfo=TzInfo(0)) submitted_at=datetime.datetime(2025, 12, 2, 19, 22, 3, 191586, tzinfo=TzInfo(0)) filled_at=None expired_at=None expires_at=datetime.datetime(2025, 12, 2, 21, 0, tzinfo=TzInfo(0)) canceled_at=None failed_at=None replaced_at=None replaced_by=None replaces=None asset_id=UUID('b0b6dd9d-8b9b-48a9-ba46-b9d54906e415') symbol='AAPL' asset_class=<AssetClass.US_EQUITY: 'us_equity'> notional=None qty='1' filled_qty='0' filled_avg_price=None order_class=<OrderClass.SIMPLE: 'simple'> order_type=<OrderType.MARKET: 'market'> type=<OrderType.MARKET: 'market'> side=<OrderSide.BUY: 'buy'> time_in_force=<TimeInForce.DAY: 'day'> limit_price=None stop_price=None status=<OrderStatus.PENDING_NEW: 'pending_new'> extended_hours=False legs=None trail_percent=None trail_price=None hwm=None position_intent=<PositionIntent.BUY_TO_OPEN: 'buy_to_open'> ratio_qty=None
+2025-12-02 14:23:06,737 [INFO] Handle signal buy para AAPL
+2025-12-02 14:23:06,824 [ERROR] No se pudo obtener precio para AAPL, tomando qty=1
+Traceback (most recent call last):
+  File "c:\Users\david\Desktop\Bot01\utils\trade_executor.py", line 95, in _calc_qty_for_symbol
+    barset = client.get_latest_trade(symbol)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'TradingClient' object has no attribute 'get_latest_trade'
+2025-12-02 14:23:07,088 [INFO] BUY (PAPER): AAPL 1 -> id=UUID('ac41a3fc-e1a3-4ab9-acc4-52a7cb527e05') client_order_id='82343e7d-8854-4c8d-b9bb-d9ede1fa3b8e' created_at=datetime.datetime(2025, 12, 2, 19, 23, 4, 80343, tzinfo=TzInfo(0)) updated_at=datetime.datetime(2025, 12, 2, 19, 23, 4, 81773, tzinfo=TzInfo(0)) submitted_at=datetime.datetime(2025, 12, 2, 19, 23, 4, 80343, tzinfo=TzInfo(0)) filled_at=None expired_at=None expires_at=datetime.datetime(2025, 12, 2, 21, 0, tzinfo=TzInfo(0)) canceled_at=None failed_at=None replaced_at=None replaced_by=None replaces=None asset_id=UUID('b0b6dd9d-8b9b-48a9-ba46-b9d54906e415') symbol='AAPL' asset_class=<AssetClass.US_EQUITY: 'us_equity'> notional=None qty='1' filled_qty='0' filled_avg_price=None order_class=<OrderClass.SIMPLE: 'simple'> order_type=<OrderType.MARKET: 'market'> type=<OrderType.MARKET: 'market'> side=<OrderSide.BUY: 'buy'> time_in_force=<TimeInForce.DAY: 'day'> limit_price=None stop_price=None status=<OrderStatus.PENDING_NEW: 'pending_new'> extended_hours=False legs=None trail_percent=None trail_price=None hwm=None position_intent=<PositionIntent.BUY_TO_OPEN: 'buy_to_open'> ratio_qty=None
+2025-12-02 14:24:07,572 [INFO] Handle signal buy para AAPL
+2025-12-02 14:24:07,659 [ERROR] No se pudo obtener precio para AAPL, tomando qty=1
+Traceback (most recent call last):
+  File "c:\Users\david\Desktop\Bot01\utils\trade_executor.py", line 95, in _calc_qty_for_symbol
+    barset = client.get_latest_trade(symbol)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'TradingClient' object has no attribute 'get_latest_trade'
+2025-12-02 14:24:07,924 [INFO] BUY (PAPER): AAPL 1 -> id=UUID('19386b6c-07a2-4c18-999c-01848efe64be') client_order_id='a37565ff-0a8c-43c3-b1c8-bc8df753b618' created_at=datetime.datetime(2025, 12, 2, 19, 24, 4, 913843, tzinfo=TzInfo(0)) updated_at=datetime.datetime(2025, 12, 2, 19, 24, 4, 917308, tzinfo=TzInfo(0)) submitted_at=datetime.datetime(2025, 12, 2, 19, 24, 4, 913843, tzinfo=TzInfo(0)) filled_at=None expired_at=None expires_at=datetime.datetime(2025, 12, 2, 21, 0, tzinfo=TzInfo(0)) canceled_at=None failed_at=None replaced_at=None replaced_by=None replaces=None asset_id=UUID('b0b6dd9d-8b9b-48a9-ba46-b9d54906e415') symbol='AAPL' asset_class=<AssetClass.US_EQUITY: 'us_equity'> notional=None qty='1' filled_qty='0' filled_avg_price=None order_class=<OrderClass.SIMPLE: 'simple'> order_type=<OrderType.MARKET: 'market'> type=<OrderType.MARKET: 'market'> side=<OrderSide.BUY: 'buy'> time_in_force=<TimeInForce.DAY: 'day'> limit_price=None stop_price=None status=<OrderStatus.PENDING_NEW: 'pending_new'> extended_hours=False legs=None trail_percent=None trail_price=None hwm=None position_intent=<PositionIntent.BUY_TO_OPEN: 'buy_to_open'> ratio_qty=None
+2025-12-02 14:25:08,489 [INFO] Handle signal hold para AAPL
+2025-12-02 14:25:08,489 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 14:26:09,045 [INFO] Handle signal hold para AAPL
+2025-12-02 14:26:09,045 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 14:27:09,607 [INFO] Handle signal hold para AAPL
+2025-12-02 14:27:09,607 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 14:28:10,156 [INFO] Handle signal hold para AAPL
+2025-12-02 14:28:10,156 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 14:29:10,535 [INFO] Handle signal hold para AAPL
+2025-12-02 14:29:10,535 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 14:30:10,942 [INFO] Handle signal hold para AAPL
+2025-12-02 14:30:10,943 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 14:31:11,575 [INFO] Handle signal hold para AAPL
+2025-12-02 14:31:11,575 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 14:32:12,128 [INFO] Handle signal sell para AAPL
+2025-12-02 14:32:12,128 [INFO] No hay posición para cerrar en AAPL
+2025-12-02 14:33:12,727 [INFO] Handle signal sell para AAPL
+2025-12-02 14:33:12,727 [INFO] No hay posición para cerrar en AAPL
+2025-12-02 14:34:13,138 [INFO] Handle signal sell para AAPL
+2025-12-02 14:34:13,138 [INFO] No hay posición para cerrar en AAPL
+2025-12-02 14:35:13,506 [INFO] Handle signal buy para AAPL
+2025-12-02 14:35:13,966 [ERROR] No se pudo obtener precio para AAPL, tomando qty=1
+Traceback (most recent call last):
+  File "c:\Users\david\Desktop\Bot01\utils\trade_executor.py", line 95, in _calc_qty_for_symbol
+    barset = client.get_latest_trade(symbol)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'TradingClient' object has no attribute 'get_latest_trade'
+2025-12-02 14:35:14,298 [INFO] BUY (PAPER): AAPL 1 -> id=UUID('ff1957da-ae22-41f5-b59f-cdd0cb4dbd8d') client_order_id='badff790-8f5a-4d95-92d9-c3006aed3f99' created_at=datetime.datetime(2025, 12, 2, 19, 35, 11, 206539, tzinfo=TzInfo(0)) updated_at=datetime.datetime(2025, 12, 2, 19, 35, 11, 215161, tzinfo=TzInfo(0)) submitted_at=datetime.datetime(2025, 12, 2, 19, 35, 11, 206539, tzinfo=TzInfo(0)) filled_at=None expired_at=None expires_at=datetime.datetime(2025, 12, 2, 21, 0, tzinfo=TzInfo(0)) canceled_at=None failed_at=None replaced_at=None replaced_by=None replaces=None asset_id=UUID('b0b6dd9d-8b9b-48a9-ba46-b9d54906e415') symbol='AAPL' asset_class=<AssetClass.US_EQUITY: 'us_equity'> notional=None qty='1' filled_qty='0' filled_avg_price=None order_class=<OrderClass.SIMPLE: 'simple'> order_type=<OrderType.MARKET: 'market'> type=<OrderType.MARKET: 'market'> side=<OrderSide.BUY: 'buy'> time_in_force=<TimeInForce.DAY: 'day'> limit_price=None stop_price=None status=<OrderStatus.PENDING_NEW: 'pending_new'> extended_hours=False legs=None trail_percent=None trail_price=None hwm=None position_intent=<PositionIntent.BUY_TO_OPEN: 'buy_to_open'> ratio_qty=None
+2025-12-02 14:36:14,763 [INFO] Handle signal buy para AAPL
+2025-12-02 14:36:14,850 [ERROR] No se pudo obtener precio para AAPL, tomando qty=1
+Traceback (most recent call last):
+  File "c:\Users\david\Desktop\Bot01\utils\trade_executor.py", line 95, in _calc_qty_for_symbol
+    barset = client.get_latest_trade(symbol)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'TradingClient' object has no attribute 'get_latest_trade'
+2025-12-02 14:36:15,121 [INFO] BUY (PAPER): AAPL 1 -> id=UUID('722637a8-da11-4663-8f48-bfa9d4a56d2c') client_order_id='44485732-c983-4034-bc04-561b7c44e00c' created_at=datetime.datetime(2025, 12, 2, 19, 36, 12, 87761, tzinfo=TzInfo(0)) updated_at=datetime.datetime(2025, 12, 2, 19, 36, 12, 96765, tzinfo=TzInfo(0)) submitted_at=datetime.datetime(2025, 12, 2, 19, 36, 12, 87761, tzinfo=TzInfo(0)) filled_at=None expired_at=None expires_at=datetime.datetime(2025, 12, 2, 21, 0, tzinfo=TzInfo(0)) canceled_at=None failed_at=None replaced_at=None replaced_by=None replaces=None asset_id=UUID('b0b6dd9d-8b9b-48a9-ba46-b9d54906e415') symbol='AAPL' asset_class=<AssetClass.US_EQUITY: 'us_equity'> notional=None qty='1' filled_qty='0' filled_avg_price=None order_class=<OrderClass.SIMPLE: 'simple'> order_type=<OrderType.MARKET: 'market'> type=<OrderType.MARKET: 'market'> side=<OrderSide.BUY: 'buy'> time_in_force=<TimeInForce.DAY: 'day'> limit_price=None stop_price=None status=<OrderStatus.PENDING_NEW: 'pending_new'> extended_hours=False legs=None trail_percent=None trail_price=None hwm=None position_intent=<PositionIntent.BUY_TO_OPEN: 'buy_to_open'> ratio_qty=None
+2025-12-02 14:37:15,734 [INFO] Handle signal buy para AAPL
+2025-12-02 14:37:15,823 [ERROR] No se pudo obtener precio para AAPL, tomando qty=1
+Traceback (most recent call last):
+  File "c:\Users\david\Desktop\Bot01\utils\trade_executor.py", line 95, in _calc_qty_for_symbol
+    barset = client.get_latest_trade(symbol)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'TradingClient' object has no attribute 'get_latest_trade'
+2025-12-02 14:37:16,089 [INFO] BUY (PAPER): AAPL 1 -> id=UUID('1b9e48d7-8dd3-40d0-85e9-9b41101bbe62') client_order_id='cd873bce-3c5c-4708-9225-e5e1668f35bb' created_at=datetime.datetime(2025, 12, 2, 19, 37, 13, 60513, tzinfo=TzInfo(0)) updated_at=datetime.datetime(2025, 12, 2, 19, 37, 13, 63250, tzinfo=TzInfo(0)) submitted_at=datetime.datetime(2025, 12, 2, 19, 37, 13, 60513, tzinfo=TzInfo(0)) filled_at=None expired_at=None expires_at=datetime.datetime(2025, 12, 2, 21, 0, tzinfo=TzInfo(0)) canceled_at=None failed_at=None replaced_at=None replaced_by=None replaces=None asset_id=UUID('b0b6dd9d-8b9b-48a9-ba46-b9d54906e415') symbol='AAPL' asset_class=<AssetClass.US_EQUITY: 'us_equity'> notional=None qty='1' filled_qty='0' filled_avg_price=None order_class=<OrderClass.SIMPLE: 'simple'> order_type=<OrderType.MARKET: 'market'> type=<OrderType.MARKET: 'market'> side=<OrderSide.BUY: 'buy'> time_in_force=<TimeInForce.DAY: 'day'> limit_price=None stop_price=None status=<OrderStatus.PENDING_NEW: 'pending_new'> extended_hours=False legs=None trail_percent=None trail_price=None hwm=None position_intent=<PositionIntent.BUY_TO_OPEN: 'buy_to_open'> ratio_qty=None
+2025-12-02 14:38:16,467 [INFO] Handle signal buy para AAPL
+2025-12-02 14:38:16,555 [ERROR] No se pudo obtener precio para AAPL, tomando qty=1
+Traceback (most recent call last):
+  File "c:\Users\david\Desktop\Bot01\utils\trade_executor.py", line 95, in _calc_qty_for_symbol
+    barset = client.get_latest_trade(symbol)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'TradingClient' object has no attribute 'get_latest_trade'
+2025-12-02 14:38:16,833 [INFO] BUY (PAPER): AAPL 1 -> id=UUID('787f5dde-0d56-437f-b0a8-861a392bb058') client_order_id='e377343d-4b71-4034-aac0-d95a2b75830a' created_at=datetime.datetime(2025, 12, 2, 19, 38, 13, 798655, tzinfo=TzInfo(0)) updated_at=datetime.datetime(2025, 12, 2, 19, 38, 13, 799891, tzinfo=TzInfo(0)) submitted_at=datetime.datetime(2025, 12, 2, 19, 38, 13, 798655, tzinfo=TzInfo(0)) filled_at=None expired_at=None expires_at=datetime.datetime(2025, 12, 2, 21, 0, tzinfo=TzInfo(0)) canceled_at=None failed_at=None replaced_at=None replaced_by=None replaces=None asset_id=UUID('b0b6dd9d-8b9b-48a9-ba46-b9d54906e415') symbol='AAPL' asset_class=<AssetClass.US_EQUITY: 'us_equity'> notional=None qty='1' filled_qty='0' filled_avg_price=None order_class=<OrderClass.SIMPLE: 'simple'> order_type=<OrderType.MARKET: 'market'> type=<OrderType.MARKET: 'market'> side=<OrderSide.BUY: 'buy'> time_in_force=<TimeInForce.DAY: 'day'> limit_price=None stop_price=None status=<OrderStatus.PENDING_NEW: 'pending_new'> extended_hours=False legs=None trail_percent=None trail_price=None hwm=None position_intent=<PositionIntent.BUY_TO_OPEN: 'buy_to_open'> ratio_qty=None
+2025-12-02 14:39:17,215 [INFO] Handle signal hold para AAPL
+2025-12-02 14:39:17,216 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 14:40:17,694 [INFO] Handle signal hold para AAPL
+2025-12-02 14:40:17,694 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 14:41:18,265 [INFO] Handle signal hold para AAPL
+2025-12-02 14:41:18,265 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 14:42:18,668 [INFO] Handle signal hold para AAPL
+2025-12-02 14:42:18,668 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 14:43:19,239 [INFO] Handle signal hold para AAPL
+2025-12-02 14:43:19,239 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 14:44:19,792 [INFO] Handle signal hold para AAPL
+2025-12-02 14:44:19,792 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 14:45:20,282 [INFO] Handle signal hold para AAPL
+2025-12-02 14:45:20,282 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 14:46:20,834 [INFO] Handle signal hold para AAPL
+2025-12-02 14:46:20,834 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 14:47:21,356 [INFO] Handle signal hold para AAPL
+2025-12-02 14:47:21,356 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 14:48:21,928 [INFO] Handle signal hold para AAPL
+2025-12-02 14:48:21,928 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 14:49:22,495 [INFO] Handle signal hold para AAPL
+2025-12-02 14:49:22,495 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 14:50:22,898 [INFO] Handle signal sell para AAPL
+2025-12-02 14:50:22,899 [INFO] No hay posición para cerrar en AAPL
+2025-12-02 14:51:23,316 [INFO] Handle signal sell para AAPL
+2025-12-02 14:51:23,316 [INFO] No hay posición para cerrar en AAPL
+2025-12-02 14:52:23,955 [INFO] Handle signal sell para AAPL
+2025-12-02 14:52:23,955 [INFO] No hay posición para cerrar en AAPL
+2025-12-02 14:53:24,325 [INFO] Handle signal sell para AAPL
+2025-12-02 14:53:24,325 [INFO] No hay posición para cerrar en AAPL
+2025-12-02 14:54:24,999 [INFO] Handle signal sell para AAPL
+2025-12-02 14:54:24,999 [INFO] No hay posición para cerrar en AAPL
+2025-12-02 14:55:25,524 [INFO] Handle signal hold para AAPL
+2025-12-02 14:55:25,524 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 14:56:25,905 [INFO] Handle signal hold para AAPL
+2025-12-02 14:56:25,905 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 14:57:26,302 [INFO] Handle signal hold para AAPL
+2025-12-02 14:57:26,302 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 14:58:26,656 [INFO] Handle signal hold para AAPL
+2025-12-02 14:58:26,656 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 14:59:27,042 [INFO] Handle signal hold para AAPL
+2025-12-02 14:59:27,042 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 15:00:27,599 [INFO] Handle signal hold para AAPL
+2025-12-02 15:00:27,599 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 15:01:28,189 [INFO] Handle signal hold para AAPL
+2025-12-02 15:01:28,189 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 15:02:28,835 [INFO] Handle signal buy para AAPL
+2025-12-02 15:02:29,286 [ERROR] No se pudo obtener precio para AAPL, tomando qty=1
+Traceback (most recent call last):
+  File "c:\Users\david\Desktop\Bot01\utils\trade_executor.py", line 95, in _calc_qty_for_symbol
+    barset = client.get_latest_trade(symbol)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'TradingClient' object has no attribute 'get_latest_trade'
+2025-12-02 15:02:29,548 [INFO] BUY (PAPER): AAPL 1 -> id=UUID('86ed818c-4346-4664-a258-a1861d99d747') client_order_id='6ab0e310-2939-455c-9315-3bffb92ac068' created_at=datetime.datetime(2025, 12, 2, 20, 2, 26, 483926, tzinfo=TzInfo(0)) updated_at=datetime.datetime(2025, 12, 2, 20, 2, 26, 485525, tzinfo=TzInfo(0)) submitted_at=datetime.datetime(2025, 12, 2, 20, 2, 26, 483926, tzinfo=TzInfo(0)) filled_at=None expired_at=None expires_at=datetime.datetime(2025, 12, 2, 21, 0, tzinfo=TzInfo(0)) canceled_at=None failed_at=None replaced_at=None replaced_by=None replaces=None asset_id=UUID('b0b6dd9d-8b9b-48a9-ba46-b9d54906e415') symbol='AAPL' asset_class=<AssetClass.US_EQUITY: 'us_equity'> notional=None qty='1' filled_qty='0' filled_avg_price=None order_class=<OrderClass.SIMPLE: 'simple'> order_type=<OrderType.MARKET: 'market'> type=<OrderType.MARKET: 'market'> side=<OrderSide.BUY: 'buy'> time_in_force=<TimeInForce.DAY: 'day'> limit_price=None stop_price=None status=<OrderStatus.PENDING_NEW: 'pending_new'> extended_hours=False legs=None trail_percent=None trail_price=None hwm=None position_intent=<PositionIntent.BUY_TO_OPEN: 'buy_to_open'> ratio_qty=None
+2025-12-02 15:03:29,957 [INFO] Handle signal buy para AAPL
+2025-12-02 15:03:30,036 [ERROR] No se pudo obtener precio para AAPL, tomando qty=1
+Traceback (most recent call last):
+  File "c:\Users\david\Desktop\Bot01\utils\trade_executor.py", line 95, in _calc_qty_for_symbol
+    barset = client.get_latest_trade(symbol)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'TradingClient' object has no attribute 'get_latest_trade'
+2025-12-02 15:03:30,279 [INFO] BUY (PAPER): AAPL 1 -> id=UUID('4bffc3b2-d22a-47e0-8ac7-0d0a67c65109') client_order_id='63ee1bcb-ff3e-45c5-8bed-84de1017792f' created_at=datetime.datetime(2025, 12, 2, 20, 3, 27, 214213, tzinfo=TzInfo(0)) updated_at=datetime.datetime(2025, 12, 2, 20, 3, 27, 216241, tzinfo=TzInfo(0)) submitted_at=datetime.datetime(2025, 12, 2, 20, 3, 27, 214213, tzinfo=TzInfo(0)) filled_at=None expired_at=None expires_at=datetime.datetime(2025, 12, 2, 21, 0, tzinfo=TzInfo(0)) canceled_at=None failed_at=None replaced_at=None replaced_by=None replaces=None asset_id=UUID('b0b6dd9d-8b9b-48a9-ba46-b9d54906e415') symbol='AAPL' asset_class=<AssetClass.US_EQUITY: 'us_equity'> notional=None qty='1' filled_qty='0' filled_avg_price=None order_class=<OrderClass.SIMPLE: 'simple'> order_type=<OrderType.MARKET: 'market'> type=<OrderType.MARKET: 'market'> side=<OrderSide.BUY: 'buy'> time_in_force=<TimeInForce.DAY: 'day'> limit_price=None stop_price=None status=<OrderStatus.PENDING_NEW: 'pending_new'> extended_hours=False legs=None trail_percent=None trail_price=None hwm=None position_intent=<PositionIntent.BUY_TO_OPEN: 'buy_to_open'> ratio_qty=None
+2025-12-02 15:04:30,758 [INFO] Handle signal buy para AAPL
+2025-12-02 15:04:30,838 [ERROR] No se pudo obtener precio para AAPL, tomando qty=1
+Traceback (most recent call last):
+  File "c:\Users\david\Desktop\Bot01\utils\trade_executor.py", line 95, in _calc_qty_for_symbol
+    barset = client.get_latest_trade(symbol)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'TradingClient' object has no attribute 'get_latest_trade'
+2025-12-02 15:04:31,074 [INFO] BUY (PAPER): AAPL 1 -> id=UUID('5820be71-e314-4516-b248-85cdc29f5596') client_order_id='6f30a212-b1fe-49b6-b534-8ed0dfb4f3a1' created_at=datetime.datetime(2025, 12, 2, 20, 4, 28, 7490, tzinfo=TzInfo(0)) updated_at=datetime.datetime(2025, 12, 2, 20, 4, 28, 9097, tzinfo=TzInfo(0)) submitted_at=datetime.datetime(2025, 12, 2, 20, 4, 28, 7490, tzinfo=TzInfo(0)) filled_at=None expired_at=None expires_at=datetime.datetime(2025, 12, 2, 21, 0, tzinfo=TzInfo(0)) canceled_at=None failed_at=None replaced_at=None replaced_by=None replaces=None asset_id=UUID('b0b6dd9d-8b9b-48a9-ba46-b9d54906e415') symbol='AAPL' asset_class=<AssetClass.US_EQUITY: 'us_equity'> notional=None qty='1' filled_qty='0' filled_avg_price=None order_class=<OrderClass.SIMPLE: 'simple'> order_type=<OrderType.MARKET: 'market'> type=<OrderType.MARKET: 'market'> side=<OrderSide.BUY: 'buy'> time_in_force=<TimeInForce.DAY: 'day'> limit_price=None stop_price=None status=<OrderStatus.PENDING_NEW: 'pending_new'> extended_hours=False legs=None trail_percent=None trail_price=None hwm=None position_intent=<PositionIntent.BUY_TO_OPEN: 'buy_to_open'> ratio_qty=None
+2025-12-02 15:05:31,896 [INFO] Handle signal buy para AAPL
+2025-12-02 15:05:31,985 [ERROR] No se pudo obtener precio para AAPL, tomando qty=1
+Traceback (most recent call last):
+  File "c:\Users\david\Desktop\Bot01\utils\trade_executor.py", line 95, in _calc_qty_for_symbol
+    barset = client.get_latest_trade(symbol)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'TradingClient' object has no attribute 'get_latest_trade'
+2025-12-02 15:05:32,257 [INFO] BUY (PAPER): AAPL 1 -> id=UUID('841824ae-e283-4abc-83d0-39b9f8c39d78') client_order_id='d9985b14-4d25-4f5a-a10e-233516a317de' created_at=datetime.datetime(2025, 12, 2, 20, 5, 29, 186347, tzinfo=TzInfo(0)) updated_at=datetime.datetime(2025, 12, 2, 20, 5, 29, 190275, tzinfo=TzInfo(0)) submitted_at=datetime.datetime(2025, 12, 2, 20, 5, 29, 186347, tzinfo=TzInfo(0)) filled_at=None expired_at=None expires_at=datetime.datetime(2025, 12, 2, 21, 0, tzinfo=TzInfo(0)) canceled_at=None failed_at=None replaced_at=None replaced_by=None replaces=None asset_id=UUID('b0b6dd9d-8b9b-48a9-ba46-b9d54906e415') symbol='AAPL' asset_class=<AssetClass.US_EQUITY: 'us_equity'> notional=None qty='1' filled_qty='0' filled_avg_price=None order_class=<OrderClass.SIMPLE: 'simple'> order_type=<OrderType.MARKET: 'market'> type=<OrderType.MARKET: 'market'> side=<OrderSide.BUY: 'buy'> time_in_force=<TimeInForce.DAY: 'day'> limit_price=None stop_price=None status=<OrderStatus.PENDING_NEW: 'pending_new'> extended_hours=False legs=None trail_percent=None trail_price=None hwm=None position_intent=<PositionIntent.BUY_TO_OPEN: 'buy_to_open'> ratio_qty=None
+2025-12-02 15:06:32,823 [INFO] Handle signal buy para AAPL
+2025-12-02 15:06:32,910 [ERROR] No se pudo obtener precio para AAPL, tomando qty=1
+Traceback (most recent call last):
+  File "c:\Users\david\Desktop\Bot01\utils\trade_executor.py", line 95, in _calc_qty_for_symbol
+    barset = client.get_latest_trade(symbol)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'TradingClient' object has no attribute 'get_latest_trade'
+2025-12-02 15:06:33,172 [INFO] BUY (PAPER): AAPL 1 -> id=UUID('32b108bd-d2aa-4c99-a353-748ace2f1cf1') client_order_id='1565b2ce-78ad-4d79-889b-e8c9d8c1f1b6' created_at=datetime.datetime(2025, 12, 2, 20, 6, 30, 106776, tzinfo=TzInfo(0)) updated_at=datetime.datetime(2025, 12, 2, 20, 6, 30, 108470, tzinfo=TzInfo(0)) submitted_at=datetime.datetime(2025, 12, 2, 20, 6, 30, 106776, tzinfo=TzInfo(0)) filled_at=None expired_at=None expires_at=datetime.datetime(2025, 12, 2, 21, 0, tzinfo=TzInfo(0)) canceled_at=None failed_at=None replaced_at=None replaced_by=None replaces=None asset_id=UUID('b0b6dd9d-8b9b-48a9-ba46-b9d54906e415') symbol='AAPL' asset_class=<AssetClass.US_EQUITY: 'us_equity'> notional=None qty='1' filled_qty='0' filled_avg_price=None order_class=<OrderClass.SIMPLE: 'simple'> order_type=<OrderType.MARKET: 'market'> type=<OrderType.MARKET: 'market'> side=<OrderSide.BUY: 'buy'> time_in_force=<TimeInForce.DAY: 'day'> limit_price=None stop_price=None status=<OrderStatus.PENDING_NEW: 'pending_new'> extended_hours=False legs=None trail_percent=None trail_price=None hwm=None position_intent=<PositionIntent.BUY_TO_OPEN: 'buy_to_open'> ratio_qty=None
+2025-12-02 15:07:33,584 [INFO] Handle signal buy para AAPL
+2025-12-02 15:07:33,680 [ERROR] No se pudo obtener precio para AAPL, tomando qty=1
+Traceback (most recent call last):
+  File "c:\Users\david\Desktop\Bot01\utils\trade_executor.py", line 95, in _calc_qty_for_symbol
+    barset = client.get_latest_trade(symbol)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'TradingClient' object has no attribute 'get_latest_trade'
+2025-12-02 15:07:33,940 [INFO] BUY (PAPER): AAPL 1 -> id=UUID('f7de33fa-b438-41f3-9eaf-31d15b5bb561') client_order_id='42ff7801-8750-4b52-aac5-65e1ade56fa7' created_at=datetime.datetime(2025, 12, 2, 20, 7, 30, 871198, tzinfo=TzInfo(0)) updated_at=datetime.datetime(2025, 12, 2, 20, 7, 30, 873497, tzinfo=TzInfo(0)) submitted_at=datetime.datetime(2025, 12, 2, 20, 7, 30, 871198, tzinfo=TzInfo(0)) filled_at=None expired_at=None expires_at=datetime.datetime(2025, 12, 2, 21, 0, tzinfo=TzInfo(0)) canceled_at=None failed_at=None replaced_at=None replaced_by=None replaces=None asset_id=UUID('b0b6dd9d-8b9b-48a9-ba46-b9d54906e415') symbol='AAPL' asset_class=<AssetClass.US_EQUITY: 'us_equity'> notional=None qty='1' filled_qty='0' filled_avg_price=None order_class=<OrderClass.SIMPLE: 'simple'> order_type=<OrderType.MARKET: 'market'> type=<OrderType.MARKET: 'market'> side=<OrderSide.BUY: 'buy'> time_in_force=<TimeInForce.DAY: 'day'> limit_price=None stop_price=None status=<OrderStatus.PENDING_NEW: 'pending_new'> extended_hours=False legs=None trail_percent=None trail_price=None hwm=None position_intent=<PositionIntent.BUY_TO_OPEN: 'buy_to_open'> ratio_qty=None
+2025-12-02 15:08:34,518 [INFO] Handle signal buy para AAPL
+2025-12-02 15:08:34,606 [ERROR] No se pudo obtener precio para AAPL, tomando qty=1
+Traceback (most recent call last):
+  File "c:\Users\david\Desktop\Bot01\utils\trade_executor.py", line 95, in _calc_qty_for_symbol
+    barset = client.get_latest_trade(symbol)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'TradingClient' object has no attribute 'get_latest_trade'
+2025-12-02 15:08:34,861 [INFO] BUY (PAPER): AAPL 1 -> id=UUID('1134b65f-7da5-4968-b37d-338c77c4fd75') client_order_id='e402092d-92d9-4d2d-9509-4654f0064ef9' created_at=datetime.datetime(2025, 12, 2, 20, 8, 31, 793221, tzinfo=TzInfo(0)) updated_at=datetime.datetime(2025, 12, 2, 20, 8, 31, 794503, tzinfo=TzInfo(0)) submitted_at=datetime.datetime(2025, 12, 2, 20, 8, 31, 793221, tzinfo=TzInfo(0)) filled_at=None expired_at=None expires_at=datetime.datetime(2025, 12, 2, 21, 0, tzinfo=TzInfo(0)) canceled_at=None failed_at=None replaced_at=None replaced_by=None replaces=None asset_id=UUID('b0b6dd9d-8b9b-48a9-ba46-b9d54906e415') symbol='AAPL' asset_class=<AssetClass.US_EQUITY: 'us_equity'> notional=None qty='1' filled_qty='0' filled_avg_price=None order_class=<OrderClass.SIMPLE: 'simple'> order_type=<OrderType.MARKET: 'market'> type=<OrderType.MARKET: 'market'> side=<OrderSide.BUY: 'buy'> time_in_force=<TimeInForce.DAY: 'day'> limit_price=None stop_price=None status=<OrderStatus.PENDING_NEW: 'pending_new'> extended_hours=False legs=None trail_percent=None trail_price=None hwm=None position_intent=<PositionIntent.BUY_TO_OPEN: 'buy_to_open'> ratio_qty=None
+2025-12-02 15:09:35,423 [INFO] Handle signal buy para AAPL
+2025-12-02 15:09:35,511 [ERROR] No se pudo obtener precio para AAPL, tomando qty=1
+Traceback (most recent call last):
+  File "c:\Users\david\Desktop\Bot01\utils\trade_executor.py", line 95, in _calc_qty_for_symbol
+    barset = client.get_latest_trade(symbol)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'TradingClient' object has no attribute 'get_latest_trade'
+2025-12-02 15:09:35,772 [INFO] BUY (PAPER): AAPL 1 -> id=UUID('85d7ae23-6fd4-4169-9a1f-53352cd2e812') client_order_id='c51bc43e-2b5e-4eb1-b2c1-c26aaaf06f1e' created_at=datetime.datetime(2025, 12, 2, 20, 9, 32, 702155, tzinfo=TzInfo(0)) updated_at=datetime.datetime(2025, 12, 2, 20, 9, 32, 703524, tzinfo=TzInfo(0)) submitted_at=datetime.datetime(2025, 12, 2, 20, 9, 32, 702155, tzinfo=TzInfo(0)) filled_at=None expired_at=None expires_at=datetime.datetime(2025, 12, 2, 21, 0, tzinfo=TzInfo(0)) canceled_at=None failed_at=None replaced_at=None replaced_by=None replaces=None asset_id=UUID('b0b6dd9d-8b9b-48a9-ba46-b9d54906e415') symbol='AAPL' asset_class=<AssetClass.US_EQUITY: 'us_equity'> notional=None qty='1' filled_qty='0' filled_avg_price=None order_class=<OrderClass.SIMPLE: 'simple'> order_type=<OrderType.MARKET: 'market'> type=<OrderType.MARKET: 'market'> side=<OrderSide.BUY: 'buy'> time_in_force=<TimeInForce.DAY: 'day'> limit_price=None stop_price=None status=<OrderStatus.PENDING_NEW: 'pending_new'> extended_hours=False legs=None trail_percent=None trail_price=None hwm=None position_intent=<PositionIntent.BUY_TO_OPEN: 'buy_to_open'> ratio_qty=None
+2025-12-02 15:10:36,199 [INFO] Handle signal hold para AAPL
+2025-12-02 15:10:36,199 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 15:11:36,571 [INFO] Handle signal hold para AAPL
+2025-12-02 15:11:36,571 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 15:12:37,077 [INFO] Handle signal hold para AAPL
+2025-12-02 15:12:37,077 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 15:13:37,480 [INFO] Handle signal hold para AAPL
+2025-12-02 15:13:37,481 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 15:14:37,965 [INFO] Handle signal hold para AAPL
+2025-12-02 15:14:37,965 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 15:15:38,433 [INFO] Handle signal sell para AAPL
+2025-12-02 15:15:38,433 [INFO] No hay posición para cerrar en AAPL
+2025-12-02 15:16:38,822 [INFO] Handle signal hold para AAPL
+2025-12-02 15:16:38,822 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 15:17:39,854 [INFO] Handle signal hold para AAPL
+2025-12-02 15:17:39,854 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 15:18:40,254 [INFO] Handle signal hold para AAPL
+2025-12-02 15:18:40,254 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 15:19:40,810 [INFO] Handle signal hold para AAPL
+2025-12-02 15:19:40,810 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 15:20:41,364 [INFO] Handle signal hold para AAPL
+2025-12-02 15:20:41,364 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 15:21:41,777 [INFO] Handle signal hold para AAPL
+2025-12-02 15:21:41,777 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 15:22:42,382 [INFO] Handle signal hold para AAPL
+2025-12-02 15:22:42,382 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 15:23:42,779 [INFO] Handle signal hold para AAPL
+2025-12-02 15:23:42,779 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 15:24:43,342 [INFO] Handle signal hold para AAPL
+2025-12-02 15:24:43,342 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 15:25:43,885 [INFO] Handle signal hold para AAPL
+2025-12-02 15:25:43,885 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 15:26:44,292 [INFO] Handle signal hold para AAPL
+2025-12-02 15:26:44,292 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 15:27:45,196 [INFO] Handle signal hold para AAPL
+2025-12-02 15:27:45,196 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 15:28:45,754 [INFO] Handle signal hold para AAPL
+2025-12-02 15:28:45,754 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 15:29:46,379 [INFO] Handle signal hold para AAPL
+2025-12-02 15:29:46,379 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 15:30:46,950 [INFO] Handle signal hold para AAPL
+2025-12-02 15:30:46,950 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 15:31:47,508 [INFO] Handle signal hold para AAPL
+2025-12-02 15:31:47,509 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 15:32:47,973 [INFO] Handle signal hold para AAPL
+2025-12-02 15:32:47,973 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 15:33:48,390 [INFO] Handle signal hold para AAPL
+2025-12-02 15:33:48,390 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 15:34:49,041 [INFO] Handle signal hold para AAPL
+2025-12-02 15:34:49,041 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-02 15:35:49,696 [INFO] Handle signal hold para AAPL
+2025-12-02 15:35:49,696 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-03 13:53:44,754 [INFO] Handle signal hold para AAPL (raw=hold)
+2025-12-03 13:53:44,754 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-03 13:54:11,006 [INFO] Handle signal hold para AAPL (raw=hold)
+2025-12-03 13:54:11,007 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-03 13:55:11,553 [INFO] Handle signal hold para AAPL (raw=hold)
+2025-12-03 13:55:11,554 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-03 13:56:12,127 [INFO] Handle signal hold para AAPL (raw=hold)
+2025-12-03 13:56:12,127 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-03 13:57:12,614 [INFO] Handle signal hold para AAPL (raw=hold)
+2025-12-03 13:57:12,614 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-03 13:58:14,072 [INFO] Handle signal hold para AAPL (raw=hold)
+2025-12-03 13:58:14,072 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-03 13:59:14,481 [INFO] Handle signal hold para AAPL (raw=hold)
+2025-12-03 13:59:14,482 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-03 14:00:14,882 [INFO] Handle signal hold para AAPL (raw=hold)
+2025-12-03 14:00:14,882 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-03 14:01:15,276 [INFO] Handle signal hold para AAPL (raw=hold)
+2025-12-03 14:01:15,277 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-03 14:02:15,786 [INFO] Handle signal hold para AAPL (raw=hold)
+2025-12-03 14:02:15,786 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-03 14:04:29,196 [INFO] Handle signal sell para AAPL (raw=-1)
+2025-12-03 14:04:29,196 [INFO] No hay posición para cerrar en AAPL (get_position devolvió None).
+2025-12-03 14:04:29,682 [INFO] Posiciones abiertas (count=1): ['AAPL']
+2025-12-03 14:38:59,101 [INFO] Handle signal sell para AAPL (raw=-1)
+2025-12-03 14:38:59,101 [INFO] No hay posición para cerrar en AAPL (get_position devolvió None).
+2025-12-03 14:38:59,557 [INFO] Posiciones abiertas (count=1): ['AAPL']
+2025-12-03 14:39:08,324 [INFO] Handle signal sell para AAPL (raw=-1)
+2025-12-03 14:39:08,325 [INFO] No hay posición para cerrar en AAPL (get_position devolvió None).
+2025-12-03 14:39:08,775 [INFO] Posiciones abiertas (count=1): ['AAPL']
+2025-12-03 14:39:13,220 [INFO] Handle signal sell para AAPL (raw=-1)
+2025-12-03 14:39:13,220 [INFO] No hay posición para cerrar en AAPL (get_position devolvió None).
+2025-12-03 14:39:13,665 [INFO] Posiciones abiertas (count=1): ['AAPL']
+2025-12-03 14:39:31,626 [INFO] Handle signal buy para AAPL (raw=1)
+2025-12-03 14:39:32,097 [ERROR] No se pudo obtener precio para AAPL, tomando qty=1
+Traceback (most recent call last):
+  File "c:\Users\david\Desktop\Bot01\utils\trade_executor.py", line 95, in _calc_qty_for_symbol
+    barset = client.get_latest_trade(symbol)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'TradingClient' object has no attribute 'get_latest_trade'
+2025-12-03 14:39:32,362 [INFO] BUY (PAPER): AAPL 1 -> id=UUID('c3e9a9f5-e5cc-4869-bbf4-180c25142bba') client_order_id='faf57e6d-fd5f-4296-a7e6-c5c2159dc7fe' created_at=datetime.datetime(2025, 12, 3, 19, 39, 28, 495749, tzinfo=TzInfo(0)) updated_at=datetime.datetime(2025, 12, 3, 19, 39, 28, 498598, tzinfo=TzInfo(0)) submitted_at=datetime.datetime(2025, 12, 3, 19, 39, 28, 495749, tzinfo=TzInfo(0)) filled_at=None expired_at=None expires_at=datetime.datetime(2025, 12, 3, 21, 0, tzinfo=TzInfo(0)) canceled_at=None failed_at=None replaced_at=None replaced_by=None replaces=None asset_id=UUID('b0b6dd9d-8b9b-48a9-ba46-b9d54906e415') symbol='AAPL' asset_class=<AssetClass.US_EQUITY: 'us_equity'> notional=None qty='1' filled_qty='0' filled_avg_price=None order_class=<OrderClass.SIMPLE: 'simple'> order_type=<OrderType.MARKET: 'market'> type=<OrderType.MARKET: 'market'> side=<OrderSide.BUY: 'buy'> time_in_force=<TimeInForce.DAY: 'day'> limit_price=None stop_price=None status=<OrderStatus.PENDING_NEW: 'pending_new'> extended_hours=False legs=None trail_percent=None trail_price=None hwm=None position_intent=<PositionIntent.BUY_TO_OPEN: 'buy_to_open'> ratio_qty=None
+2025-12-03 14:45:46,158 [INFO] Handle signal buy para AAPL (raw=1)
+2025-12-03 14:45:46,615 [ERROR] No se pudo obtener precio para AAPL, tomando qty=1
+Traceback (most recent call last):
+  File "c:\Users\david\Desktop\Bot01\utils\trade_executor.py", line 95, in _calc_qty_for_symbol
+    barset = client.get_latest_trade(symbol)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'TradingClient' object has no attribute 'get_latest_trade'
+2025-12-03 14:45:46,878 [INFO] BUY (PAPER): AAPL 1 -> id=UUID('54ee57ee-9acb-4890-8830-b95b72bca349') client_order_id='e5af4149-581e-46b5-919f-253f489a70cf' created_at=datetime.datetime(2025, 12, 3, 19, 45, 43, 3551, tzinfo=TzInfo(0)) updated_at=datetime.datetime(2025, 12, 3, 19, 45, 43, 6372, tzinfo=TzInfo(0)) submitted_at=datetime.datetime(2025, 12, 3, 19, 45, 43, 3551, tzinfo=TzInfo(0)) filled_at=None expired_at=None expires_at=datetime.datetime(2025, 12, 3, 21, 0, tzinfo=TzInfo(0)) canceled_at=None failed_at=None replaced_at=None replaced_by=None replaces=None asset_id=UUID('b0b6dd9d-8b9b-48a9-ba46-b9d54906e415') symbol='AAPL' asset_class=<AssetClass.US_EQUITY: 'us_equity'> notional=None qty='1' filled_qty='0' filled_avg_price=None order_class=<OrderClass.SIMPLE: 'simple'> order_type=<OrderType.MARKET: 'market'> type=<OrderType.MARKET: 'market'> side=<OrderSide.BUY: 'buy'> time_in_force=<TimeInForce.DAY: 'day'> limit_price=None stop_price=None status=<OrderStatus.PENDING_NEW: 'pending_new'> extended_hours=False legs=None trail_percent=None trail_price=None hwm=None position_intent=<PositionIntent.BUY_TO_OPEN: 'buy_to_open'> ratio_qty=None
+2025-12-03 14:45:54,631 [INFO] Handle signal buy para AAPL (raw=1)
+2025-12-03 14:45:55,089 [ERROR] No se pudo obtener precio para AAPL, tomando qty=1
+Traceback (most recent call last):
+  File "c:\Users\david\Desktop\Bot01\utils\trade_executor.py", line 95, in _calc_qty_for_symbol
+    barset = client.get_latest_trade(symbol)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'TradingClient' object has no attribute 'get_latest_trade'
+2025-12-03 14:45:55,356 [INFO] BUY (PAPER): AAPL 1 -> id=UUID('3a3cef60-dc3b-4ed1-88ca-87f59c8146e8') client_order_id='c70558dd-8f27-4de0-8949-ce4fa5dd9920' created_at=datetime.datetime(2025, 12, 3, 19, 45, 51, 477854, tzinfo=TzInfo(0)) updated_at=datetime.datetime(2025, 12, 3, 19, 45, 51, 479178, tzinfo=TzInfo(0)) submitted_at=datetime.datetime(2025, 12, 3, 19, 45, 51, 477854, tzinfo=TzInfo(0)) filled_at=None expired_at=None expires_at=datetime.datetime(2025, 12, 3, 21, 0, tzinfo=TzInfo(0)) canceled_at=None failed_at=None replaced_at=None replaced_by=None replaces=None asset_id=UUID('b0b6dd9d-8b9b-48a9-ba46-b9d54906e415') symbol='AAPL' asset_class=<AssetClass.US_EQUITY: 'us_equity'> notional=None qty='1' filled_qty='0' filled_avg_price=None order_class=<OrderClass.SIMPLE: 'simple'> order_type=<OrderType.MARKET: 'market'> type=<OrderType.MARKET: 'market'> side=<OrderSide.BUY: 'buy'> time_in_force=<TimeInForce.DAY: 'day'> limit_price=None stop_price=None status=<OrderStatus.PENDING_NEW: 'pending_new'> extended_hours=False legs=None trail_percent=None trail_price=None hwm=None position_intent=<PositionIntent.BUY_TO_OPEN: 'buy_to_open'> ratio_qty=None
+2025-12-03 14:47:52,907 [INFO] Handle signal hold para AAPL
+2025-12-03 14:47:52,907 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-03 14:48:53,505 [INFO] Handle signal hold para AAPL
+2025-12-03 14:48:53,505 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-03 14:49:53,912 [INFO] Handle signal hold para AAPL
+2025-12-03 14:49:53,912 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-03 14:50:54,321 [INFO] Handle signal sell para AAPL
+2025-12-03 14:50:54,321 [INFO] No hay posición para cerrar en AAPL
+2025-12-03 14:51:54,867 [INFO] Handle signal hold para AAPL
+2025-12-03 14:51:54,867 [INFO] Hold sobre AAPL — no se hace nada.
+2025-12-03 14:52:55,263 [INFO] Handle signal sell para AAPL
+2025-12-03 14:52:55,263 [INFO] No hay posición para cerrar en AAPL
+2025-12-03 14:53:55,889 [INFO] Handle signal sell para AAPL
+2025-12-03 14:53:55,889 [INFO] No hay posición para cerrar en AAPL
+2025-12-03 14:54:56,293 [INFO] Handle signal sell para AAPL
+2025-12-03 14:54:56,293 [INFO] No hay posición para cerrar en AAPL
+2025-12-05 14:24:21,764 [INFO] Handle signal buy para AAPL (raw=1)
+2025-12-05 14:24:22,289 [ERROR] No se pudo obtener precio para AAPL, tomando qty=1
+Traceback (most recent call last):
+  File "c:\Users\david\Desktop\Bot01\utils\trade_executor.py", line 95, in _calc_qty_for_symbol
+    barset = client.get_latest_trade(symbol)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'TradingClient' object has no attribute 'get_latest_trade'
+2025-12-05 14:24:22,558 [INFO] BUY (PAPER): AAPL 1 -> id=UUID('76574dc8-93b1-4685-904d-398b9a569f81') client_order_id='11565199-f9ef-4272-8372-5139b53f1db7' created_at=datetime.datetime(2025, 12, 5, 19, 24, 15, 380715, tzinfo=TzInfo(0)) updated_at=datetime.datetime(2025, 12, 5, 19, 24, 15, 382118, tzinfo=TzInfo(0)) submitted_at=datetime.datetime(2025, 12, 5, 19, 24, 15, 380715, tzinfo=TzInfo(0)) filled_at=None expired_at=None expires_at=datetime.datetime(2025, 12, 5, 21, 0, tzinfo=TzInfo(0)) canceled_at=None failed_at=None replaced_at=None replaced_by=None replaces=None asset_id=UUID('b0b6dd9d-8b9b-48a9-ba46-b9d54906e415') symbol='AAPL' asset_class=<AssetClass.US_EQUITY: 'us_equity'> notional=None qty='1' filled_qty='0' filled_avg_price=None order_class=<OrderClass.SIMPLE: 'simple'> order_type=<OrderType.MARKET: 'market'> type=<OrderType.MARKET: 'market'> side=<OrderSide.BUY: 'buy'> time_in_force=<TimeInForce.DAY: 'day'> limit_price=None stop_price=None status=<OrderStatus.PENDING_NEW: 'pending_new'> extended_hours=False legs=None trail_percent=None trail_price=None hwm=None position_intent=<PositionIntent.BUY_TO_OPEN: 'buy_to_open'> ratio_qty=None
+2025-12-05 14:26:24,467 [INFO] Handle signal buy para AAPL (raw=1)
+2025-12-05 14:26:24,936 [ERROR] No se pudo obtener precio para AAPL, tomando qty=1
+Traceback (most recent call last):
+  File "c:\Users\david\Desktop\Bot01\utils\trade_executor.py", line 95, in _calc_qty_for_symbol
+    barset = client.get_latest_trade(symbol)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'TradingClient' object has no attribute 'get_latest_trade'
+2025-12-05 14:26:25,209 [INFO] BUY (PAPER): AAPL 1 -> id=UUID('e5dc51e7-b6e0-4858-aae1-e48a40d0acb3') client_order_id='6f5f6a14-3850-470e-8f64-5aa50e63a843' created_at=datetime.datetime(2025, 12, 5, 19, 26, 18, 28226, tzinfo=TzInfo(0)) updated_at=datetime.datetime(2025, 12, 5, 19, 26, 18, 29574, tzinfo=TzInfo(0)) submitted_at=datetime.datetime(2025, 12, 5, 19, 26, 18, 28226, tzinfo=TzInfo(0)) filled_at=None expired_at=None expires_at=datetime.datetime(2025, 12, 5, 21, 0, tzinfo=TzInfo(0)) canceled_at=None failed_at=None replaced_at=None replaced_by=None replaces=None asset_id=UUID('b0b6dd9d-8b9b-48a9-ba46-b9d54906e415') symbol='AAPL' asset_class=<AssetClass.US_EQUITY: 'us_equity'> notional=None qty='1' filled_qty='0' filled_avg_price=None order_class=<OrderClass.SIMPLE: 'simple'> order_type=<OrderType.MARKET: 'market'> type=<OrderType.MARKET: 'market'> side=<OrderSide.BUY: 'buy'> time_in_force=<TimeInForce.DAY: 'day'> limit_price=None stop_price=None status=<OrderStatus.PENDING_NEW: 'pending_new'> extended_hours=False legs=None trail_percent=None trail_price=None hwm=None position_intent=<PositionIntent.BUY_TO_OPEN: 'buy_to_open'> ratio_qty=None
+2025-12-05 14:27:26,660 [INFO] Handle signal buy para AAPL (raw=1)
+2025-12-05 14:27:26,749 [ERROR] No se pudo obtener precio para AAPL, tomando qty=1
+Traceback (most recent call last):
+  File "c:\Users\david\Desktop\Bot01\utils\trade_executor.py", line 95, in _calc_qty_for_symbol
+    barset = client.get_latest_trade(symbol)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'TradingClient' object has no attribute 'get_latest_trade'
+2025-12-05 14:27:27,030 [INFO] BUY (PAPER): AAPL 1 -> id=UUID('636f14e8-93dc-48e1-b72b-3e4c4b93da20') client_order_id='e423b5fa-071b-4498-8f4c-455848aaa52f' created_at=datetime.datetime(2025, 12, 5, 19, 27, 19, 844900, tzinfo=TzInfo(0)) updated_at=datetime.datetime(2025, 12, 5, 19, 27, 19, 846176, tzinfo=TzInfo(0)) submitted_at=datetime.datetime(2025, 12, 5, 19, 27, 19, 844900, tzinfo=TzInfo(0)) filled_at=None expired_at=None expires_at=datetime.datetime(2025, 12, 5, 21, 0, tzinfo=TzInfo(0)) canceled_at=None failed_at=None replaced_at=None replaced_by=None replaces=None asset_id=UUID('b0b6dd9d-8b9b-48a9-ba46-b9d54906e415') symbol='AAPL' asset_class=<AssetClass.US_EQUITY: 'us_equity'> notional=None qty='1' filled_qty='0' filled_avg_price=None order_class=<OrderClass.SIMPLE: 'simple'> order_type=<OrderType.MARKET: 'market'> type=<OrderType.MARKET: 'market'> side=<OrderSide.BUY: 'buy'> time_in_force=<TimeInForce.DAY: 'day'> limit_price=None stop_price=None status=<OrderStatus.PENDING_NEW: 'pending_new'> extended_hours=False legs=None trail_percent=None trail_price=None hwm=None position_intent=<PositionIntent.BUY_TO_OPEN: 'buy_to_open'> ratio_qty=None
+2025-12-05 14:35:04,332 [INFO] Handle signal buy para AAPL (raw=1)
+2025-12-05 14:35:04,806 [ERROR] No se pudo obtener precio para AAPL, tomando qty=1
+Traceback (most recent call last):
+  File "c:\Users\david\Desktop\Bot01\utils\trade_executor.py", line 95, in _calc_qty_for_symbol
+    barset = client.get_latest_trade(symbol)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'TradingClient' object has no attribute 'get_latest_trade'
+2025-12-05 14:35:05,074 [INFO] BUY (PAPER): AAPL 1 -> id=UUID('113e7b6e-7d57-44f0-8ddc-4ce929487b9d') client_order_id='82de2f73-55a6-4d4d-9761-1c4d14f56eb8' created_at=datetime.datetime(2025, 12, 5, 19, 34, 57, 880971, tzinfo=TzInfo(0)) updated_at=datetime.datetime(2025, 12, 5, 19, 34, 57, 882835, tzinfo=TzInfo(0)) submitted_at=datetime.datetime(2025, 12, 5, 19, 34, 57, 880971, tzinfo=TzInfo(0)) filled_at=None expired_at=None expires_at=datetime.datetime(2025, 12, 5, 21, 0, tzinfo=TzInfo(0)) canceled_at=None failed_at=None replaced_at=None replaced_by=None replaces=None asset_id=UUID('b0b6dd9d-8b9b-48a9-ba46-b9d54906e415') symbol='AAPL' asset_class=<AssetClass.US_EQUITY: 'us_equity'> notional=None qty='1' filled_qty='0' filled_avg_price=None order_class=<OrderClass.SIMPLE: 'simple'> order_type=<OrderType.MARKET: 'market'> type=<OrderType.MARKET: 'market'> side=<OrderSide.BUY: 'buy'> time_in_force=<TimeInForce.DAY: 'day'> limit_price=None stop_price=None status=<OrderStatus.PENDING_NEW: 'pending_new'> extended_hours=False legs=None trail_percent=None trail_price=None hwm=None position_intent=<PositionIntent.BUY_TO_OPEN: 'buy_to_open'> ratio_qty=None

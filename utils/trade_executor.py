@@ -132,20 +132,34 @@ def place_market_buy(symbol: str, qty: int = None, pct_of_equity: float = None, 
         return None
 
 def close_position(symbol: str):
-    pos = get_position_for(symbol)
+    """Cierra la posición long sobre `symbol`. Devuelve la respuesta o None."""
+    symbol = str(symbol).upper().strip()
+    try:
+        pos = get_position_for(symbol)
+    except Exception as e:
+        logger.exception("Error consultando posición para %s: %s", symbol, e)
+        pos = None
+
     if pos is None:
-        logger.info("No hay posición para cerrar en %s", symbol)
+        logger.info("No hay posición para cerrar en %s (get_position devolvió None).", symbol)
+        # DEBUG adicional: listar posiciones abiertas
+        try:
+            open_pos = client.get_all_positions()
+            logger.info("Posiciones abiertas (count=%d): %s", len(open_pos), [p.symbol for p in open_pos])
+        except Exception as e:
+            logger.exception("No se pudo listar posiciones: %s", e)
         return None
 
     qty = int(float(pos.qty))
     _throttle()
     try:
-        # usar close_position convenience (si está disponible)
+        # Intentar convenience method close_position primero
         try:
             resp = client.close_position(symbol)
-            logger.info("Close position: %s -> %s", symbol, resp)
+            logger.info("Close position (convenience): %s -> %s", symbol, resp)
             return resp
-        except Exception:
+        except Exception as e_close:
+            logger.warning("close_position convenience falló para %s: %s — Intentando ORDER sell fallback", symbol, e_close)
             # fallback a market sell order
             order_req = MarketOrderRequest(
                 symbol=symbol,
@@ -153,27 +167,42 @@ def close_position(symbol: str):
                 side=OrderSide.SELL,
                 time_in_force=TimeInForce.DAY
             )
-            resp = client.submit_order(order_req)
-            logger.info("SELL (close fallback): %s %d -> %s", symbol, qty, resp)
+            resp = client.submit_order(order_req)  # order_req o order_data según versión; aquí usamos submit_order(order_req)
+            logger.info("SELL (fallback): %s %d -> %s", symbol, qty, resp)
             return resp
     except Exception as e:
         logger.exception("Error cerrando posición %s: %s", symbol, e)
         return None
 
-def handle_signal(signal: str, symbol: str, qty: int = None, pct_of_equity: float = None):
-    """
-    signal: 'buy', 'sell', 'hold', 'close' (strings esperados)
-    """
-    signal = signal.strip().lower()
-    logger.info("Handle signal %s para %s", signal, symbol)
 
-    if signal == "buy":
+def handle_signal(signal, symbol: str, qty: int = None, pct_of_equity: float = None):
+    """
+    signal: acepta int (1,0,-1) o strings 'buy','sell','hold','close'
+    """
+    # Normalizar symbol y signal
+    symbol = str(symbol).upper().strip()
+
+    # Normalizar numeric signals a texto
+    if isinstance(signal, (int, float)):
+        if int(signal) == 1:
+            s = "buy"
+        elif int(signal) == -1:
+            s = "sell"
+        else:
+            s = "hold"
+    else:
+        # string-like
+        s = str(signal).strip().lower()
+
+    logger.info("Handle signal %s para %s (raw=%s)", s, symbol, signal)
+
+    if s == "buy":
         return place_market_buy(symbol, qty=qty, pct_of_equity=pct_of_equity)
-    elif signal in ("sell", "close"):
+    elif s in ("sell", "close"):
         return close_position(symbol)
-    elif signal == "hold":
+    elif s == "hold":
         logger.info("Hold sobre %s — no se hace nada.", symbol)
         return None
     else:
-        logger.warning("Signal desconocida: %s", signal)
+        logger.warning("Signal desconocida: %s (raw=%s)", s, signal)
         return None
