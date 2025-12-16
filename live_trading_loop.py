@@ -184,13 +184,11 @@ def monitor_stop_take(symbol, last_price):
 
     if last_price <= stop_price or last_price >= tp_price:
         print(f"SL/TP hit for {symbol}: price={last_price} stop={stop_price} tp={tp_price}. Closing position.")
-        handle_signal(-1, symbol)
+        safe_execute_sell(symbol)
         clear_entry_info(symbol)
         mark_trade_time(symbol)
         return True
-
     return False
-
 
 
 def safe_execute_buy(symbol, qty, entry_price):
@@ -379,14 +377,6 @@ def main():
                 else:
                     # perform buy and register entry info
                     safe_execute_buy(SYMBOL, qty, last_close)
-
-            elif action == -1:
-                # close if in position
-                if in_pos:
-                    safe_execute_sell(SYMBOL)
-                else:
-                    print("SELL signalled but no position exists; nothing to do.")
-
             else:
                 print("HOLD -> no action")
 
