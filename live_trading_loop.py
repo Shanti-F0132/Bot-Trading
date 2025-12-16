@@ -7,21 +7,23 @@ from strategies.data_normalizer import normalize_columns
 from strategies.strategy_loader import run_strategy
 from broker_api.state_manager import state
 from utils.trade_executor import handle_signal
+from alpaca.trading.requests import MarketOrderRequest
+from alpaca.trading.enums import OrderSide, TimeInForce
 from broker_api.alpaca_client import client  # cliente alpaca ya existente en tu proyecto
 
 # ---------------------------
 # CONFIG
 # ---------------------------
 SYMBOL = "AAPL"
-STRATEGY = "combo_sma_macd"  # "sma", "macd", "rsi", "bollinger", "combo_sma_macd"
-PERIOD = "5d"
+STRATEGY = "sma"  # "sma", "macd", "rsi", "bollinger", "combo_sma_macd"
+PERIOD = "1d"
 INTERVAL = "5m"
 SLEEP_SECONDS = 30
 
-# PARAMS de estrategias (no los toqué)
+# PARAMS de estrategias
 PARAMS = {
     "sma": {"short": 5, "long": 20},
-    "macd": {"fast": 6, "slow": 13, "signal_window": 5},
+    "macd": {"fast": 6, "slow": 13, "signal": 5},
     "rsi": {"window": 7},
     "bollinger": {"window": 10, "num_std": 2},
     "combo_sma_macd": {
@@ -35,7 +37,7 @@ PARAMS = {
 # ---------------------------
 RISK_PER_TRADE = 0.005         # 0.5% del equity por operación (ajusta)
 STOP_LOSS_PCT = 0.006          # 0.6% stop-loss por defecto (ajusta)
-TAKE_PROFIT_PCT = 0.010        # 1.0% take-profit por defecto (ajusta)
+TAKE_PROFIT_PCT = 0.0010        # 0.1% take-profit por defecto (ajusta)
 COOLDOWN_SECONDS = 60 * 3     # 3 minutos entre trades sobre el mismo símbolo
 MIN_ATR_PCT = 0.0005           # ATR/price mínimo para operar (evita ultra-bajo volumen/noise)
 ATR_PERIOD = 14                # para calcular volatilidad
@@ -206,13 +208,33 @@ def safe_execute_buy(symbol, qty, entry_price):
 
 def safe_execute_sell(symbol):
     try:
-        handle_signal(-1, symbol)  # tu executor ya sabe que -1 = cerrar posición
+        # Confirmar posición real en broker
+        in_pos, qty, avg_entry = is_in_position(symbol)
+
+        if not in_pos or qty <= 0:
+            print(f"No open position to SELL for {symbol}.")
+            return
+
+        # Crear orden MARKET SELL explícita
+        order = MarketOrderRequest(
+            symbol=symbol,
+            qty=qty,
+            side=OrderSide.SELL,
+            time_in_force=TimeInForce.DAY
+        )
+
+        resp = client.submit_order(order_data=order)
+
+        print(
+            f"SELL order submitted | symbol={symbol} qty={qty} order_id={resp.id}"
+        )
+
+        # Limpiar estado SOLO después de enviar orden
         clear_entry_info(symbol)
         mark_trade_time(symbol)
-        print("Executed SELL / close position for", symbol)
-    except Exception as e:
-        print("Error executing sell:", e)
 
+    except Exception as e:
+        print("Error executing SELL:", e)
 
 
 # ---------------------------
@@ -317,6 +339,11 @@ def main():
             # ---------------- check open position & cooldown ----------------
             in_pos, pos_qty, pos_entry = is_in_position(SYMBOL)
 
+            # PRIORIDAD ABSOLUTA: si hay posición y hay señal de SELL, cerrar inmediatamente
+            if action == -1 and in_pos:
+                safe_execute_sell(SYMBOL)
+                continue
+            
             # If we have tracked entry info, monitor SL/TP
             monitor_stop_take(SYMBOL, last_close)
 
