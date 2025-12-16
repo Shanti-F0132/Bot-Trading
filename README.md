@@ -1,4 +1,5 @@
 # Bot de Trading Cuantitativo – Proyecto de David Santiago Figueroa Mendoza 
+### VERSION : 1.0
 
 ## Descripción General
 
