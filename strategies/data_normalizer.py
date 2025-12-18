@@ -5,26 +5,28 @@ def normalize_columns(df):
 
     # Aplastar MultiIndex si existe
     if isinstance(df.columns, pd.MultiIndex):
-        df.columns = ['_'.join(col).strip() for col in df.columns.values]
+        df.columns = df.columns.get_level_values(0)
 
-    # Convertir columnas a minúsculas
+    # Minúsculas
     df.columns = df.columns.str.lower()
 
-    # Renombrar columnas relevantes
-    rename_map = {}
+    # Renombrado EXACTO (no por substring)
+    rename_map = {
+        "open": "open",
+        "high": "high",
+        "low": "low",
+        "close": "close",
+        "volume": "volume",
+    }
 
-    for col in df.columns:
-        if "close" in col:
-            rename_map[col] = "close"
-        if "open" in col:
-            rename_map[col] = "open"
-        if "high" in col:
-            rename_map[col] = "high"
-        if "low" in col:
-            rename_map[col] = "low"
-        if "volume" in col:
-            rename_map[col] = "volume"
+    df = df.rename(columns={c: rename_map[c] for c in df.columns if c in rename_map})
 
-    df = df.rename(columns=rename_map)
+    # Validación dura
+    required = {"open", "high", "low", "close", "volume"}
+    missing = required - set(df.columns)
+
+    if missing:
+        raise ValueError(f"Missing required columns after normalization: {missing}")
 
     return df
+
