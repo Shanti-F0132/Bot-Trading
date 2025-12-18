@@ -1425,3 +1425,70 @@ AttributeError: 'TradingClient' object has no attribute 'get_latest_trade'
 2025-12-16 13:50:42,494 [INFO] Handle signal sell para AAPL (raw=-1)
 2025-12-16 13:50:42,494 [INFO] No hay posición para cerrar en AAPL (get_position devolvió None).
 2025-12-16 13:50:42,947 [INFO] Posiciones abiertas (count=1): ['AAPL']
+2025-12-17 12:18:14,279 [ERROR] 
+1 Failed download:
+2025-12-17 12:18:14,279 [ERROR] ['AAPL']: Timeout('Failed to perform, curl: (28) Connection timed out after 10009 milliseconds. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.')
+2025-12-17 12:41:46,043 [ERROR] 
+1 Failed download:
+2025-12-17 12:41:46,043 [ERROR] ['AAPL']: Timeout('Failed to perform, curl: (28) Connection timed out after 10002 milliseconds. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.')
+2025-12-17 12:42:49,712 [INFO] Handle signal buy para AAPL (raw=1)
+2025-12-17 12:42:49,968 [INFO] BUY (PAPER): AAPL 303 -> id=UUID('150c2a35-265b-4a6e-8dd9-98c56885c608') client_order_id='adcf73ce-76ef-49a6-b4fe-803864e2b164' created_at=datetime.datetime(2025, 12, 17, 17, 42, 48, 423587, tzinfo=TzInfo(0)) updated_at=datetime.datetime(2025, 12, 17, 17, 42, 48, 424587, tzinfo=TzInfo(0)) submitted_at=datetime.datetime(2025, 12, 17, 17, 42, 48, 423587, tzinfo=TzInfo(0)) filled_at=None expired_at=None expires_at=datetime.datetime(2025, 12, 17, 21, 0, tzinfo=TzInfo(0)) canceled_at=None failed_at=None replaced_at=None replaced_by=None replaces=None asset_id=UUID('b0b6dd9d-8b9b-48a9-ba46-b9d54906e415') symbol='AAPL' asset_class=<AssetClass.US_EQUITY: 'us_equity'> notional=None qty='303' filled_qty='0' filled_avg_price=None order_class=<OrderClass.SIMPLE: 'simple'> order_type=<OrderType.MARKET: 'market'> type=<OrderType.MARKET: 'market'> side=<OrderSide.BUY: 'buy'> time_in_force=<TimeInForce.DAY: 'day'> limit_price=None stop_price=None status=<OrderStatus.PENDING_NEW: 'pending_new'> extended_hours=False legs=None trail_percent=None trail_price=None hwm=None position_intent=<PositionIntent.BUY_TO_OPEN: 'buy_to_open'> ratio_qty=None
+2025-12-17 12:44:02,653 [ERROR] 
+1 Failed download:
+2025-12-17 12:44:02,653 [ERROR] ['AAPL']: Timeout('Failed to perform, curl: (28) Operation timed out after 10014 milliseconds with 0 bytes received. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.')
+2025-12-17 13:50:14,948 [ERROR] 
+1 Failed download:
+2025-12-17 13:50:14,948 [ERROR] ['AAPL']: Timeout('Failed to perform, curl: (28) Connection timed out after 10010 milliseconds. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.')
+2025-12-17 14:10:32,226 [INFO] Handle signal buy para AAPL (raw=1)
+2025-12-17 14:10:32,471 [INFO] BUY (PAPER): AAPL 303 -> id=UUID('67ffe040-26e6-4589-b061-e75b389aec64') client_order_id='54df33f5-502c-4ac9-ace1-52bb4ca6d0f6' created_at=datetime.datetime(2025, 12, 17, 19, 10, 30, 797979, tzinfo=TzInfo(0)) updated_at=datetime.datetime(2025, 12, 17, 19, 10, 30, 798884, tzinfo=TzInfo(0)) submitted_at=datetime.datetime(2025, 12, 17, 19, 10, 30, 797979, tzinfo=TzInfo(0)) filled_at=None expired_at=None expires_at=datetime.datetime(2025, 12, 17, 21, 0, tzinfo=TzInfo(0)) canceled_at=None failed_at=None replaced_at=None replaced_by=None replaces=None asset_id=UUID('b0b6dd9d-8b9b-48a9-ba46-b9d54906e415') symbol='AAPL' asset_class=<AssetClass.US_EQUITY: 'us_equity'> notional=None qty='303' filled_qty='0' filled_avg_price=None order_class=<OrderClass.SIMPLE: 'simple'> order_type=<OrderType.MARKET: 'market'> type=<OrderType.MARKET: 'market'> side=<OrderSide.BUY: 'buy'> time_in_force=<TimeInForce.DAY: 'day'> limit_price=None stop_price=None status=<OrderStatus.PENDING_NEW: 'pending_new'> extended_hours=False legs=None trail_percent=None trail_price=None hwm=None position_intent=<PositionIntent.BUY_TO_OPEN: 'buy_to_open'> ratio_qty=None
+2025-12-17 14:13:40,557 [INFO] Handle signal buy para AAPL (raw=1)
+2025-12-17 14:13:40,809 [INFO] BUY (PAPER): AAPL 303 -> id=UUID('75c43b82-1c36-4d19-a7bf-b080a95104b0') client_order_id='e61f2ace-8c60-4e52-b9c5-b77182295fbd' created_at=datetime.datetime(2025, 12, 17, 19, 13, 39, 129896, tzinfo=TzInfo(0)) updated_at=datetime.datetime(2025, 12, 17, 19, 13, 39, 131283, tzinfo=TzInfo(0)) submitted_at=datetime.datetime(2025, 12, 17, 19, 13, 39, 129896, tzinfo=TzInfo(0)) filled_at=None expired_at=None expires_at=datetime.datetime(2025, 12, 17, 21, 0, tzinfo=TzInfo(0)) canceled_at=None failed_at=None replaced_at=None replaced_by=None replaces=None asset_id=UUID('b0b6dd9d-8b9b-48a9-ba46-b9d54906e415') symbol='AAPL' asset_class=<AssetClass.US_EQUITY: 'us_equity'> notional=None qty='303' filled_qty='0' filled_avg_price=None order_class=<OrderClass.SIMPLE: 'simple'> order_type=<OrderType.MARKET: 'market'> type=<OrderType.MARKET: 'market'> side=<OrderSide.BUY: 'buy'> time_in_force=<TimeInForce.DAY: 'day'> limit_price=None stop_price=None status=<OrderStatus.PENDING_NEW: 'pending_new'> extended_hours=False legs=None trail_percent=None trail_price=None hwm=None position_intent=<PositionIntent.BUY_TO_OPEN: 'buy_to_open'> ratio_qty=None
+2025-12-17 14:25:15,507 [ERROR] 
+1 Failed download:
+2025-12-17 14:25:15,507 [ERROR] ['AAPL']: Timeout('Failed to perform, curl: (28) Connection timed out after 10006 milliseconds. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.')
+2025-12-17 14:29:32,920 [ERROR] 
+1 Failed download:
+2025-12-17 14:29:32,920 [ERROR] ['AAPL']: Timeout('Failed to perform, curl: (28) Connection timed out after 10013 milliseconds. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.')
+2025-12-17 14:31:14,438 [ERROR] 
+1 Failed download:
+2025-12-17 14:31:14,438 [ERROR] ['AAPL']: Timeout('Failed to perform, curl: (28) Connection timed out after 10014 milliseconds. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.')
+2025-12-17 14:34:11,510 [ERROR] 
+1 Failed download:
+2025-12-17 14:34:11,510 [ERROR] ['AAPL']: Timeout('Failed to perform, curl: (28) Connection timed out after 10004 milliseconds. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.')
+2025-12-17 14:35:56,755 [ERROR] 
+1 Failed download:
+2025-12-17 14:35:56,755 [ERROR] ['AAPL']: Timeout('Failed to perform, curl: (28) Operation timed out after 10001 milliseconds with 481 out of 2044 bytes received. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.')
+2025-12-17 14:53:11,126 [ERROR] 
+1 Failed download:
+2025-12-17 14:53:11,126 [ERROR] ['AAPL']: Timeout('Failed to perform, curl: (28) Operation timed out after 10003 milliseconds with 0 bytes received. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.')
+2025-12-17 14:54:52,970 [ERROR] 
+1 Failed download:
+2025-12-17 14:54:52,970 [ERROR] ['AAPL']: Timeout('Failed to perform, curl: (28) Operation timed out after 10011 milliseconds with 0 bytes received. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.')
+2025-12-17 15:26:41,746 [ERROR] 
+1 Failed download:
+2025-12-17 15:26:41,746 [ERROR] ['AAPL']: Timeout('Failed to perform, curl: (28) Connection timed out after 10013 milliseconds. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.')
+2025-12-17 15:34:43,273 [ERROR] 
+1 Failed download:
+2025-12-17 15:34:43,273 [ERROR] ['AAPL']: Timeout('Failed to perform, curl: (28) Operation timed out after 10013 milliseconds with 0 bytes received. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.')
+2025-12-17 15:49:35,487 [ERROR] 
+1 Failed download:
+2025-12-17 15:49:35,487 [ERROR] ['AAPL']: Timeout('Failed to perform, curl: (28) Connection timed out after 10012 milliseconds. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.')
+2025-12-17 15:55:30,533 [ERROR] 
+1 Failed download:
+2025-12-17 15:55:30,534 [ERROR] ['AAPL']: Timeout('Failed to perform, curl: (28) Operation timed out after 10012 milliseconds with 0 bytes received. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.')
+2025-12-17 16:01:57,350 [ERROR] 
+1 Failed download:
+2025-12-17 16:01:57,350 [ERROR] ['AAPL']: Timeout('Failed to perform, curl: (28) Operation timed out after 10010 milliseconds with 480 out of 2357 bytes received. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.')
+2025-12-17 16:24:37,390 [ERROR] 
+1 Failed download:
+2025-12-17 16:24:37,390 [ERROR] ['AAPL']: Timeout('Failed to perform, curl: (28) Connection timed out after 10007 milliseconds. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.')
+2025-12-17 16:25:48,425 [ERROR] 
+1 Failed download:
+2025-12-17 16:25:48,425 [ERROR] ['AAPL']: Timeout('Failed to perform, curl: (28) Connection timed out after 10009 milliseconds. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.')
+2025-12-17 16:33:35,412 [ERROR] 
+1 Failed download:
+2025-12-17 16:33:35,412 [ERROR] ['AAPL']: Timeout('Failed to perform, curl: (28) Operation timed out after 10014 milliseconds with 482 out of 2348 bytes received. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.')
+2025-12-18 11:05:24,899 [INFO] Handle signal buy para AAPL (raw=1)
+2025-12-18 11:05:25,148 [INFO] BUY (PAPER): AAPL 305 -> id=UUID('dc38a1de-0df0-407b-9e39-ea701ec5ff4d') client_order_id='e3f25ab4-f00c-4516-b4b7-dced42327ca2' created_at=datetime.datetime(2025, 12, 18, 16, 5, 24, 97272, tzinfo=TzInfo(0)) updated_at=datetime.datetime(2025, 12, 18, 16, 5, 24, 98184, tzinfo=TzInfo(0)) submitted_at=datetime.datetime(2025, 12, 18, 16, 5, 24, 97272, tzinfo=TzInfo(0)) filled_at=None expired_at=None expires_at=datetime.datetime(2025, 12, 18, 21, 0, tzinfo=TzInfo(0)) canceled_at=None failed_at=None replaced_at=None replaced_by=None replaces=None asset_id=UUID('b0b6dd9d-8b9b-48a9-ba46-b9d54906e415') symbol='AAPL' asset_class=<AssetClass.US_EQUITY: 'us_equity'> notional=None qty='305' filled_qty='0' filled_avg_price=None order_class=<OrderClass.SIMPLE: 'simple'> order_type=<OrderType.MARKET: 'market'> type=<OrderType.MARKET: 'market'> side=<OrderSide.BUY: 'buy'> time_in_force=<TimeInForce.DAY: 'day'> limit_price=None stop_price=None status=<OrderStatus.PENDING_NEW: 'pending_new'> extended_hours=False legs=None trail_percent=None trail_price=None hwm=None position_intent=<PositionIntent.BUY_TO_OPEN: 'buy_to_open'> ratio_qty=None
+2025-12-18 12:55:09,277 [INFO] Handle signal buy para AAPL (raw=1)
+2025-12-18 12:55:09,531 [INFO] BUY (PAPER): AAPL 306 -> id=UUID('f938e8d3-a276-4c2f-8814-15a57f4ea1bd') client_order_id='3e783fb3-b3ed-4d25-9da1-c71ed69d7805' created_at=datetime.datetime(2025, 12, 18, 17, 55, 8, 318986, tzinfo=TzInfo(0)) updated_at=datetime.datetime(2025, 12, 18, 17, 55, 8, 319931, tzinfo=TzInfo(0)) submitted_at=datetime.datetime(2025, 12, 18, 17, 55, 8, 318986, tzinfo=TzInfo(0)) filled_at=None expired_at=None expires_at=datetime.datetime(2025, 12, 18, 21, 0, tzinfo=TzInfo(0)) canceled_at=None failed_at=None replaced_at=None replaced_by=None replaces=None asset_id=UUID('b0b6dd9d-8b9b-48a9-ba46-b9d54906e415') symbol='AAPL' asset_class=<AssetClass.US_EQUITY: 'us_equity'> notional=None qty='306' filled_qty='0' filled_avg_price=None order_class=<OrderClass.SIMPLE: 'simple'> order_type=<OrderType.MARKET: 'market'> type=<OrderType.MARKET: 'market'> side=<OrderSide.BUY: 'buy'> time_in_force=<TimeInForce.DAY: 'day'> limit_price=None stop_price=None status=<OrderStatus.PENDING_NEW: 'pending_new'> extended_hours=False legs=None trail_percent=None trail_price=None hwm=None position_intent=<PositionIntent.BUY_TO_OPEN: 'buy_to_open'> ratio_qty=None

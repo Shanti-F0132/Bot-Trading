@@ -54,7 +54,7 @@ _entry_info = {}              # symbol -> dict(entry_price, stop_price, tp_price
 
 
 def get_latest_data(symbol):
-    df = yf.download(symbol, period=PERIOD, interval=INTERVAL, auto_adjust=True)
+    df = yf.download(symbol, period=PERIOD, interval=INTERVAL, auto_adjust=False)
     df = normalize_columns(df)
     return df
 
@@ -166,13 +166,21 @@ def is_in_position(symbol):
     Returns (bool, qty, avg_entry_price) or (False, 0, None)
     """
     try:
-        pos = client.get_position(symbol)
-        qty = int(float(pos.qty))
-        avg_entry = float(pos.avg_entry_price) if hasattr(pos, "avg_entry_price") else float(pos.avg_entry_price or 0)
-        return True, qty, avg_entry
-    except Exception:
+        positions = client.get_all_positions()
+
+        for pos in positions:
+            if pos.symbol == symbol:
+                qty = float(pos.qty)
+                avg_entry = float(pos.avg_entry_price)
+
+                if qty > 0:
+                    return True, qty, avg_entry
+
         return False, 0, None
 
+    except Exception as e:
+        print("Error checking positions:", e)
+        return False, 0, None
 
 def monitor_stop_take(symbol, last_price):
     info = _entry_info.get(symbol)
@@ -185,8 +193,6 @@ def monitor_stop_take(symbol, last_price):
     if last_price <= stop_price or last_price >= tp_price:
         print(f"SL/TP hit for {symbol}: price={last_price} stop={stop_price} tp={tp_price}. Closing position.")
         safe_execute_sell(symbol)
-        clear_entry_info(symbol)
-        mark_trade_time(symbol)
         return True
     return False
 
@@ -206,14 +212,18 @@ def safe_execute_buy(symbol, qty, entry_price):
 
 def safe_execute_sell(symbol):
     try:
-        # Confirmar posición real en broker
-        in_pos, qty, avg_entry = is_in_position(symbol)
-
-        if not in_pos or qty <= 0:
+        # SIEMPRE consultar broker
+        try:
+            position = client.get_position(symbol)
+            qty = abs(float(position.qty))
+        except Exception:
             print(f"No open position to SELL for {symbol}.")
             return
 
-        # Crear orden MARKET SELL explícita
+        if qty <= 0:
+            print(f"No open position to SELL for {symbol}.")
+            return
+
         order = MarketOrderRequest(
             symbol=symbol,
             qty=qty,
@@ -335,15 +345,15 @@ def main():
                 print("Latest (close, curr):", last_close, curr, "prev:", prev, "change:", change)
 
             # ---------------- check open position & cooldown ----------------
-            in_pos, pos_qty, pos_entry = is_in_position(SYMBOL)
-
-            # PRIORIDAD ABSOLUTA: si hay posición y hay señal de SELL, cerrar inmediatamente
-            if action == -1 and in_pos:
-                safe_execute_sell(SYMBOL)
+            # SL / TP tiene prioridad absoluta
+            closed = monitor_stop_take(SYMBOL, last_close)
+            if closed:
+                # 🔁 re-sincronizar SIEMPRE después de un close
+                time.sleep(SLEEP_SECONDS)
                 continue
-            
-            # If we have tracked entry info, monitor SL/TP
-            monitor_stop_take(SYMBOL, last_close)
+
+            # SOLO DESPUÉS consultar posición
+            in_pos, pos_qty, pos_entry = is_in_position(SYMBOL)
 
             # If a trade was recently executed, skip new entries for this symbol
             if action == 1:
@@ -351,9 +361,14 @@ def main():
                     print("Skipping BUY due cooldown.")
                     action = 0
 
+            # SELL por señal (solo si hay posición)
             if action == -1:
-                # If no position open, skipping sell
-                if not in_pos:
+                if in_pos:
+                    safe_execute_sell(SYMBOL)
+                    time.sleep(SLEEP_SECONDS)
+                    in_pos, pos_qty, pos_entry = is_in_position(SYMBOL)
+                    continue
+                else:
                     print("No open position to close (skipping SELL).")
                     action = 0
 
