@@ -6,7 +6,7 @@ import pandas as pd
 from strategies.data_normalizer import normalize_columns
 from strategies.strategy_loader import run_strategy
 from broker_api.state_manager import state
-from utils.trade_executor import handle_signal
+from utils.trade_executor import handle_signal, close_position, get_position_for
 from alpaca.trading.requests import MarketOrderRequest
 from alpaca.trading.enums import OrderSide, TimeInForce
 from broker_api.alpaca_client import client  # cliente alpaca ya existente en tu proyecto
@@ -16,9 +16,10 @@ from broker_api.alpaca_client import client  # cliente alpaca ya existente en tu
 # ---------------------------
 SYMBOL = "AAPL"
 STRATEGY = "sma"  # "sma", "macd", "rsi", "bollinger", "combo_sma_macd"
-PERIOD = "1d"
+PERIOD = "5d"
 INTERVAL = "5m"
 SLEEP_SECONDS = 30
+WARMUP_BARS = 50 
 
 # PARAMS de estrategias
 PARAMS = {
@@ -32,6 +33,8 @@ PARAMS = {
     }
 }
 
+
+
 # ---------------------------
 # RISK MANAGEMENT / EXECUTION POLICY
 # ---------------------------
@@ -43,6 +46,12 @@ MIN_ATR_PCT = 0.0005           # ATR/price mínimo para operar (evita ultra-bajo
 ATR_PERIOD = 14                # para calcular volatilidad
 MIN_QTY = 1                    # qty mínimo a comprar
 MAX_QTY = 1000                 # cap por seguridad
+
+# FILL / ORDER POLLING (para asegurar que la compra se haya ejecutado antes de
+# registrar entry_info y activar SL/TP local)
+FILL_TIMEOUT_SECONDS = 30      # tiempo máximo a esperar por fill
+FILL_POLL_INTERVAL = 1.0       # cada cuántos segundos preguntar por posición/orden
+
 
 # ---------------------------
 # Estado runtime (persistente mientras el proceso corre)
@@ -190,56 +199,123 @@ def monitor_stop_take(symbol, last_price):
     stop_price = info["stop_price"]
     tp_price = info["tp_price"]
 
+    # debug log para entender por qué no se cierra la posición
+    print(f"Checking SL/TP for {symbol}: price={last_price} stop={stop_price} tp={tp_price} entry_info={info}")
+
     if last_price <= stop_price or last_price >= tp_price:
         print(f"SL/TP hit for {symbol}: price={last_price} stop={stop_price} tp={tp_price}. Closing position.")
-        safe_execute_sell(symbol)
+        # Intentar cerrar de forma robusta usando close_position (maneja convenience + fallback internamente)
+        try:
+            resp = close_position(symbol)
+            if resp:
+                print(f"Position closed for {symbol} via close_position: {resp}")
+                clear_entry_info(symbol)
+                mark_trade_time(symbol)
+            else:
+                # Si close_position devolvió None, intentar fallback con submit_order usando qty del entry_info
+                safe_execute_sell(symbol)
+        except Exception as e:
+            print(f"Error trying to close position via close_position: {e} — intentando fallback sell.")
+            safe_execute_sell(symbol)
         return True
     return False
 
 
 def safe_execute_buy(symbol, qty, entry_price):
+    """Enviar BUY y esperar confirmación de fill. Solo registramos `entry_info` cuando
+    detectamos que la posición existe en el broker (o parcial). Si no se llena en tiempo,
+    hacemos log y no activamos SL/TP local para evitar cerrar una posición que no existe."""
     try:
-        handle_signal(1, symbol, qty=qty)   #  <-- ahora sí pasa qty correctamente
+        resp = handle_signal(1, symbol, qty=qty)
+        print(f"BUY order submitted for {symbol} (requested qty={qty}) -> resp={resp}")
 
-        stop_price, tp_price = build_entry_levels(entry_price, STOP_LOSS_PCT, TAKE_PROFIT_PCT)
-        update_entry_info(symbol, entry_price, stop_price, tp_price, qty)
-        mark_trade_time(symbol)
-        print(f"Executed BUY {symbol} qty={qty} entry={entry_price} stop={stop_price} tp={tp_price}")
+        # Poll for position/filled qty
+        waited = 0.0
+        pos = None
+        while waited < FILL_TIMEOUT_SECONDS:
+            time.sleep(FILL_POLL_INTERVAL)
+            waited += FILL_POLL_INTERVAL
+            pos = get_position_for(symbol)
+            if pos is not None:
+                try:
+                    filled_qty = int(float(pos.qty))
+                except Exception:
+                    filled_qty = int(qty)
+
+                # avg_entry_price may be stored under different attributes depending on client
+                avg_entry = None
+                try:
+                    if hasattr(pos, "avg_entry_price") and pos.avg_entry_price is not None:
+                        avg_entry = float(pos.avg_entry_price)
+                    elif hasattr(pos, "filled_avg_price") and pos.filled_avg_price is not None:
+                        avg_entry = float(pos.filled_avg_price)
+                except Exception:
+                    avg_entry = None
+
+                if avg_entry is None:
+                    avg_entry = float(entry_price)
+
+                # Register entry info only when at least some qty is filled
+                if filled_qty > 0:
+                    stop_price, tp_price = build_entry_levels(avg_entry, STOP_LOSS_PCT, TAKE_PROFIT_PCT)
+                    update_entry_info(symbol, avg_entry, stop_price, tp_price, filled_qty)
+                    mark_trade_time(symbol)
+                    print(f"Executed BUY confirmed {symbol} filled_qty={filled_qty} entry={avg_entry} stop={stop_price} tp={tp_price}")
+                    return
+                else:
+                    print(f"Position object for {symbol} found but filled_qty=0 (waiting).")
+
+        # Timeout without fill
+        print(f"Timeout waiting for fill for {symbol} after {FILL_TIMEOUT_SECONDS}s. No entry_info set.")
+        return
+
     except Exception as e:
         print("Error executing buy:", e)
 
 
 
 def safe_execute_sell(symbol):
+    """Cerrar posición de forma segura: primero intenta `close_position`, si falla hace fallback usando
+    la cantidad guardada en `_entry_info` o lista posiciones para ayudar al debug."""
     try:
-        # SIEMPRE consultar broker
+        # Intento con la función robusta del executor
         try:
-            position = client.get_position(symbol)
-            qty = abs(float(position.qty))
-        except Exception:
-            print(f"No open position to SELL for {symbol}.")
+            resp = close_position(symbol)
+            if resp:
+                print(f"SELL closed for {symbol} via close_position: {resp}")
+                clear_entry_info(symbol)
+                mark_trade_time(symbol)
+                return
+        except Exception as e:
+            print(f"close_position raised: {e} — intentando fallback.")
+
+        # Fallback: usar qty guardado en `_entry_info`
+        info = _entry_info.get(symbol)
+        fallback_qty = None
+        if info:
+            fallback_qty = int(info.get("qty", 0))
+
+        if fallback_qty and fallback_qty > 0:
+            order = MarketOrderRequest(
+                symbol=symbol,
+                qty=fallback_qty,
+                side=OrderSide.SELL,
+                time_in_force=TimeInForce.DAY
+            )
+            resp = client.submit_order(order_data=order)
+            print(f"SELL fallback submitted | symbol={symbol} qty={fallback_qty} order_id={getattr(resp, 'id', resp)}")
+            clear_entry_info(symbol)
+            mark_trade_time(symbol)
             return
 
-        if qty <= 0:
-            print(f"No open position to SELL for {symbol}.")
-            return
+        # Como último recurso, listar posiciones abiertas para debug
+        try:
+            open_pos = client.get_all_positions()
+            print(f"No open position and no entry_info for {symbol}. Open positions: {[p.symbol for p in open_pos]}")
+        except Exception as e:
+            print("Error listing positions:", e)
 
-        order = MarketOrderRequest(
-            symbol=symbol,
-            qty=qty,
-            side=OrderSide.SELL,
-            time_in_force=TimeInForce.DAY
-        )
-
-        resp = client.submit_order(order_data=order)
-
-        print(
-            f"SELL order submitted | symbol={symbol} qty={qty} order_id={resp.id}"
-        )
-
-        # Limpiar estado SOLO después de enviar orden
-        clear_entry_info(symbol)
-        mark_trade_time(symbol)
+        print(f"No open position to SELL for {symbol}.")
 
     except Exception as e:
         print("Error executing SELL:", e)
@@ -258,6 +334,30 @@ def main():
             df = get_latest_data(SYMBOL)
             if df.empty:
                 print("No data returned, sleeping...")
+                time.sleep(SLEEP_SECONDS)
+                continue
+            
+            # ===== WARMUP (OBLIGATORIO) =====
+            if len(df) < WARMUP_BARS:
+                print(
+                    f"WARMUP | bars={len(df)}/{WARMUP_BARS} "
+                    f"(waiting for indicators to stabilize)"
+                )
+                time.sleep(SLEEP_SECONDS)
+                continue
+            # ===============================
+
+            # --- VALIDAR VELA CERRADA ---
+            if len(df) < ATR_PERIOD + 2:
+                time.sleep(SLEEP_SECONDS)
+                continue
+
+            last_bar = df.iloc[-2]
+            prev_bar = df.iloc[-2]
+
+            # Si la vela no tiene rango real, es vela viva
+            if last_bar["high"] == last_bar["low"]:
+                print("Live candle detected (no range yet). Skipping.")
                 time.sleep(SLEEP_SECONDS)
                 continue
 

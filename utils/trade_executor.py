@@ -53,9 +53,25 @@ def list_open_positions():
         return []
 
 def get_position_for(symbol: str):
+    """Try to get position for symbol. If client.get_position fails, log exception and
+    try a fallback scanning client.get_all_positions() for a matching symbol (case-insensitive)."""
     try:
         return client.get_position(symbol)
-    except Exception:
+    except Exception as e:
+        logger.exception("Error getting position for %s via client.get_position: %s", symbol, e)
+        # fallback: search all positions (case-insensitive match)
+        try:
+            all_pos = client.get_all_positions()
+            for p in all_pos:
+                try:
+                    if p.symbol and str(p.symbol).upper() == str(symbol).upper():
+                        logger.info("Found position via get_all_positions fallback for %s: qty=%s", symbol, p.qty)
+                        return p
+                except Exception:
+                    continue
+            logger.info("get_all_positions fallback found no match for %s", symbol)
+        except Exception as e2:
+            logger.exception("Error during get_all_positions fallback for %s: %s", symbol, e2)
         return None
 
 def _can_open_new_position(symbol: str, qty: int = 1) -> bool:
