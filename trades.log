@@ -1530,3 +1530,75 @@ Traceback (most recent call last):
 AttributeError: 'TradingClient' object has no attribute 'get_position'
 2025-12-22 11:08:51,348 [INFO] Found position via get_all_positions fallback for AAPL: qty=304
 2025-12-22 11:08:51,431 [INFO] Close position (convenience): AAPL -> id=UUID('3ad24590-6d10-480c-a506-7b9b1fafeca6') client_order_id='d278f493-a27f-4758-b152-9064a2a12dd9' created_at=datetime.datetime(2025, 12, 22, 16, 8, 46, 768360, tzinfo=TzInfo(0)) updated_at=datetime.datetime(2025, 12, 22, 16, 8, 46, 768927, tzinfo=TzInfo(0)) submitted_at=datetime.datetime(2025, 12, 22, 16, 8, 46, 768360, tzinfo=TzInfo(0)) filled_at=None expired_at=None expires_at=datetime.datetime(2025, 12, 22, 21, 0, tzinfo=TzInfo(0)) canceled_at=None failed_at=None replaced_at=None replaced_by=None replaces=None asset_id=UUID('b0b6dd9d-8b9b-48a9-ba46-b9d54906e415') symbol='AAPL' asset_class=<AssetClass.US_EQUITY: 'us_equity'> notional=None qty='304' filled_qty='0' filled_avg_price=None order_class=<OrderClass.SIMPLE: 'simple'> order_type=<OrderType.MARKET: 'market'> type=<OrderType.MARKET: 'market'> side=<OrderSide.SELL: 'sell'> time_in_force=<TimeInForce.DAY: 'day'> limit_price=None stop_price=None status=<OrderStatus.PENDING_NEW: 'pending_new'> extended_hours=False legs=None trail_percent=None trail_price=None hwm=None position_intent=<PositionIntent.SELL_TO_CLOSE: 'sell_to_close'> ratio_qty=None
+2025-12-22 12:25:19,571 [INFO] Handle signal buy para AAPL (raw=1)
+2025-12-22 12:25:19,571 [ERROR] Error getting position for AAPL via client.get_position: 'TradingClient' object has no attribute 'get_position'
+Traceback (most recent call last):
+  File "c:\Users\david\Desktop\Bot01\utils\trade_executor.py", line 59, in get_position_for
+    return client.get_position(symbol)
+           ^^^^^^^^^^^^^^^^^^^
+AttributeError: 'TradingClient' object has no attribute 'get_position'
+2025-12-22 12:25:19,659 [INFO] get_all_positions fallback found no match for AAPL
+2025-12-22 12:25:19,920 [INFO] BUY (PAPER): AAPL 305 -> id=UUID('707622f1-013b-48a4-8a3a-830983f679f9') client_order_id='cd4afd8c-91aa-4290-9787-88c38844ba39' created_at=datetime.datetime(2025, 12, 22, 17, 25, 15, 145557, tzinfo=TzInfo(0)) updated_at=datetime.datetime(2025, 12, 22, 17, 25, 15, 146412, tzinfo=TzInfo(0)) submitted_at=datetime.datetime(2025, 12, 22, 17, 25, 15, 145557, tzinfo=TzInfo(0)) filled_at=None expired_at=None expires_at=datetime.datetime(2025, 12, 22, 21, 0, tzinfo=TzInfo(0)) canceled_at=None failed_at=None replaced_at=None replaced_by=None replaces=None asset_id=UUID('b0b6dd9d-8b9b-48a9-ba46-b9d54906e415') symbol='AAPL' asset_class=<AssetClass.US_EQUITY: 'us_equity'> notional=None qty='305' filled_qty='0' filled_avg_price=None order_class=<OrderClass.SIMPLE: 'simple'> order_type=<OrderType.MARKET: 'market'> type=<OrderType.MARKET: 'market'> side=<OrderSide.BUY: 'buy'> time_in_force=<TimeInForce.DAY: 'day'> limit_price=None stop_price=None status=<OrderStatus.PENDING_NEW: 'pending_new'> extended_hours=False legs=None trail_percent=None trail_price=None hwm=None position_intent=<PositionIntent.BUY_TO_OPEN: 'buy_to_open'> ratio_qty=None
+2025-12-22 12:25:20,922 [ERROR] Error getting position for AAPL via client.get_position: 'TradingClient' object has no attribute 'get_position'
+Traceback (most recent call last):
+  File "c:\Users\david\Desktop\Bot01\utils\trade_executor.py", line 59, in get_position_for
+    return client.get_position(symbol)
+           ^^^^^^^^^^^^^^^^^^^
+AttributeError: 'TradingClient' object has no attribute 'get_position'
+2025-12-22 12:25:21,009 [INFO] Found position via get_all_positions fallback for AAPL: qty=305
+2025-12-22 12:54:17,479 [ERROR] Error getting position for AAPL via client.get_position: 'TradingClient' object has no attribute 'get_position'
+Traceback (most recent call last):
+  File "c:\Users\david\Desktop\Bot01\utils\trade_executor.py", line 59, in get_position_for
+    return client.get_position(symbol)
+           ^^^^^^^^^^^^^^^^^^^
+AttributeError: 'TradingClient' object has no attribute 'get_position'
+2025-12-22 12:54:17,563 [INFO] Found position via get_all_positions fallback for AAPL: qty=305
+2025-12-22 12:54:17,652 [INFO] Close position (convenience): AAPL -> id=UUID('d21f6777-d1a1-4edd-9c39-da644082d232') client_order_id='2ffb7fd4-10b7-4d7b-9e08-7285c4117f43' created_at=datetime.datetime(2025, 12, 22, 17, 54, 12, 835127, tzinfo=TzInfo(0)) updated_at=datetime.datetime(2025, 12, 22, 17, 54, 12, 835727, tzinfo=TzInfo(0)) submitted_at=datetime.datetime(2025, 12, 22, 17, 54, 12, 835127, tzinfo=TzInfo(0)) filled_at=None expired_at=None expires_at=datetime.datetime(2025, 12, 22, 21, 0, tzinfo=TzInfo(0)) canceled_at=None failed_at=None replaced_at=None replaced_by=None replaces=None asset_id=UUID('b0b6dd9d-8b9b-48a9-ba46-b9d54906e415') symbol='AAPL' asset_class=<AssetClass.US_EQUITY: 'us_equity'> notional=None qty='305' filled_qty='0' filled_avg_price=None order_class=<OrderClass.SIMPLE: 'simple'> order_type=<OrderType.MARKET: 'market'> type=<OrderType.MARKET: 'market'> side=<OrderSide.SELL: 'sell'> time_in_force=<TimeInForce.DAY: 'day'> limit_price=None stop_price=None status=<OrderStatus.PENDING_NEW: 'pending_new'> extended_hours=False legs=None trail_percent=None trail_price=None hwm=None position_intent=<PositionIntent.SELL_TO_CLOSE: 'sell_to_close'> ratio_qty=None
+2025-12-22 12:58:44,923 [INFO] Handle signal buy para AAPL (raw=1)
+2025-12-22 12:58:44,923 [ERROR] Error getting position for AAPL via client.get_position: 'TradingClient' object has no attribute 'get_position'
+Traceback (most recent call last):
+  File "c:\Users\david\Desktop\Bot01\utils\trade_executor.py", line 59, in get_position_for
+    return client.get_position(symbol)
+           ^^^^^^^^^^^^^^^^^^^
+AttributeError: 'TradingClient' object has no attribute 'get_position'
+2025-12-22 12:58:45,023 [INFO] get_all_positions fallback found no match for AAPL
+2025-12-22 12:58:45,302 [INFO] BUY (PAPER): AAPL 305 -> id=UUID('53f79748-810b-447a-9d9e-3e735ed93d0c') client_order_id='289083f3-6155-4b4e-be99-7bcb2623c246' created_at=datetime.datetime(2025, 12, 22, 17, 58, 40, 476572, tzinfo=TzInfo(0)) updated_at=datetime.datetime(2025, 12, 22, 17, 58, 40, 477485, tzinfo=TzInfo(0)) submitted_at=datetime.datetime(2025, 12, 22, 17, 58, 40, 476572, tzinfo=TzInfo(0)) filled_at=None expired_at=None expires_at=datetime.datetime(2025, 12, 22, 21, 0, tzinfo=TzInfo(0)) canceled_at=None failed_at=None replaced_at=None replaced_by=None replaces=None asset_id=UUID('b0b6dd9d-8b9b-48a9-ba46-b9d54906e415') symbol='AAPL' asset_class=<AssetClass.US_EQUITY: 'us_equity'> notional=None qty='305' filled_qty='0' filled_avg_price=None order_class=<OrderClass.SIMPLE: 'simple'> order_type=<OrderType.MARKET: 'market'> type=<OrderType.MARKET: 'market'> side=<OrderSide.BUY: 'buy'> time_in_force=<TimeInForce.DAY: 'day'> limit_price=None stop_price=None status=<OrderStatus.PENDING_NEW: 'pending_new'> extended_hours=False legs=None trail_percent=None trail_price=None hwm=None position_intent=<PositionIntent.BUY_TO_OPEN: 'buy_to_open'> ratio_qty=None
+2025-12-22 12:58:46,303 [ERROR] Error getting position for AAPL via client.get_position: 'TradingClient' object has no attribute 'get_position'
+Traceback (most recent call last):
+  File "c:\Users\david\Desktop\Bot01\utils\trade_executor.py", line 59, in get_position_for
+    return client.get_position(symbol)
+           ^^^^^^^^^^^^^^^^^^^
+AttributeError: 'TradingClient' object has no attribute 'get_position'
+2025-12-22 12:58:46,390 [INFO] Found position via get_all_positions fallback for AAPL: qty=305
+2025-12-22 13:38:56,441 [ERROR] Error getting position for AAPL via client.get_position: 'TradingClient' object has no attribute 'get_position'
+Traceback (most recent call last):
+  File "c:\Users\david\Desktop\Bot01\utils\trade_executor.py", line 59, in get_position_for
+    return client.get_position(symbol)
+           ^^^^^^^^^^^^^^^^^^^
+AttributeError: 'TradingClient' object has no attribute 'get_position'
+2025-12-22 13:38:56,527 [INFO] Found position via get_all_positions fallback for AAPL: qty=305
+2025-12-22 13:38:56,613 [INFO] Close position (convenience): AAPL -> id=UUID('49ffcc32-ab96-4a80-b22a-8f4c0808d7e2') client_order_id='a42282b9-47f1-48fe-8fa5-c96f1b2a6c22' created_at=datetime.datetime(2025, 12, 22, 18, 38, 51, 738161, tzinfo=TzInfo(0)) updated_at=datetime.datetime(2025, 12, 22, 18, 38, 51, 738776, tzinfo=TzInfo(0)) submitted_at=datetime.datetime(2025, 12, 22, 18, 38, 51, 738161, tzinfo=TzInfo(0)) filled_at=None expired_at=None expires_at=datetime.datetime(2025, 12, 22, 21, 0, tzinfo=TzInfo(0)) canceled_at=None failed_at=None replaced_at=None replaced_by=None replaces=None asset_id=UUID('b0b6dd9d-8b9b-48a9-ba46-b9d54906e415') symbol='AAPL' asset_class=<AssetClass.US_EQUITY: 'us_equity'> notional=None qty='305' filled_qty='0' filled_avg_price=None order_class=<OrderClass.SIMPLE: 'simple'> order_type=<OrderType.MARKET: 'market'> type=<OrderType.MARKET: 'market'> side=<OrderSide.SELL: 'sell'> time_in_force=<TimeInForce.DAY: 'day'> limit_price=None stop_price=None status=<OrderStatus.PENDING_NEW: 'pending_new'> extended_hours=False legs=None trail_percent=None trail_price=None hwm=None position_intent=<PositionIntent.SELL_TO_CLOSE: 'sell_to_close'> ratio_qty=None
+2025-12-22 15:29:17,790 [INFO] Handle signal buy para AAPL (raw=1)
+2025-12-22 15:29:17,790 [ERROR] Error getting position for AAPL via client.get_position: 'TradingClient' object has no attribute 'get_position'
+Traceback (most recent call last):
+  File "c:\Users\david\Desktop\Bot01\utils\trade_executor.py", line 59, in get_position_for
+    return client.get_position(symbol)
+           ^^^^^^^^^^^^^^^^^^^
+AttributeError: 'TradingClient' object has no attribute 'get_position'
+2025-12-22 15:29:17,872 [INFO] get_all_positions fallback found no match for AAPL
+2025-12-22 15:29:18,109 [INFO] BUY (PAPER): AAPL 305 -> id=UUID('a601ad8e-1573-4f1a-9a12-111646eabe58') client_order_id='16278912-13ea-42d0-95a5-4b6f7762ec2a' created_at=datetime.datetime(2025, 12, 22, 20, 29, 13, 90561, tzinfo=TzInfo(0)) updated_at=datetime.datetime(2025, 12, 22, 20, 29, 13, 91646, tzinfo=TzInfo(0)) submitted_at=datetime.datetime(2025, 12, 22, 20, 29, 13, 90561, tzinfo=TzInfo(0)) filled_at=None expired_at=None expires_at=datetime.datetime(2025, 12, 22, 21, 0, tzinfo=TzInfo(0)) canceled_at=None failed_at=None replaced_at=None replaced_by=None replaces=None asset_id=UUID('b0b6dd9d-8b9b-48a9-ba46-b9d54906e415') symbol='AAPL' asset_class=<AssetClass.US_EQUITY: 'us_equity'> notional=None qty='305' filled_qty='0' filled_avg_price=None order_class=<OrderClass.SIMPLE: 'simple'> order_type=<OrderType.MARKET: 'market'> type=<OrderType.MARKET: 'market'> side=<OrderSide.BUY: 'buy'> time_in_force=<TimeInForce.DAY: 'day'> limit_price=None stop_price=None status=<OrderStatus.PENDING_NEW: 'pending_new'> extended_hours=False legs=None trail_percent=None trail_price=None hwm=None position_intent=<PositionIntent.BUY_TO_OPEN: 'buy_to_open'> ratio_qty=None
+2025-12-22 15:29:19,111 [ERROR] Error getting position for AAPL via client.get_position: 'TradingClient' object has no attribute 'get_position'
+Traceback (most recent call last):
+  File "c:\Users\david\Desktop\Bot01\utils\trade_executor.py", line 59, in get_position_for
+    return client.get_position(symbol)
+           ^^^^^^^^^^^^^^^^^^^
+AttributeError: 'TradingClient' object has no attribute 'get_position'
+2025-12-22 15:29:19,190 [INFO] Found position via get_all_positions fallback for AAPL: qty=182
+2025-12-22 15:30:20,516 [ERROR] Error getting position for AAPL via client.get_position: 'TradingClient' object has no attribute 'get_position'
+Traceback (most recent call last):
+  File "c:\Users\david\Desktop\Bot01\utils\trade_executor.py", line 59, in get_position_for
+    return client.get_position(symbol)
+           ^^^^^^^^^^^^^^^^^^^
+AttributeError: 'TradingClient' object has no attribute 'get_position'
+2025-12-22 15:30:20,594 [INFO] Found position via get_all_positions fallback for AAPL: qty=305
+2025-12-22 15:30:20,673 [INFO] Close position (convenience): AAPL -> id=UUID('4474fa63-e3ff-410b-8212-e94524cf0ad9') client_order_id='ed4286be-949b-4662-8f28-195b8b5533a7' created_at=datetime.datetime(2025, 12, 22, 20, 30, 15, 654045, tzinfo=TzInfo(0)) updated_at=datetime.datetime(2025, 12, 22, 20, 30, 15, 654582, tzinfo=TzInfo(0)) submitted_at=datetime.datetime(2025, 12, 22, 20, 30, 15, 654045, tzinfo=TzInfo(0)) filled_at=None expired_at=None expires_at=datetime.datetime(2025, 12, 22, 21, 0, tzinfo=TzInfo(0)) canceled_at=None failed_at=None replaced_at=None replaced_by=None replaces=None asset_id=UUID('b0b6dd9d-8b9b-48a9-ba46-b9d54906e415') symbol='AAPL' asset_class=<AssetClass.US_EQUITY: 'us_equity'> notional=None qty='305' filled_qty='0' filled_avg_price=None order_class=<OrderClass.SIMPLE: 'simple'> order_type=<OrderType.MARKET: 'market'> type=<OrderType.MARKET: 'market'> side=<OrderSide.SELL: 'sell'> time_in_force=<TimeInForce.DAY: 'day'> limit_price=None stop_price=None status=<OrderStatus.PENDING_NEW: 'pending_new'> extended_hours=False legs=None trail_percent=None trail_price=None hwm=None position_intent=<PositionIntent.SELL_TO_CLOSE: 'sell_to_close'> ratio_qty=None
