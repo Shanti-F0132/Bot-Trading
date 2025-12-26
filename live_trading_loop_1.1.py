@@ -2,10 +2,13 @@ import time
 import math
 import yfinance as yf
 import pandas as pd
+from datetime import datetime
+import pytz
 
 from strategies.data_normalizer import normalize_columns
 from strategies.strategy_loader import run_strategy
 from broker_api.state_manager import state
+from utils.trade_logger import log_trade
 from alpaca.trading.requests import MarketOrderRequest
 from alpaca.trading.enums import OrderSide, TimeInForce, OrderClass
 from broker_api.alpaca_client import client
@@ -34,20 +37,40 @@ PARAMS = {
 # ---------------------------
 # RISK MANAGEMENT
 # ---------------------------
-RISK_PER_TRADE = 0.005         # arriesgar 0.5% del equity por trade
-STOP_ATR_MULT = 1.5            # stop loss at 1.5x ATR
-TP_ATR_MULT = 1.5              # take profit at 1x ATR
-COOLDOWN_SECONDS = 180         # 3 minutos de cooldown entre trades
+RISK_PER_TRADE = 0.002         # arriesgar 0.2% del equity por trade
+STOP_ATR_MULT = 1.3            # stop loss at 1.3x ATR
+TP_ATR_MULT = 1.3              # take profit at 1.3x ATR
+COOLDOWN_SECONDS = 120         # 3 minutos de cooldown entre trades
 MIN_ATR_PCT = 0.0005           # mínimo 0.05% volatilidad
 ATR_PERIOD = 14                # para calcular volatilidad
 MIN_QTY = 1                    # qty mínimo a comprar
 MAX_QTY = 1000                 # cap por seguridad
+
+
+# ---------------------------
+# SESSION / TIME FILTERS
+# ---------------------------
+USE_SESSION_FILTER = True
+
+MARKET_TZ = "US/Eastern"
+
+# Horarios válidos (ET)
+SESSION_START = (9, 45)
+SESSION_END   = (15, 45)
+
+# Si quieres múltiples ventanas (más profesional)
+TRADING_WINDOWS = [
+    ((9, 45), (11, 30)),
+    ((13, 30), (15, 45)),
+]
+
 
 # ---------------------------
 # STATE
 # ---------------------------
 initialized = False
 _last_trade_time = {}
+_current_trade = None
 
 # ---------------------------
 # DATA
@@ -111,6 +134,25 @@ def is_in_position(symbol):
         return False
     except Exception:
         return False
+    
+def is_within_trading_hours():
+    if not USE_SESSION_FILTER:
+        return True
+
+    tz = pytz.timezone(MARKET_TZ)
+    now = datetime.now(tz)
+
+    # Market closed on weekends
+    if now.weekday() >= 5:
+        return False
+
+    current_time = (now.hour, now.minute)
+
+    for start, end in TRADING_WINDOWS:
+        if start <= current_time <= end:
+            return True
+
+    return False
 
 # ---------------------------
 # BRACKET ORDER
@@ -138,6 +180,74 @@ def submit_bracket_order(symbol, qty, entry_price, atr):
         f"id={getattr(resp, 'id', None)}"
     )
 
+    global _current_trade
+    _current_trade = {
+    "symbol": symbol,
+    "strategy": STRATEGY,
+    "qty": qty,
+    "entry_price": entry_price,
+    "stop_loss": stop_price,
+    "take_profit": tp_price,
+    "timestamp_entry": int(time.time()),
+    "order_id": getattr(resp, "id", None)
+}
+    
+
+def check_trade_closed():
+    global _current_trade
+
+    if _current_trade is None:
+        return
+
+    symbol = _current_trade["symbol"]
+
+    # Si ya no hay posición, el bracket cerró el trade
+    if not is_in_position(symbol):
+        try:
+            last_trade = client.get_latest_trade(symbol)
+            exit_price = float(last_trade.price)
+        except Exception:
+            exit_price = None
+
+        entry_price = _current_trade["entry_price"]
+        qty = _current_trade["qty"]
+
+        if exit_price is not None:
+            pnl_usd = (exit_price - entry_price) * qty
+            pnl_pct = (exit_price - entry_price) / entry_price
+        else:
+            pnl_usd = pnl_pct = 0.0
+
+        exit_reason = (
+            "TP" if exit_price and exit_price >= _current_trade["take_profit"]
+            else "SL"
+        )
+
+        timestamp_exit = int(time.time())
+
+        trade_log = {
+            "timestamp_entry": _current_trade["timestamp_entry"],
+            "timestamp_exit": timestamp_exit,
+            "symbol": symbol,
+            "strategy": _current_trade["strategy"],
+            "qty": qty,
+            "entry_price": entry_price,
+            "exit_price": exit_price,
+            "stop_loss": _current_trade["stop_loss"],
+            "take_profit": _current_trade["take_profit"],
+            "pnl_usd": round(pnl_usd, 2),
+            "pnl_pct": round(pnl_pct * 100, 2),
+            "duration_sec": timestamp_exit - _current_trade["timestamp_entry"],
+            "exit_reason": exit_reason,
+            "order_id": _current_trade["order_id"]
+        }
+
+        log_trade(trade_log)
+        print("TRADE CLOSED & LOGGED:", trade_log)
+
+        _current_trade = None
+
+
 # ---------------------------
 # MAIN LOOP
 # ---------------------------
@@ -149,6 +259,7 @@ def main():
 
     while True:
         try:
+            check_trade_closed()
             df = get_latest_data(SYMBOL)
             if df.empty or len(df) < WARMUP_BARS:
                 time.sleep(SLEEP_SECONDS)
@@ -184,6 +295,10 @@ def main():
             print(f"Price={last_close:.2f} Action={action}")
 
             if action == 1:
+                if not is_within_trading_hours():
+                    print("Outside trading session - skipping BUY")
+                    continue
+
                 if has_recent_trade(SYMBOL):
                     print("Cooldown active")
                     continue

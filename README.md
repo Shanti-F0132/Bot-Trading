@@ -1,10 +1,12 @@
 # Bot de Trading Cuantitativo – Proyecto de David Santiago Figueroa Mendoza 
-### VERSION : 1.0
+### VERSION : 1.1
 
 ## Descripción General
 
 Este proyecto implementa un **bot de trading cuantitativo modular**, diseñado para analizar el mercado financiero, ejecutar estrategias, optimizar parámetros y evaluar la robustez de los resultados.  
 El sistema combina **técnicas de análisis técnico, backtesting, gestión de riesgo y validación estadística** para crear un entorno de trading realista y científicamente sólido.
+
+Además, cuenta con un loop de trading **en tiempo real** con datos tanto historicos como en vivo.
 
 
 ## Funcionalidades Principales
@@ -55,6 +57,16 @@ El sistema combina **técnicas de análisis técnico, backtesting, gestión de r
 - Subtítulos explicativos automáticos
 - Exportación a `outputs/reports/reporte_final.pdf`
 
+### Loop en vivo
+
+- Integra datos historicos como en vivo de `yfinance`
+- Usa las estrategias anteriormente mencionadas
+- Usa Bracket orders para:
+  - Eficiencia en código
+  - Eficiencia en la lógica del bot
+  - Eficiencia entre la conexión Bot - Alpaca Broker
+- **Versiones actuales disponibles: 1.0 , 1.0.1, 1.1**
+
 ---
 
 ## Ejecución del Proyecto
@@ -64,6 +76,7 @@ Instala las dependencias necesarias:
 ```bash
 pip install -r requirements.txt
 ```
+Ademas se requiere una cuenta en Alpaca Broker, aplica tanto para paper trading como para live trading
 
 ---
 
