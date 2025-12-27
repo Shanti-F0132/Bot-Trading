@@ -389,11 +389,11 @@ print(f"Posiciones abiertas: {len(summary['positions'])}")
 # Guardar CSV: trades (si existe historial de trades/positions)
 try:
     if isinstance(summary.get("trades"), (list, tuple)) and summary["trades"]:
-        pd.DataFrame(summary["trades"]).to_csv("outputs/portfolio_trades.csv", index=False)
+        pd.DataFrame(summary["trades"]).to_csv("outputs/csv/portfolio_trades.csv", index=False)
     # equity
     if summary["equity_history"]:
-        pd.DataFrame({"equity": summary["equity_history"]}).to_csv("outputs/portfolio_equity.csv", index=False)
-    print("💾 Results saved to outputs/ (portfolio_trades.csv, portfolio_equity.csv)")
+        pd.DataFrame({"equity": summary["equity_history"]}).to_csv("outputs/csv/portfolio_equity.csv", index=False)
+    print("💾 Results saved to outputs/csv/ (portfolio_trades.csv, portfolio_equity.csv)")
 except Exception as e:
     print("⚠️ No se pudieron guardar algunos CSVs:", e)
 
