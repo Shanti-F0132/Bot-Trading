@@ -28,8 +28,18 @@ def rsi_strategy(df, window=14):
 
     # Señales RSI
     df["signal"] = 0
-    df.loc[df["rsi"] < 30, "signal"] = 1   # Sobrevendido → compra
-    df.loc[df["rsi"] > 70, "signal"] = -1  # Sobrecomprado → venta
+    
+    # BUY: RSI cruza hacia arriba 30
+    df.loc[
+        (df["rsi"].shift(1) < 30) & (df["rsi"] >= 30),
+        "signal"
+    ] = 1
+    
+    # SELL: RSI cruza hacia abajo 70
+    df.loc[
+        (df["rsi"].shift(1) > 70) & (df["rsi"] <= 70),
+        "signal"
+    ] = -1
 
     df["position_change"] = df["signal"].diff().fillna(0).astype(int)
 

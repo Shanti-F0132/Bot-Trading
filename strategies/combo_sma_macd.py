@@ -24,17 +24,19 @@ def combo_sma_macd(df, sma_short=20, sma_long=50, macd_fast=12, macd_slow=26, ma
     # Señal final
     df["signal"] = 0
 
-    # BUY
+    # BUY: tendencia alcista + cruce MACD
     df.loc[
-        (df["sma_change"] == 1) &
-        (df["macd_change"] == 1),
+        (df["sma_short"] > df["sma_long"]) &
+        (df["macd"].shift(1) < df["macd_signal"].shift(1)) &
+        (df["macd"] >= df["macd_signal"]),
         "signal"
     ] = 1
 
-    # SELL
+    # SELL: tendencia bajista + cruce MACD
     df.loc[
-        (df["sma_change"] == -1) &
-        (df["macd_change"] == -1),
+        (df["sma_short"] < df["sma_long"]) &
+        (df["macd"].shift(1) > df["macd_signal"].shift(1)) &
+        (df["macd"] <= df["macd_signal"]),
         "signal"
     ] = -1
 
