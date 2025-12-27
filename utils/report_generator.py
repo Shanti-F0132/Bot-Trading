@@ -100,11 +100,11 @@ def generate_report(output_path, all_results, charts=None, risk_summary=None):
         elements.append(Spacer(1, 20))
 
     # ============================================================
-    # 🧠 META-ESTRATEGIA ADAPTATIVA
+    #  META-ESTRATEGIA ADAPTATIVA
     # ============================================================
     meta_chart = "outputs/charts/meta_vs_individuals.png"
     if os.path.exists(meta_chart):
-        elements.append(Paragraph("🧠 Meta-Estrategia Adaptativa", subtitle_style))
+        elements.append(Paragraph(" Meta-Estrategia Adaptativa", subtitle_style))
         elements.append(Paragraph(
             "Compara el rendimiento de la Meta-Estrategia Adaptativa con las estrategias individuales. "
             "Los pesos se ajustan dinámicamente según Sharpe Ratio, CAGR y Drawdown promedio.",
@@ -116,10 +116,10 @@ def generate_report(output_path, all_results, charts=None, risk_summary=None):
         print("⚠️ No se encontró el gráfico meta_vs_individuals.png, omitiendo del reporte.")
 
     # ============================================================
-    # 📉 VISUALIZACIONES DE RESULTADOS
+    #  VISUALIZACIONES DE RESULTADOS
     # ============================================================
     if charts:
-        elements.append(Paragraph("📉 Visualizaciones de Resultados", subtitle_style))
+        elements.append(Paragraph(" Visualizaciones de Resultados", subtitle_style))
         fig_counter = 1
 
         for chart in charts:

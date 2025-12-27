@@ -12,6 +12,8 @@ from utils.trade_logger import log_trade
 from alpaca.trading.requests import MarketOrderRequest
 from alpaca.trading.enums import OrderSide, TimeInForce, OrderClass
 from broker_api.alpaca_client import client
+from utils.trade_logger import log_trade, init_trade_log
+init_trade_log()
 
 # ---------------------------
 # CONFIG
@@ -38,9 +40,9 @@ PARAMS = {
 # RISK MANAGEMENT
 # ---------------------------
 RISK_PER_TRADE = 0.002         # arriesgar 0.2% del equity por trade
-STOP_ATR_MULT = 1.3            # stop loss at 1.3x ATR
+STOP_ATR_MULT = 1.5            # stop loss at 1.5x ATR
 TP_ATR_MULT = 1.3              # take profit at 1.3x ATR
-COOLDOWN_SECONDS = 120         # 3 minutos de cooldown entre trades
+COOLDOWN_SECONDS = 120         # 2 minutos de cooldown entre trades
 MIN_ATR_PCT = 0.0005           # mínimo 0.05% volatilidad
 ATR_PERIOD = 14                # para calcular volatilidad
 MIN_QTY = 1                    # qty mínimo a comprar

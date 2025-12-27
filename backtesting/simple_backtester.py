@@ -8,9 +8,9 @@ def backtest(
     slippage=0.0005,
     risk_free_rate=0.02,
     position_size=1.0,
-    stop_loss=None,
-    take_profit=None,
-    fixed_risk=None   # NUEVO: riesgo fijo por operación (ej: 0.01 = 1% del capital)
+    stop_loss=1.5,
+    take_profit=1.5,
+    fixed_risk=0.005   # NUEVO: riesgo fijo por operación (ej: 0.01 = 1% del capital)
 ):
     """
     Backtester con gestión avanzada de riesgo:
