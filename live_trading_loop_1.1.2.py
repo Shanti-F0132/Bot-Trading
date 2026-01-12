@@ -40,9 +40,9 @@ PARAMS = {
 # RISK MANAGEMENT
 # ---------------------------
 RISK_PER_TRADE = 0.002         # arriesgar 0.2% del equity por trade
-STOP_ATR_MULT = 1.5            # stop loss at 1.5x ATR
-TP_ATR_MULT = 1.3              # take profit at 1.3x ATR
-COOLDOWN_SECONDS = 120         # 2 minutos de cooldown entre trades
+STOP_ATR_MULT = 0.8            # stop loss at 0.8x ATR
+TP_ATR_MULT = 1.6             # take profit at 1.6x ATR
+COOLDOWN_SECONDS = 180         # 2 minutos de cooldown entre trades
 MIN_ATR_PCT = 0.0005           # mínimo 0.05% volatilidad
 ATR_PERIOD = 14                # para calcular volatilidad
 MIN_QTY = 1                    # qty mínimo a comprar
@@ -62,7 +62,7 @@ SESSION_END   = (15, 45)
 
 # Si quieres múltiples ventanas (más profesional)
 TRADING_WINDOWS = [
-    ((9, 45), (11, 30)),
+    ((9, 45), (12, 30)),
     ((13, 30), (15, 45)),
 ]
 
@@ -205,11 +205,29 @@ def check_trade_closed():
 
     # Si ya no hay posición, el bracket cerró el trade
     if not is_in_position(symbol):
-        try:
-            last_trade = client.get_latest_trade(symbol)
-            exit_price = float(last_trade.price)
-        except Exception:
+        exit_order = None
+
+        orders = client.list_orders(
+            status="closed",
+            symbols=[symbol],
+            limit=10
+        )
+
+        for o in orders:
+            if (
+                o.parent_order_id == _current_trade["order_id"]
+                and o.status == "filled"
+            ):
+                exit_order = o
+                break
+
+        if exit_order:
+            exit_price = float(exit_order.filled_avg_price)
+            exit_reason = "TP" if exit_order.order_type == "Limit" else "SL" if exit_order.order_type == "Stop" else "UNKNOWN"
+        else:
             exit_price = None
+            exit_reason = "UNKNOWN"
+
 
         entry_price = _current_trade["entry_price"]
         qty = _current_trade["qty"]
@@ -220,10 +238,6 @@ def check_trade_closed():
         else:
             pnl_usd = pnl_pct = 0.0
 
-        exit_reason = (
-            "TP" if exit_price and exit_price >= _current_trade["take_profit"]
-            else "SL"
-        )
 
         timestamp_exit = int(time.time())
 
