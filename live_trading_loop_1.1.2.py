@@ -1,9 +1,12 @@
 import time
 import math
+
 import yfinance as yf
 import pandas as pd
 from datetime import datetime
 import pytz
+from alpaca.trading.requests import GetOrdersRequest
+from alpaca.trading.enums import OrderStatus
 
 from strategies.data_normalizer import normalize_columns
 from strategies.strategy_loader import run_strategy
@@ -18,12 +21,12 @@ init_trade_log()
 # ---------------------------
 # CONFIG
 # ---------------------------
-SYMBOL = "AAPL"
-STRATEGY = "sma"
+SYMBOL = "NVDA"
+STRATEGY = "combo_sma_macd"   # "sma", "macd", "rsi", "bollinger", "combo_sma_macd"
 PERIOD = "5d"
 INTERVAL = "5m"
 SLEEP_SECONDS = 30
-WARMUP_BARS = 50
+WARMUP_BARS = 100
 
 PARAMS = {
     "sma": {"short": 5, "long": 20},
@@ -31,8 +34,8 @@ PARAMS = {
     "rsi": {"window": 7},
     "bollinger": {"window": 10, "num_std": 2},
     "combo_sma_macd": {
-        "sma_short": 5, "sma_long": 20,
-        "macd_fast": 6, "macd_slow": 13, "macd_signal": 5
+        "sma_short": 20, "sma_long": 50,
+        "macd_fast": 12, "macd_slow": 26, "macd_signal": 9
     }
 }
 
@@ -40,10 +43,10 @@ PARAMS = {
 # RISK MANAGEMENT
 # ---------------------------
 RISK_PER_TRADE = 0.002         # arriesgar 0.2% del equity por trade
-STOP_ATR_MULT = 0.8            # stop loss at 0.8x ATR
-TP_ATR_MULT = 1.6             # take profit at 1.6x ATR
-COOLDOWN_SECONDS = 180         # 2 minutos de cooldown entre trades
-MIN_ATR_PCT = 0.0005           # mínimo 0.05% volatilidad
+STOP_ATR_MULT = 1.2            # stop loss at 1.2x ATR
+TP_ATR_MULT = 2.4              # take profit at 2.4x ATR
+COOLDOWN_SECONDS = 300         # 2 minutos de cooldown entre trades
+MIN_ATR_PCT = 0.0015           # mínimo 0.15% volatilidad
 ATR_PERIOD = 14                # para calcular volatilidad
 MIN_QTY = 1                    # qty mínimo a comprar
 MAX_QTY = 1000                 # cap por seguridad
@@ -205,29 +208,41 @@ def check_trade_closed():
 
     # Si ya no hay posición, el bracket cerró el trade
     if not is_in_position(symbol):
-        exit_order = None
-
-        orders = client.list_orders(
-            status="closed",
+        request = GetOrdersRequest(
             symbols=[symbol],
             limit=10
         )
 
+        orders = client.get_orders(request)
+        exit_order = None
+
         for o in orders:
             if (
-                o.parent_order_id == _current_trade["order_id"]
-                and o.status == "filled"
+                o.side == OrderSide.SELL
+                and o.status == OrderStatus.FILLED
+                and o.parent_order_id == _current_trade["order_id"]
+                and o.filled_avg_price is not None
             ):
                 exit_order = o
                 break
 
-        if exit_order:
-            exit_price = float(exit_order.filled_avg_price)
-            exit_reason = "TP" if exit_order.order_type == "Limit" else "SL" if exit_order.order_type == "Stop" else "UNKNOWN"
-        else:
-            exit_price = None
-            exit_reason = "UNKNOWN"
 
+        if exit_order is None:
+            print("Exit order not ready yet — waiting")
+            return
+
+        if exit_order.filled_avg_price is None:
+            print("Exit order filled but avg price not ready — waiting")
+            return
+
+        exit_price = float(exit_order.filled_avg_price)
+
+
+        exit_reason = (
+            "TP"
+            if exit_order.type == "limit"
+            else "SL"
+        )
 
         entry_price = _current_trade["entry_price"]
         qty = _current_trade["qty"]
@@ -275,7 +290,6 @@ def main():
 
     while True:
         try:
-            check_trade_closed()
             df = get_latest_data(SYMBOL)
             if df.empty or len(df) < WARMUP_BARS:
                 time.sleep(SLEEP_SECONDS)
@@ -329,6 +343,9 @@ def main():
 
         except Exception as e:
             print("Loop error:", e)
+
+        finally:
+            check_trade_closed()
 
         time.sleep(SLEEP_SECONDS)
 
