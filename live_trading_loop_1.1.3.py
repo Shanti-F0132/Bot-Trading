@@ -1,7 +1,6 @@
 import time
 import math
 
-import yfinance as yf
 import pandas as pd
 from datetime import datetime
 import pytz
@@ -16,6 +15,10 @@ from alpaca.trading.requests import MarketOrderRequest
 from alpaca.trading.enums import OrderSide, TimeInForce, OrderClass
 from broker_api.alpaca_client import client
 from utils.trade_logger import log_trade, init_trade_log
+from alpaca.data.historical import StockHistoricalDataClient
+from alpaca.data.requests import StockBarsRequest
+from alpaca.data.timeframe import TimeFrame
+from alpaca.data.requests import StockLatestTradeRequest
 init_trade_log()
 
 # ---------------------------
@@ -49,7 +52,7 @@ COOLDOWN_SECONDS = 300         # 2 minutos de cooldown entre trades
 MIN_ATR_PCT = 0.0015           # mínimo 0.15% volatilidad
 ATR_PERIOD = 14                # para calcular volatilidad
 MIN_QTY = 1                    # qty mínimo a comprar
-MAX_QTY = 1000                 # cap por seguridad
+MAX_QTY = 1000                    # cap por seguridad
 
 
 # ---------------------------
@@ -80,9 +83,39 @@ _current_trade = None
 # ---------------------------
 # DATA
 # ---------------------------
+
+data_client = StockHistoricalDataClient(
+    client._api_key,
+    client._secret_key
+)
+
 def get_latest_data(symbol):
-    df = yf.download(symbol, period=PERIOD, interval=INTERVAL, auto_adjust=False)
-    return normalize_columns(df)
+    request = StockBarsRequest(
+        symbol_or_symbols=symbol,
+        timeframe=TimeFrame.Minute,
+        limit=300
+    )
+    bars = data_client.get_stock_bars(request).df
+
+    if bars.empty:
+        return bars
+
+    bars = bars.reset_index()
+    bars.rename(columns={
+        "open": "open",
+        "high": "high",
+        "low": "low",
+        "close": "close",
+        "volume": "volume"
+    }, inplace=True)
+
+    return normalize_columns(bars)
+
+def get_live_price(symbol):
+    trade = data_client.get_stock_latest_trade(
+        StockLatestTradeRequest(symbol_or_symbols=symbol)
+    )
+    return float(trade[symbol].price)
 
 def clamp_change(x):
     return max(-1, min(1, int(x)))
@@ -296,7 +329,7 @@ def main():
                 continue
 
             atr, atr_pct = compute_atr(df)
-            last_close = float(df["close"].iloc[-1])
+            last_close = get_live_price(SYMBOL)
 
             if atr_pct < MIN_ATR_PCT:
                 print("ATR too low — skipping")
