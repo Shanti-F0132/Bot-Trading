@@ -47,12 +47,12 @@ PARAMS = {
 # ---------------------------
 RISK_PER_TRADE = 0.002         # arriesgar 0.2% del equity por trade
 STOP_ATR_MULT = 1.2            # stop loss at 1.2x ATR
-TP_ATR_MULT = 2.4              # take profit at 2.4x ATR
+TP_ATR_MULT = 2.1              # take profit at 2.1x ATR
 COOLDOWN_SECONDS = 300         # 2 minutos de cooldown entre trades
-MIN_ATR_PCT = 0.0015           # mínimo 0.15% volatilidad
+MIN_ATR_PCT = 0.0001           # mínimo 0.01% volatilidad
 ATR_PERIOD = 14                # para calcular volatilidad
 MIN_QTY = 1                    # qty mínimo a comprar
-MAX_QTY = 1000                    # cap por seguridad
+MAX_QTY = 1000                 # cap por seguridad
 
 
 # ---------------------------
@@ -66,7 +66,7 @@ MARKET_TZ = "US/Eastern"
 SESSION_START = (9, 45)
 SESSION_END   = (15, 45)
 
-# Si quieres múltiples ventanas (más profesional)
+# Si quieres múltiples ventanas
 TRADING_WINDOWS = [
     ((9, 45), (12, 30)),
     ((13, 30), (15, 45)),
@@ -239,77 +239,84 @@ def check_trade_closed():
 
     symbol = _current_trade["symbol"]
 
-    # Si ya no hay posición, el bracket cerró el trade
-    if not is_in_position(symbol):
+    # Si aún hay posición abierta no hacemos nada
+    if is_in_position(symbol):
+        return
+
+    print("Position closed — searching exit order")
+
+    try:
         request = GetOrdersRequest(
             symbols=[symbol],
-            limit=10
+            limit=20
         )
 
         orders = client.get_orders(request)
-        exit_order = None
 
-        for o in orders:
-            if (
-                o.side == OrderSide.SELL
-                and o.status == OrderStatus.FILLED
-                and o.parent_order_id == _current_trade["order_id"]
-                and o.filled_avg_price is not None
-            ):
-                exit_order = o
-                break
+    except Exception as e:
+        print("Order fetch error:", e)
+        return
 
+    # ordenar más recientes primero
+    orders = sorted(
+        orders,
+        key=lambda o: o.created_at,
+        reverse=True
+    )
 
-        if exit_order is None:
-            print("Exit order not ready yet — waiting")
-            return
+    exit_order = None
 
-        if exit_order.filled_avg_price is None:
-            print("Exit order filled but avg price not ready — waiting")
-            return
+    for o in orders:
 
-        exit_price = float(exit_order.filled_avg_price)
+        if (
+            o.side == OrderSide.SELL
+            and o.status == OrderStatus.FILLED
+            and o.filled_avg_price is not None
+        ):
+            exit_order = o
+            break
 
+    if exit_order is None:
+        print("Exit order not ready yet — waiting")
+        return
 
-        exit_reason = (
-            "TP"
-            if exit_order.type == "limit"
-            else "SL"
-        )
+    exit_price = float(exit_order.filled_avg_price)
 
-        entry_price = _current_trade["entry_price"]
-        qty = _current_trade["qty"]
+    entry_price = _current_trade["entry_price"]
+    qty = _current_trade["qty"]
 
-        if exit_price is not None:
-            pnl_usd = (exit_price - entry_price) * qty
-            pnl_pct = (exit_price - entry_price) / entry_price
-        else:
-            pnl_usd = pnl_pct = 0.0
+    pnl_usd = (exit_price - entry_price) * qty
+    pnl_pct = (exit_price - entry_price) / entry_price
 
+    exit_reason = "TP" if exit_order.type == "limit" else "SL"
 
-        timestamp_exit = int(time.time())
+    timestamp_exit = int(time.time())
 
-        trade_log = {
-            "timestamp_entry": _current_trade["timestamp_entry"],
-            "timestamp_exit": timestamp_exit,
-            "symbol": symbol,
-            "strategy": _current_trade["strategy"],
-            "qty": qty,
-            "entry_price": entry_price,
-            "exit_price": exit_price,
-            "stop_loss": _current_trade["stop_loss"],
-            "take_profit": _current_trade["take_profit"],
-            "pnl_usd": round(pnl_usd, 2),
-            "pnl_pct": round(pnl_pct * 100, 2),
-            "duration_sec": timestamp_exit - _current_trade["timestamp_entry"],
-            "exit_reason": exit_reason,
-            "order_id": _current_trade["order_id"]
-        }
+    trade_log = {
+        "timestamp_entry": _current_trade["timestamp_entry"],
+        "timestamp_exit": timestamp_exit,
+        "symbol": symbol,
+        "strategy": _current_trade["strategy"],
+        "qty": qty,
+        "entry_price": entry_price,
+        "exit_price": exit_price,
+        "stop_loss": _current_trade["stop_loss"],
+        "take_profit": _current_trade["take_profit"],
+        "pnl_usd": round(pnl_usd, 2),
+        "pnl_pct": round(pnl_pct * 100, 2),
+        "duration_sec": timestamp_exit - _current_trade["timestamp_entry"],
+        "exit_reason": exit_reason,
+        "order_id": _current_trade["order_id"]
+    }
 
-        log_trade(trade_log)
+    success = log_trade(trade_log)
+
+    if success:
         print("TRADE CLOSED & LOGGED:", trade_log)
-
         _current_trade = None
+    else:
+        print("Trade closed but NOT logged — will retry next loop")
+
 
 
 # ---------------------------
@@ -373,6 +380,7 @@ def main():
                 equity = get_account_equity()
                 qty = compute_position_size(equity, last_close, atr) if equity else MIN_QTY
                 submit_bracket_order(SYMBOL, qty, last_close, atr)
+                check_trade_closed()
 
         except Exception as e:
             print("Loop error:", e)

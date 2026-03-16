@@ -57,7 +57,7 @@ if __name__ == "__main__":
 
     for symbol in symbols:
         print(f"\n📥 Descargando datos de {symbol}...")
-        df = get_data(symbol, start="2015-01-01", end="2025-01-01")
+        df = get_data(symbol, start="2015-01-01", end="2026-01-01")
 
         # --- Estrategias ---
         print(f"\n⚙️ Backtesting en {symbol}...")
