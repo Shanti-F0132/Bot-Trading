@@ -24,17 +24,34 @@ FIELDS = [
 
 
 def init_trade_log():
+
+    os.makedirs(os.path.dirname(LOG_FILE), exist_ok=True)
+
     if not os.path.exists(LOG_FILE):
         with open(LOG_FILE, mode="w", newline="") as f:
             writer = csv.DictWriter(f, fieldnames=FIELDS)
             writer.writeheader()
 
 
-def log_trade(trade: dict):
-    with open(LOG_FILE, mode="a", newline="") as f:
-        writer = csv.DictWriter(f, fieldnames=FIELDS)
-        writer.writerow(trade)
+def log_trade(trade: dict) -> bool:
+    try:
+        os.makedirs(os.path.dirname(LOG_FILE), exist_ok=True)
 
+        file_exists = os.path.isfile(LOG_FILE)
+
+        with open(LOG_FILE, mode="a", newline="") as f:
+            writer = csv.DictWriter(f, fieldnames=FIELDS)
+
+            if not file_exists:
+                writer.writeheader()
+
+            writer.writerow(trade)
+
+        return True
+
+    except Exception as e:
+        print(f"Trade log failed:", e)
+        return False
 
 def now_ts():
     return int(time.time())
