@@ -4,28 +4,34 @@ import math
 import pandas as pd
 from datetime import datetime
 import pytz
-from alpaca.trading.requests import GetOrdersRequest
-from alpaca.trading.enums import OrderStatus
+from alpaca.trading.requests import GetOrdersRequest, MarketOrderRequest
+from alpaca.trading.enums import OrderStatus, OrderSide, TimeInForce, OrderClass, OrderType
 
 from strategies.data_normalizer import normalize_columns
 from strategies.strategy_loader import run_strategy
 from broker_api.state_manager import state
-from utils.trade_logger import log_trade
-from alpaca.trading.requests import MarketOrderRequest
-from alpaca.trading.enums import OrderSide, TimeInForce, OrderClass
 from broker_api.alpaca_client import client
 from utils.trade_logger import log_trade, init_trade_log
 from alpaca.data.historical import StockHistoricalDataClient
 from alpaca.data.requests import StockBarsRequest
-from alpaca.data.timeframe import TimeFrame
+from alpaca.data.timeframe import TimeFrame, TimeFrameUnit
 from alpaca.data.requests import StockLatestTradeRequest
 init_trade_log()
+
+# Mapeo de INTERVAL config → TimeFrame de Alpaca
+INTERVAL_MAP = {
+    "1m":  TimeFrame.Minute,
+    "5m":  TimeFrame(5,  TimeFrameUnit.Minute),
+    "15m": TimeFrame(15, TimeFrameUnit.Minute),
+    "1h":  TimeFrame.Hour,
+    "1d":  TimeFrame.Day
+}
 
 # ---------------------------
 # CONFIG
 # ---------------------------
-SYMBOL = "NVDA"
-STRATEGY = "combo_sma_macd"   # "sma", "macd", "rsi", "bollinger", "combo_sma_macd"
+SYMBOL = "AMD"
+STRATEGY = "sma"   # "sma", "macd", "rsi", "bollinger", "combo_sma_macd"
 PERIOD = "5d"
 INTERVAL = "5m"
 SLEEP_SECONDS = 30
@@ -48,7 +54,7 @@ PARAMS = {
 RISK_PER_TRADE = 0.002         # arriesgar 0.2% del equity por trade
 STOP_ATR_MULT = 1.2            # stop loss at 1.2x ATR
 TP_ATR_MULT = 2.1              # take profit at 2.1x ATR
-COOLDOWN_SECONDS = 300         # 2 minutos de cooldown entre trades
+COOLDOWN_SECONDS = 300         # 5 minutos de cooldown entre trades
 MIN_ATR_PCT = 0.0001           # mínimo 0.01% volatilidad
 ATR_PERIOD = 14                # para calcular volatilidad
 MIN_QTY = 1                    # qty mínimo a comprar
@@ -67,11 +73,14 @@ SESSION_START = (9, 45)
 SESSION_END   = (15, 45)
 
 # Si quieres múltiples ventanas
-TRADING_WINDOWS = [
-    ((9, 45), (12, 30)),
-    ((13, 30), (15, 45)),
-]
+ #TRADING_WINDOWS = [
+  #  ((9, 45), (12, 30)),
+  #  ((13, 30), (15, 45)),
+#]
 
+TRADING_WINDOWS = [
+    ((9, 45), (15, 45)),
+]
 
 # ---------------------------
 # STATE
@@ -90,9 +99,10 @@ data_client = StockHistoricalDataClient(
 )
 
 def get_latest_data(symbol):
+    tf = INTERVAL_MAP.get(INTERVAL, TimeFrame.Minute)
     request = StockBarsRequest(
         symbol_or_symbols=symbol,
-        timeframe=TimeFrame.Minute,
+        timeframe=tf,
         limit=300
     )
     bars = data_client.get_stock_bars(request).df
@@ -239,74 +249,68 @@ def check_trade_closed():
 
     symbol = _current_trade["symbol"]
 
-    # Si aún hay posición abierta no hacemos nada
+    # Posición aún abierta — nada que hacer
     if is_in_position(symbol):
         return
 
-    print("Position closed — searching exit order")
+    print("Position closed — resolving exit via bracket order legs")
 
-    try:
-        request = GetOrdersRequest(
-            symbols=[symbol],
-            limit=20
-        )
-
-        orders = client.get_orders(request)
-
-    except Exception as e:
-        print("Order fetch error:", e)
+    order_id = _current_trade.get("order_id")
+    if not order_id:
+        print("No order_id stored — cannot resolve exit order")
         return
 
-    # ordenar más recientes primero
-    orders = sorted(
-        orders,
-        key=lambda o: o.created_at,
-        reverse=True
-    )
+    try:
+        # Traer la orden padre del bracket directamente por ID
+        parent_order = client.get_order_by_id(order_id)
+    except Exception as e:
+        print("Error fetching parent order:", e)
+        return
+
+    # Las legs del bracket vienen en parent_order.legs
+    legs = getattr(parent_order, "legs", None) or []
 
     exit_order = None
-
-    for o in orders:
-
+    for leg in legs:
         if (
-            o.side == OrderSide.SELL
-            and o.status == OrderStatus.FILLED
-            and o.filled_avg_price is not None
+            leg.side == OrderSide.SELL
+            and leg.status == OrderStatus.FILLED
+            and leg.filled_avg_price is not None
         ):
-            exit_order = o
+            exit_order = leg
             break
 
     if exit_order is None:
-        print("Exit order not ready yet — waiting")
+        print("Exit leg not filled yet — will retry next loop")
         return
 
-    exit_price = float(exit_order.filled_avg_price)
-
+    exit_price  = float(exit_order.filled_avg_price)
     entry_price = _current_trade["entry_price"]
-    qty = _current_trade["qty"]
+    qty         = _current_trade["qty"]
 
     pnl_usd = (exit_price - entry_price) * qty
     pnl_pct = (exit_price - entry_price) / entry_price
 
-    exit_reason = "TP" if exit_order.type == "limit" else "SL"
+    # OrderType.LIMIT → TP | OrderType.STOP → SL
+    exit_reason = "TP" if exit_order.type == OrderType.LIMIT else "SL"
 
     timestamp_exit = int(time.time())
 
     trade_log = {
         "timestamp_entry": _current_trade["timestamp_entry"],
-        "timestamp_exit": timestamp_exit,
-        "symbol": symbol,
-        "strategy": _current_trade["strategy"],
-        "qty": qty,
-        "entry_price": entry_price,
-        "exit_price": exit_price,
-        "stop_loss": _current_trade["stop_loss"],
-        "take_profit": _current_trade["take_profit"],
-        "pnl_usd": round(pnl_usd, 2),
-        "pnl_pct": round(pnl_pct * 100, 2),
-        "duration_sec": timestamp_exit - _current_trade["timestamp_entry"],
-        "exit_reason": exit_reason,
-        "order_id": _current_trade["order_id"]
+        "timestamp_exit":  timestamp_exit,
+        "symbol":          symbol,
+        "strategy":        _current_trade["strategy"],
+        "qty":             qty,
+        "entry_price":     entry_price,
+        "exit_price":      exit_price,
+        "stop_loss":       _current_trade["stop_loss"],
+        "take_profit":     _current_trade["take_profit"],
+        "pnl_usd":         round(pnl_usd, 2),
+        "pnl_pct":         round(pnl_pct * 100, 2),
+        "duration_sec":    timestamp_exit - _current_trade["timestamp_entry"],
+        "exit_reason":     exit_reason,
+        "order_id":        order_id
     }
 
     success = log_trade(trade_log)
@@ -380,7 +384,6 @@ def main():
                 equity = get_account_equity()
                 qty = compute_position_size(equity, last_close, atr) if equity else MIN_QTY
                 submit_bracket_order(SYMBOL, qty, last_close, atr)
-                check_trade_closed()
 
         except Exception as e:
             print("Loop error:", e)
