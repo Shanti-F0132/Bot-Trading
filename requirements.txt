@@ -4,6 +4,6 @@ matplotlib
 yfinance
 seaborn
 reportlab
-os
-glob
-dotenv
+python-dotenv
+alpaca-py
+pytz
