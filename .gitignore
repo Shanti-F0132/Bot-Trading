@@ -1,0 +1,58 @@
+# ========================
+# SEGURIDAD
+# ========================
+.env
+.env.*
+*.env
+secrets.py
+api_keys.py
+config.ini
+
+# ========================
+# ENTORNO VIRTUAL
+# ========================
+venv/
+.venv/
+env/
+
+# ========================
+# PYTHON
+# ========================
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.egg-info/
+dist/
+build/
+.Python
+
+# ========================
+# OUTPUTS DEL BOT
+# ========================
+trades.log
+*.log
+logs/
+outputs/charts/
+outputs/reports/
+outputs/csv/
+outputs/walkforward_results/
+
+# ========================
+# SISTEMA OPERATIVO
+# ========================
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ========================
+# IDEs
+# ========================
+.vscode/
+.idea/
+*.code-workspace
+
+# ========================
+# JUPYTER
+# ========================
+.ipynb_checkpoints/
