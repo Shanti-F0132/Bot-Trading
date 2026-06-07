@@ -1,31 +1,32 @@
+"""
+bollinger_strategy.py  –  v2.0
+"""
+
 import pandas as pd
 
-def bollinger_strategy(df, window=20, num_std=2):
-    """
-    Estrategia basada en Bollinger Bands.
-    Señales:
-      - Compra cuando el precio cierra por debajo de la banda inferior.
-      - Venta cuando el precio cierra por encima de la banda superior.
 
-    Parámetros:
-    -----------
-    df : DataFrame con columna 'Close'
-    window : int, periodo de la SMA
-    num_std : float, número de desviaciones estándar
-    """
+def bollinger_strategy(
+    df: pd.DataFrame,
+    window: int = 20,
+    num_std: float = 2.0,
+    price_col: str = "close",
+) -> pd.DataFrame:
+    if price_col not in df.columns:
+        alt = price_col.capitalize()
+        if alt in df.columns:
+            df = df.rename(columns={alt: price_col})
+        else:
+            raise KeyError(f"Columna '{price_col}' no encontrada. Disponibles: {list(df.columns)}")
 
     df = df.copy()
-
-    df["sma"] = df["close"].rolling(window).mean()
-    df["std"] = df["close"].rolling(window).std()
-
-    df["upper_band"] = df["sma"] + num_std * df["std"]
-    df["lower_band"] = df["sma"] - num_std * df["std"]
+    df["bb_mid"]   = df[price_col].rolling(window=window).mean()
+    df["bb_std"]   = df[price_col].rolling(window=window).std()
+    df["bb_upper"] = df["bb_mid"] + num_std * df["bb_std"]
+    df["bb_lower"] = df["bb_mid"] - num_std * df["bb_std"]
 
     df["signal"] = 0
-    df.loc[df["close"] < df["lower_band"], "signal"] = 1
-    df.loc[df["close"] > df["upper_band"], "signal"] = -1
+    df.loc[df[price_col] < df["bb_lower"], "signal"] = 1    # precio bajo banda → comprar
+    df.loc[df[price_col] > df["bb_upper"], "signal"] = -1   # precio sobre banda → vender
 
-    df["position_change"] = df["signal"].diff().fillna(0).astype(int)
-
+    df.dropna(subset=["bb_mid", "bb_upper", "bb_lower"], inplace=True)
     return df
