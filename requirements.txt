@@ -7,3 +7,4 @@ reportlab
 python-dotenv
 alpaca-py
 pytz
+pandas_datareader
