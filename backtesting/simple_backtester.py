@@ -1,158 +1,256 @@
-import pandas as pd
+"""
+simple_backtester.py  –  v2.0
+==============================
+Refactorizado para trabajar con la columna 'signal' que generan
+las estrategias actualizadas (sma, rsi, macd, bollinger).
+
+Cambio principal respecto a v1
+-------------------------------
+- Antes esperaba 'position_change' (columna que ya no existe).
+- Ahora lee 'signal' (1 = largo, -1 = corto/flat, 0 = hold) y
+  deriva los cambios de posición internamente comparando signal
+  actual vs signal anterior.
+
+Señales soportadas
+------------------
+  signal = 1  → abrir/mantener largo
+  signal = -1 → cerrar largo (o abrir corto si short_selling=True)
+  signal = 0  → mantener estado actual
+
+Métricas que retorna
+--------------------
+  final_equity, total_return_pct, cagr, sharpe_ratio, sortino_ratio,
+  calmar_ratio, profit_factor, win_rate, max_drawdown, equity_curve
+"""
+
 import numpy as np
+import pandas as pd
+
 
 def backtest(
-    df,
-    initial_cash=10000,
-    commission=0.001,
-    slippage=0.0005,
-    risk_free_rate=0.02,
-    position_size=1.0,
-    stop_loss=1.5,
-    take_profit=1.5,
-    fixed_risk=0.005   # NUEVO: riesgo fijo por operación (ej: 0.01 = 1% del capital)
-):
+    df: pd.DataFrame,
+    initial_capital: float = 10_000.0,
+    commission: float = 0.001,       # 0.1% por operación
+    slippage: float = 0.0005,        # 0.05% slippage
+    position_size: float = 1.0,      # fracción del capital a invertir (1.0 = 100%)
+    short_selling: bool = False,      # permitir posiciones cortas
+    price_col: str = "close",
+    signal_col: str = "signal",
+) -> dict:
     """
-    Backtester con gestión avanzada de riesgo:
-    - Comisiones
-    - Slippage
-    - Position sizing fijo o riesgo fijo por operación
-    - Stop-Loss y Take-Profit opcionales
-    - Métricas avanzadas
+    Ejecuta un backtest vectorizado sobre el DataFrame de una estrategia.
+
+    Parámetros
+    ----------
+    df            : DataFrame con columnas de precio y señal
+    initial_capital: Capital inicial en USD
+    commission    : Comisión por operación (fracción, ej: 0.001 = 0.1%)
+    slippage      : Slippage por operación (fracción)
+    position_size : Fracción del capital a invertir por trade
+    short_selling : Si True, permite posiciones cortas en signal=-1
+    price_col     : Nombre de la columna de precio de cierre
+    signal_col    : Nombre de la columna de señal
+
+    Retorna
+    -------
+    dict con todas las métricas y la equity_curve como pd.Series
     """
+
+    # ------------------------------------------------------------------
+    # Validaciones
+    # ------------------------------------------------------------------
+    if price_col not in df.columns:
+        raise KeyError(
+            f"Columna de precio '{price_col}' no encontrada. "
+            f"Disponibles: {list(df.columns)}"
+        )
+    if signal_col not in df.columns:
+        raise KeyError(
+            f"Columna de señal '{signal_col}' no encontrada. "
+            f"Disponibles: {list(df.columns)}\n"
+            f"Asegúrate de que la estrategia genera la columna '{signal_col}'."
+        )
 
     df = df.copy()
+    prices  = df[price_col].values
+    signals = df[signal_col].values
+    n       = len(df)
 
-    # ==========================
-    # 🔍 Detectar columna de cierre automáticamente
-    # ==========================
-    close_col = None
-    for c in df.columns:
-        if c.lower() in ["close", "adj close", "precio", "price"]:
-            close_col = c
-            break
+    # ------------------------------------------------------------------
+    # Simulación barra a barra
+    # ------------------------------------------------------------------
+    cash          = initial_capital
+    position      = 0          # número de acciones en cartera
+    equity        = np.zeros(n)
+    trades        = []         # lista de (pnl_por_trade)
 
-    if close_col is None:
-        raise ValueError(f"No se encontró columna de cierre. Columnas disponibles: {df.columns.tolist()}")
+    entry_price   = 0.0
+    prev_signal   = 0
 
-    # Creamos una columna unificada 'Close' para el resto del código
-    df["Close"] = df[close_col]
+    for i in range(n):
+        price  = prices[i]
+        signal = int(signals[i])
 
+        # Detectar cambio de señal
+        signal_changed = (signal != prev_signal)
 
-    # ==========================
-    # 📊 Variables iniciales
-    # ==========================
-    cash = initial_cash
-    position = 0
-    entry_price = None
-    equity_curve = []
+        # ---------- CERRAR posición larga ----------
+        should_close_long = (
+            position > 0
+            and signal_changed
+            and signal != 1
+        )
+        if should_close_long:
+            exit_price = price * (1 - slippage)
+            proceeds   = position * exit_price * (1 - commission)
+            pnl        = proceeds - (position * entry_price * (1 + commission + slippage))
+            trades.append(pnl)
+            cash      += proceeds
+            position   = 0
+            entry_price = 0.0
 
-    # Para métricas de trades
-    trades = []
-    trade_profits = []
+        # ---------- CERRAR posición corta ----------
+        if short_selling:
+            should_close_short = (
+                position < 0
+                and signal_changed
+                and signal != -1
+            )
+            if should_close_short:
+                exit_price = price * (1 + slippage)
+                cost       = abs(position) * exit_price * (1 + commission)
+                pnl        = (abs(position) * entry_price) - cost
+                trades.append(pnl)
+                cash      += (abs(position) * entry_price) + pnl
+                position   = 0
+                entry_price = 0.0
 
-    for index, row in df.iterrows():
-        price = row["Close"]
+        # ---------- ABRIR posición larga ----------
+        should_open_long = (
+            signal == 1
+            and position == 0
+            and cash > 0
+            and signal_changed
+        )
+        if should_open_long:
+            buy_price  = price * (1 + slippage)
+            invest     = cash * position_size
+            shares     = (invest / buy_price) * (1 - commission)
+            if shares > 0:
+                position    = shares
+                entry_price = buy_price
+                cash       -= invest
 
-        price_with_slippage_buy = price * (1 + slippage)
-        price_with_slippage_sell = price * (1 - slippage)
+        # ---------- ABRIR posición corta ----------
+        if short_selling:
+            should_open_short = (
+                signal == -1
+                and position == 0
+                and cash > 0
+                and signal_changed
+            )
+            if should_open_short:
+                sell_price  = price * (1 - slippage)
+                invest      = cash * position_size
+                shares      = (invest / sell_price) * (1 - commission)
+                if shares > 0:
+                    position    = -shares
+                    entry_price = sell_price
+                    cash       -= invest   # margen reservado
 
-        # === COMPRA ===
-        if row["position_change"] == 1 and cash > 0 and position == 0:
-            if fixed_risk and stop_loss:
-                risk_capital = cash * fixed_risk
-                risk_per_share = price * stop_loss
-                shares = risk_capital / risk_per_share if risk_per_share > 0 else 0
-                investable_cash = shares * price
-            else:
-                investable_cash = cash * position_size
+        # ---------- Calcular equity de esta barra ----------
+        if position > 0:
+            equity[i] = cash + position * price
+        elif position < 0 and short_selling:
+            # ganancia del short = (entry - current) * |position|
+            equity[i] = cash + abs(position) * (entry_price - price)
+        else:
+            equity[i] = cash
 
-            if investable_cash > 0:
-                position = (investable_cash * (1 - commission)) / price_with_slippage_buy
-                cash -= investable_cash
-                entry_price = price_with_slippage_buy
+        prev_signal = signal
 
-        # === VENTA por señal ===
-        elif row["position_change"] == -1 and position > 0:
-            exit_value = position * price_with_slippage_sell * (1 - commission)
-            cash += exit_value
-            trades.append(exit_value - (position * entry_price if entry_price else 0))
-            trade_profits.append(exit_value - (position * entry_price if entry_price else 0))
-            position = 0
-            entry_price = None
+    # Cerrar posición abierta al final si queda alguna
+    if position != 0:
+        final_price = prices[-1]
+        if position > 0:
+            proceeds = position * final_price * (1 - commission - slippage)
+            pnl      = proceeds - (position * entry_price * (1 + commission + slippage))
+            trades.append(pnl)
+            equity[-1] = cash + proceeds
+        elif position < 0 and short_selling:
+            cost = abs(position) * final_price * (1 + commission + slippage)
+            pnl  = (abs(position) * entry_price) - cost
+            trades.append(pnl)
+            equity[-1] = cash + (abs(position) * entry_price) + pnl
 
-        # === VENTA por STOP-LOSS o TAKE-PROFIT ===
-        elif position > 0 and entry_price is not None:
-            pnl_pct = (price - entry_price) / entry_price
+    # ------------------------------------------------------------------
+    # Construir equity_curve como Series con el índice del DataFrame
+    # ------------------------------------------------------------------
+    equity_curve = pd.Series(equity, index=df.index, name="equity")
+    # Rellenar ceros iniciales (antes de la primera señal) con capital inicial
+    equity_curve = equity_curve.replace(0, np.nan).ffill().fillna(initial_capital)
 
-            if stop_loss is not None and pnl_pct <= -stop_loss:
-                exit_value = position * price_with_slippage_sell * (1 - commission)
-                cash += exit_value
-                trades.append(exit_value - (position * entry_price))
-                trade_profits.append(exit_value - (position * entry_price))
-                position = 0
-                entry_price = None
-            elif take_profit is not None and pnl_pct >= take_profit:
-                exit_value = position * price_with_slippage_sell * (1 - commission)
-                cash += exit_value
-                trades.append(exit_value - (position * entry_price))
-                trade_profits.append(exit_value - (position * entry_price))
-                position = 0
-                entry_price = None
+    # ------------------------------------------------------------------
+    # Métricas
+    # ------------------------------------------------------------------
+    final_equity     = float(equity_curve.iloc[-1])
+    total_return_pct = (final_equity / initial_capital - 1) * 100
 
-        # === EQUITY TOTAL ===
-        equity = cash + position * price
-        equity_curve.append(equity)
+    # CAGR
+    returns_series = equity_curve.pct_change().dropna()
+    n_days         = len(returns_series)
+    years          = n_days / 252
+    if years > 0 and final_equity > 0:
+        cagr = (final_equity / initial_capital) ** (1 / years) - 1
+    else:
+        cagr = 0.0
 
-    equity_series = pd.Series(equity_curve, index=df.index)
-
-    # === MÉTRICAS ===
-    final_equity = equity_series.iloc[-1]
-    total_return_pct = (final_equity - initial_cash) / initial_cash * 100
-
-    num_years = (equity_series.index[-1] - equity_series.index[0]).days / 365.25
-    cagr = (final_equity / initial_cash) ** (1 / num_years) - 1 if num_years > 0 else 0
-
-    daily_returns = equity_series.pct_change().dropna()
-    excess_returns = daily_returns - (risk_free_rate / 252)
-
-    sharpe_ratio = (
-        np.sqrt(252) * excess_returns.mean() / excess_returns.std()
-        if excess_returns.std() > 0 else 0
-    )
+    # Sharpe Ratio (anualizado, rf=0)
+    if returns_series.std() != 0:
+        sharpe_ratio = float(np.sqrt(252) * returns_series.mean() / returns_series.std())
+    else:
+        sharpe_ratio = 0.0
 
     # Sortino Ratio
-    downside_returns = daily_returns[daily_returns < 0]
-    sortino_ratio = (
-        np.sqrt(252) * daily_returns.mean() / downside_returns.std()
-        if downside_returns.std() > 0 else 0
-    )
+    downside = returns_series[returns_series < 0]
+    if len(downside) > 0 and downside.std() != 0:
+        sortino_ratio = float(np.sqrt(252) * returns_series.mean() / downside.std())
+    else:
+        sortino_ratio = 0.0
 
     # Max Drawdown
-    rolling_max = equity_series.cummax()
-    drawdown = (equity_series - rolling_max) / rolling_max
-    max_drawdown = drawdown.min()
+    roll_max     = equity_curve.cummax()
+    drawdown     = (equity_curve - roll_max) / roll_max
+    max_drawdown = float(drawdown.min())
 
     # Calmar Ratio
-    calmar_ratio = cagr / abs(max_drawdown) if max_drawdown != 0 else np.nan
+    if max_drawdown != 0:
+        calmar_ratio = float(cagr / abs(max_drawdown))
+    else:
+        calmar_ratio = 0.0
 
-    # Profit Factor
-    gains = [t for t in trades if t > 0]
-    losses = [-t for t in trades if t < 0]
-    profit_factor = (sum(gains) / sum(losses)) if losses else np.inf
-
-    # Win Rate
-    win_rate = (len(gains) / len(trades)) * 100 if trades else 0
+    # Win Rate y Profit Factor
+    if len(trades) > 0:
+        wins        = [t for t in trades if t > 0]
+        losses      = [t for t in trades if t <= 0]
+        win_rate    = len(wins) / len(trades) * 100
+        gross_profit = sum(wins)
+        gross_loss   = abs(sum(losses))
+        profit_factor = gross_profit / gross_loss if gross_loss != 0 else float("inf")
+    else:
+        win_rate      = 0.0
+        profit_factor = 0.0
 
     return {
-        "final_equity": final_equity,
-        "total_return_pct": total_return_pct,
-        "cagr": cagr,
-        "sharpe_ratio": sharpe_ratio,
-        "sortino_ratio": sortino_ratio,
-        "calmar_ratio": calmar_ratio,
-        "profit_factor": profit_factor,
-        "win_rate": win_rate,
-        "max_drawdown": max_drawdown,
-        "equity_curve": equity_series
+        "final_equity":     round(final_equity, 2),
+        "total_return_pct": round(total_return_pct, 2),
+        "cagr":             round(cagr, 4),
+        "sharpe_ratio":     round(sharpe_ratio, 4),
+        "sortino_ratio":    round(sortino_ratio, 4),
+        "calmar_ratio":     round(calmar_ratio, 4),
+        "profit_factor":    round(profit_factor, 4),
+        "win_rate":         round(win_rate, 2),
+        "max_drawdown":     round(max_drawdown, 4),
+        "equity_curve":     equity_curve,
+        "n_trades":         len(trades),
     }

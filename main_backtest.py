@@ -357,12 +357,15 @@ if __name__ == "__main__":
     weights = weights.reindex(curves.keys(), fill_value=0)
 
     # --- Calcular curva combinada ---
-    meta_equity = np.zeros_like(next(iter(curves.values())), dtype=float)
+    curves_df = pd.DataFrame(curves)
+    curves_df = curves_df.dropna()  # solo filas donde todas las estrategias tienen datos
+
+    meta_equity = np.zeros(len(curves_df), dtype=float)
     for strat, w in weights.items():
-        meta_equity += curves[strat].values * w
+        meta_equity += curves_df[strat].values * w
     meta_equity = meta_equity / meta_equity[0]  # Normalizar
 
-    meta_equity_series = pd.Series(meta_equity, index=next(iter(curves.values())).index, name="Meta-Estrategia")
+    meta_equity_series = pd.Series(meta_equity, index=curves_df.index, name="Meta-Estrategia")
 
     # --- Calcular métricas ---
     def calculate_metrics(equity_series):
