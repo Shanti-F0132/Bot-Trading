@@ -1,35 +1,60 @@
+"""
+sma_strategy.py  –  v2.0
+==========================
+Estrategia SMA Crossover compatible con el nuevo data_loader.
+
+Cambios
+-------
+- Trabaja con columnas en minúsculas ('close') en lugar de 'Close'.
+- Acepta un DataFrame con cualquier nombre de columna siempre que tenga 'close'.
+- Señales: 1 = largo, -1 = corto, 0 = sin posición.
+"""
+
 import pandas as pd
 
-def sma_strategy(df, short=9, long=21):
-    """
-    Calcula señales de cruce de medias móviles y genera 'position_change'.
 
-    Parámetros:
-    -----------
-    df : pandas.DataFrame
-        Debe contener la columna 'Close'.
-    short : int
-        Ventana para la SMA corta.
-    long : int
-        Ventana para la SMA larga.
-
-    Retorna:
-    --------
-    df : pandas.DataFrame
-        DataFrame original con columnas adicionales:
-        - 'SMA_short'
-        - 'SMA_long'
-        - 'signal' (1 = tener posición, 0 = estar fuera)
-        - 'position_change' (1 = señal de compra, -1 = señal de venta)
+def sma_strategy(
+    df: pd.DataFrame,
+    short: int = 10,
+    long: int = 50,
+    price_col: str = "close",
+) -> pd.DataFrame:
     """
+    Genera señales de cruce de medias móviles simples (SMA Crossover).
+
+    Parámetros
+    ----------
+    df        : DataFrame con al menos la columna *price_col*
+    short     : Período de la SMA corta
+    long      : Período de la SMA larga
+    price_col : Nombre de la columna de precio de cierre (default 'close')
+
+    Retorna
+    -------
+    df con columnas adicionales:
+        sma_short, sma_long, signal
+    """
+    if price_col not in df.columns:
+        # Intento con capitalización alternativa por si acaso
+        alt = price_col.capitalize()
+        if alt in df.columns:
+            df = df.rename(columns={alt: price_col})
+        else:
+            raise KeyError(
+                f"Columna '{price_col}' no encontrada. "
+                f"Columnas disponibles: {list(df.columns)}"
+            )
+
     df = df.copy()
+    df["sma_short"] = df[price_col].rolling(window=short).mean()
+    df["sma_long"]  = df[price_col].rolling(window=long).mean()
 
-    # Cálculo de SMA
-    df['sma_short'] = df['close'].rolling(window=short).mean()
-    df['sma_long'] = df['close'].rolling(window=long).mean()
+    # Señal: 1 cuando SMA corta > SMA larga, -1 cuando SMA corta < SMA larga
+    df["signal"] = 0
+    df.loc[df["sma_short"] > df["sma_long"], "signal"] = 1
+    df.loc[df["sma_short"] < df["sma_long"], "signal"] = -1
 
-    # Señales
-    df['signal'] = (df['sma_short'] > df['sma_long']).astype(int)
-    df['position_change'] = df['signal'].diff().fillna(0).astype(int)
+    # Eliminar filas donde las medias no están calculadas aún
+    df.dropna(subset=["sma_short", "sma_long"], inplace=True)
 
     return df
