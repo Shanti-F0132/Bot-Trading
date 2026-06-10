@@ -30,7 +30,7 @@ INTERVAL_MAP = {
 # ---------------------------
 # CONFIG
 # ---------------------------
-SYMBOL = "AMD"
+SYMBOL = "NVDA"
 STRATEGY = "sma"   # "sma", "macd", "rsi", "bollinger", "combo_sma_macd"
 PERIOD = "5d"
 INTERVAL = "5m"
@@ -73,14 +73,14 @@ SESSION_START = (9, 45)
 SESSION_END   = (15, 45)
 
 # Si quieres múltiples ventanas
- #TRADING_WINDOWS = [
-  #  ((9, 45), (12, 30)),
-  #  ((13, 30), (15, 45)),
-#]
-
 TRADING_WINDOWS = [
-    ((9, 45), (15, 45)),
+    ((9, 45), (12, 30)),
+    ((13, 30), (15, 45))
 ]
+
+#TRADING_WINDOWS = [
+ #   (9, 45), (15, 45)
+#]
 
 # ---------------------------
 # STATE
