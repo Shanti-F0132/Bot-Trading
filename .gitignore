@@ -37,6 +37,7 @@ outputs/charts/
 outputs/reports/
 outputs/csv/
 outputs/walkforward_results/
+outputs/bot_state.json
 
 # ========================
 # SISTEMA OPERATIVO
