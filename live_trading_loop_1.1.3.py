@@ -1,5 +1,7 @@
 import time
 import math
+import json
+import os
 
 import pandas as pd
 from datetime import datetime
@@ -16,7 +18,15 @@ from alpaca.data.historical import StockHistoricalDataClient
 from alpaca.data.requests import StockBarsRequest
 from alpaca.data.timeframe import TimeFrame, TimeFrameUnit
 from alpaca.data.requests import StockLatestTradeRequest
+from dotenv import load_dotenv
+load_dotenv()
 init_trade_log()
+
+_API_KEY    = os.environ.get("ALPACA_API_KEY")
+_SECRET_KEY = os.environ.get("ALPACA_API_SECRET")
+
+# Archivo de persistencia de estado
+STATE_FILE = "outputs/bot_state.json"
 
 # Mapeo de INTERVAL config → TimeFrame de Alpaca
 INTERVAL_MAP = {
@@ -90,12 +100,62 @@ _last_trade_time = {}
 _current_trade = None
 
 # ---------------------------
+# STATE PERSISTENCE
+# ---------------------------
+def save_state():
+    """Escribe _current_trade y _last_trade_time en disco."""
+    try:
+        os.makedirs(os.path.dirname(STATE_FILE), exist_ok=True)
+        payload = {
+            "current_trade":   _current_trade,
+            "last_trade_time": _last_trade_time,
+        }
+        with open(STATE_FILE, "w") as f:
+            json.dump(payload, f, indent=2)
+    except Exception as e:
+        print("State save error:", e)
+
+def load_state():
+    """
+    Lee el estado del disco al arrancar.
+    - Archivo inexistente → primera vez, arranque limpio silencioso.
+    - Archivo vacío o corrupto → arranque limpio silencioso, borra el archivo.
+    - Archivo válido con datos → recupera estado e informa.
+    """
+    global _current_trade, _last_trade_time
+
+    if not os.path.exists(STATE_FILE):
+        return  # primera vez, normal
+
+    try:
+        with open(STATE_FILE, "r") as f:
+            content = f.read().strip()
+
+        if not content:
+            os.remove(STATE_FILE)
+            return
+
+        payload = json.loads(content)
+
+        _current_trade   = payload.get("current_trade")
+        _last_trade_time = payload.get("last_trade_time", {})
+
+        if _current_trade:
+            print(f"State recovered — open trade detected: {_current_trade['symbol']} "
+                  f"order_id={_current_trade.get('order_id')}")
+        if _last_trade_time:
+            print(f"Cooldown state recovered: {_last_trade_time}")
+
+    except (json.JSONDecodeError, KeyError):
+        os.remove(STATE_FILE)
+
+# ---------------------------
 # DATA
 # ---------------------------
 
 data_client = StockHistoricalDataClient(
-    client._api_key,
-    client._secret_key
+    api_key=_API_KEY,
+    secret_key=_SECRET_KEY
 )
 
 def get_latest_data(symbol):
@@ -173,6 +233,7 @@ def has_recent_trade(symbol):
 
 def mark_trade_time(symbol):
     _last_trade_time[symbol] = time.time()
+    save_state()
 
 def is_in_position(symbol):
     try:
@@ -206,8 +267,14 @@ def is_within_trading_hours():
 # BRACKET ORDER
 # ---------------------------
 def submit_bracket_order(symbol, qty, entry_price, atr):
+    """
+    Envía la bracket order con retry (máx 3 intentos, backoff 2s/4s).
+    Antes de cada reintento verifica que no se haya abierto posición
+    para evitar duplicados. El fill real se resuelve de forma diferida
+    en check_trade_closed() sin bloquear el loop principal.
+    """
     stop_price = round(entry_price - STOP_ATR_MULT * atr, 2)
-    tp_price = round(entry_price + TP_ATR_MULT * atr, 2)
+    tp_price   = round(entry_price + TP_ATR_MULT   * atr, 2)
 
     order = MarketOrderRequest(
         symbol=symbol,
@@ -219,26 +286,60 @@ def submit_bracket_order(symbol, qty, entry_price, atr):
         stop_loss={"stop_price": stop_price}
     )
 
-    resp = client.submit_order(order_data=order)
+    resp        = None
+    last_error  = None
+    max_retries = 3
+
+    for attempt in range(1, max_retries + 1):
+        try:
+            if attempt > 1 and is_in_position(symbol):
+                print(f"Position already open after attempt {attempt - 1} — skipping retry")
+                break
+
+            resp = client.submit_order(order_data=order)
+            break
+
+        except Exception as e:
+            last_error = e
+            print(f"submit_bracket_order attempt {attempt}/{max_retries} failed: {e}")
+            if attempt < max_retries:
+                backoff = attempt * 2
+                print(f"Retrying in {backoff}s...")
+                time.sleep(backoff)
+
+    if resp is None:
+        if is_in_position(symbol):
+            print("Order likely went through despite error — position detected")
+        else:
+            raise RuntimeError(
+                f"submit_bracket_order failed after {max_retries} attempts: {last_error}"
+            )
+        return
+
+    order_id = getattr(resp, "id", None)
     mark_trade_time(symbol)
 
     print(
         f"BRACKET SENT | {symbol} qty={qty} "
         f"entry≈{entry_price:.2f} SL={stop_price} TP={tp_price} "
-        f"id={getattr(resp, 'id', None)}"
+        f"id={order_id}"
     )
 
+    # Guardamos entry_price estimado por ahora.
+    # check_trade_closed() lo actualizará con el fill real en el próximo ciclo.
     global _current_trade
     _current_trade = {
-    "symbol": symbol,
-    "strategy": STRATEGY,
-    "qty": qty,
-    "entry_price": entry_price,
-    "stop_loss": stop_price,
-    "take_profit": tp_price,
-    "timestamp_entry": int(time.time()),
-    "order_id": getattr(resp, "id", None)
-}
+        "symbol":          symbol,
+        "strategy":        STRATEGY,
+        "qty":             qty,
+        "entry_price":     entry_price,   # se corregirá con fill real
+        "entry_confirmed": False,         # flag: fill aún pendiente
+        "stop_loss":       stop_price,
+        "take_profit":     tp_price,
+        "timestamp_entry": int(time.time()),
+        "order_id":        order_id
+    }
+    save_state()
     
 
 def check_trade_closed():
@@ -247,9 +348,25 @@ def check_trade_closed():
     if _current_trade is None:
         return
 
-    symbol = _current_trade["symbol"]
+    symbol   = _current_trade["symbol"]
+    order_id = _current_trade.get("order_id")
 
-    # Posición aún abierta — nada que hacer
+    # --- Resolución diferida del fill real (fix #6 no bloqueante) ---
+    if not _current_trade.get("entry_confirmed") and order_id:
+        try:
+            parent = client.get_order_by_id(order_id)
+            if parent.status == OrderStatus.FILLED and parent.filled_avg_price:
+                real_entry = float(parent.filled_avg_price)
+                if real_entry != _current_trade["entry_price"]:
+                    print(f"Fill confirmed: real entry = {real_entry:.2f} "
+                          f"(estimated was {_current_trade['entry_price']:.2f})")
+                _current_trade["entry_price"]     = real_entry
+                _current_trade["entry_confirmed"] = True
+                save_state()
+        except Exception as e:
+            print(f"Fill resolution error: {e}")
+
+    # Posición aún abierta — nada más que hacer
     if is_in_position(symbol):
         return
 
@@ -318,6 +435,7 @@ def check_trade_closed():
     if success:
         print("TRADE CLOSED & LOGGED:", trade_log)
         _current_trade = None
+        save_state()
     else:
         print("Trade closed but NOT logged — will retry next loop")
 
@@ -329,6 +447,8 @@ def check_trade_closed():
 def main():
     global initialized
     print("LIVE BOT WITH BRACKET ORDERS | Strategy:", STRATEGY)
+
+    load_state()   # recuperar _current_trade y cooldowns si el bot fue reiniciado
 
     strategy_params = PARAMS.get(STRATEGY, {})
 
